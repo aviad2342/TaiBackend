@@ -16,7 +16,6 @@ import {eventRouter} from "./routes/event";
 import {speakerRouter} from "./routes/speaker";
 import * as http from "http";
 import * as https from "https";
-import * as debug from "debug";
 import { addressRouter } from "./routes/address";
 import { itemRouter } from "./routes/item";
 import { lessonRouter } from "./routes/lesson";
@@ -36,7 +35,7 @@ createConnection().then(connection => {
     // create and setup express app
     const app: express.Application = express();
    // the port the express app will listen on
-    const port: string = process.env.PORT || "3000";
+    const port: string = process.env.PORT || "5000";
 
     app.use(cors());
     app.use(bodyParser.json());
@@ -91,8 +90,10 @@ createConnection().then(connection => {
     // serve the application at the given port
     app.listen(port, () => {
   // success callback
+      // tslint:disable-next-line: no-console
       console.log(`Listening at http://localhost:${port}/`);
     });
 
 
+  // tslint:disable-next-line: no-console
   }).catch(error => console.log(error));

@@ -1,6 +1,6 @@
 import * as jwt from "jsonwebtoken";
 
-export const checkAuth: any = (req, res, next) => {
+export const checkAuth: any = (req: { headers: { authorization: string; }; userData: { email: any; userId: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): void; new(): any; }; }; }, next: () => void) => {
     try {
       const token: any = req.headers.authorization.split(" ")[1];
       const decodedToken: string | object = jwt.verify(token, process.env.JWTSECRET);
