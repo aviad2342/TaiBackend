@@ -1,0 +1,1016 @@
+{
+  "countries": [
+    {
+      "he": "אבחזיסטאן",
+      "en": "Abkhazistan"
+    },
+    {
+      "he": "אוגנדה",
+      "en": "Uganda"
+    },
+    {
+      "he": "אוזבקיסטן",
+      "en": "Uzbekistan"
+    },
+    {
+      "he": "אוסטריה",
+      "en": "Austria"
+    },
+    {
+      "he": "אוסטרליה",
+      "en": "Australia"
+    },
+    {
+      "he": "אוקראינה",
+      "en": "Ukraine"
+    },
+    {
+      "he": "אורגוואי",
+      "en": "Uruguay"
+    },
+    {
+      "he": "אזור תעלת פנמה",
+      "en": "Canal zone"
+    },
+    {
+      "he": "אזרביג'אן",
+      "en": "Azerbaijan"
+    },
+    {
+      "he": "איחוד האמירויות הערב",
+      "en": "United arab emir"
+    },
+    {
+      "he": "איטליה",
+      "en": "Italy"
+    },
+    {
+      "he": "איי גילברט ואליס",
+      "en": "Gilbert  ellice isl"
+    },
+    {
+      "he": "איי הבתולה",
+      "en": "Virgin island"
+    },
+    {
+      "he": "איי ווליס ופוטונה",
+      "en": "Wallis  futuna isl"
+    },
+    {
+      "he": "איי טורקס וקייקוס",
+      "en": "Torkas island"
+    },
+    {
+      "he": "איי מרשל",
+      "en": "Marshall islands"
+    },
+    {
+      "he": "איי נורפולק",
+      "en": "Norfolk isla"
+    },
+    {
+      "he": "איי סיישל",
+      "en": "Seychelles"
+    },
+    {
+      "he": "איי פאלקלנד",
+      "en": "Falkland"
+    },
+    {
+      "he": "איי פיגי",
+      "en": "Fiji"
+    },
+    {
+      "he": "איי קומורו",
+      "en": "Comoros islands"
+    },
+    {
+      "he": "איי קוק",
+      "en": "Cook isl"
+    },
+    {
+      "he": "איי קיימן",
+      "en": "Cayman islands"
+    },
+    {
+      "he": "איי קייפ וורדה",
+      "en": "Cape verde islands"
+    },
+    {
+      "he": "איי שלמה הבריטיים",
+      "en": "Solomon islands"
+    },
+    {
+      "he": "אינדונזיה",
+      "en": "Indonesia"
+    },
+    {
+      "he": "איסלנד",
+      "en": "Island"
+    },
+    {
+      "he": "אירופה לא ידוע",
+      "en": "Europe unknown"
+    },
+    {
+      "he": "אירלנד",
+      "en": "Ireland"
+    },
+    {
+      "he": "אירן",
+      "en": "Iran"
+    },
+    {
+      "he": "אל סלבדור",
+      "en": "El salvador"
+    },
+    {
+      "he": "אלבניה",
+      "en": "Albania"
+    },
+    {
+      "he": "אלגיריה",
+      "en": "Algeria"
+    },
+    {
+      "he": "אמריקה לא ידוע",
+      "en": "America unknown"
+    },
+    {
+      "he": "אנגולה",
+      "en": "Angola"
+    },
+    {
+      "he": "אנדורה",
+      "en": "Andorra"
+    },
+    {
+      "he": "אנטיגואה וברבודה",
+      "en": "Antigua and barbuda"
+    },
+    {
+      "he": "אסטוניה",
+      "en": "Estonia"
+    },
+    {
+      "he": "אסיה לא ידוע",
+      "en": "Asia unknown"
+    },
+    {
+      "he": "אפגניסטן",
+      "en": "Afghanistan"
+    },
+    {
+      "he": "אפריקה לא ידוע",
+      "en": "Africa unknown"
+    },
+    {
+      "he": "אקואדור",
+      "en": "Ecuador"
+    },
+    {
+      "he": "ארגנטינה",
+      "en": "Argentina"
+    },
+    {
+      "he": "אריתראה",
+      "en": "Eritrea"
+    },
+    {
+      "he": "ארמניה",
+      "en": "Armenia"
+    },
+    {
+      "he": "ארצות הברית",
+      "en": "Usa"
+    },
+    {
+      "he": "אתיופיה",
+      "en": "Ethiopia"
+    },
+    {
+      "he": "בדרך לארץ",
+      "en": "On way to israel"
+    },
+    {
+      "he": "בהמס",
+      "en": "Bahamas"
+    },
+    {
+      "he": "בוטן",
+      "en": "Bhutan"
+    },
+    {
+      "he": "בוטסואנה",
+      "en": "Botswana"
+    },
+    {
+      "he": "בולגריה",
+      "en": "Bulgaria"
+    },
+    {
+      "he": "בוליביה",
+      "en": "Bolivia"
+    },
+    {
+      "he": "בוסניה הרצגובינה",
+      "en": "Bosnia  herzegovina"
+    },
+    {
+      "he": "בורונדי",
+      "en": "Burundi"
+    },
+    {
+      "he": "בורקינה פאסו",
+      "en": "Burkina-fasso"
+    },
+    {
+      "he": "בחריין",
+      "en": "Bahrein"
+    },
+    {
+      "he": "בילורוסיה",
+      "en": "Belarus"
+    },
+    {
+      "he": "בלב ים",
+      "en": "At sea"
+    },
+    {
+      "he": "בלגיה",
+      "en": "Belgium"
+    },
+    {
+      "he": "בליז",
+      "en": "Belize"
+    },
+    {
+      "he": "בנגלדש",
+      "en": "Bangladesh"
+    },
+    {
+      "he": "בנין )דהומי(",
+      "en": "Benin (dahomey)"
+    },
+    {
+      "he": "ברבדוס",
+      "en": "Barbados"
+    },
+    {
+      "he": "ברוניי",
+      "en": "Brunei"
+    },
+    {
+      "he": "ברזיל",
+      "en": "Brazil"
+    },
+    {
+      "he": "ברית המועצות",
+      "en": "Ussr"
+    },
+    {
+      "he": "ברמודה",
+      "en": "Bermuda"
+    },
+    {
+      "he": "גאורגיה",
+      "en": "Georgia"
+    },
+    {
+      "he": "גאנה",
+      "en": "Ghana"
+    },
+    {
+      "he": "גבון",
+      "en": "Gabon"
+    },
+    {
+      "he": "גואדאלופ",
+      "en": "Guadeloupe"
+    },
+    {
+      "he": "גואם",
+      "en": "Guam"
+    },
+    {
+      "he": "גווטאמלה",
+      "en": "Guatemala"
+    },
+    {
+      "he": "גויאנה",
+      "en": "Guyana"
+    },
+    {
+      "he": "גויאנה הצרפתית",
+      "en": "Guiana fr"
+    },
+    {
+      "he": "גיבוטי",
+      "en": "Djibouti"
+    },
+    {
+      "he": "גיברלטר",
+      "en": "Gibraltar"
+    },
+    {
+      "he": "גינאה",
+      "en": "Guinea"
+    },
+    {
+      "he": "גינאה ביסאו",
+      "en": "Guinea bissau"
+    },
+    {
+      "he": "גינאה החדשה",
+      "en": "New guinea"
+    },
+    {
+      "he": "גינאה המשוונית",
+      "en": "Guinea eq"
+    },
+    {
+      "he": "גמביה",
+      "en": "Gambia"
+    },
+    {
+      "he": "גמייקה",
+      "en": "Jamaica"
+    },
+    {
+      "he": "גרוזיה",
+      "en": "Georgia"
+    },
+    {
+      "he": "גרמניה",
+      "en": "Germany"
+    },
+    {
+      "he": "גרמניה המזרחית",
+      "en": "E germany"
+    },
+    {
+      "he": "גרמניה המערבית",
+      "en": "W germany"
+    },
+    {
+      "he": "גרנדה",
+      "en": "Grenada"
+    },
+    {
+      "he": "דומיניקה",
+      "en": "Dominica"
+    },
+    {
+      "he": "דנמרק",
+      "en": "Denmark"
+    },
+    {
+      "he": "דרום אמריקה",
+      "en": "South america"
+    },
+    {
+      "he": "דרום אפריקה",
+      "en": "S africa"
+    },
+    {
+      "he": "דרום סודאן",
+      "en": "Republic of south sudan"
+    },
+    {
+      "he": "האיטי",
+      "en": "Haiti"
+    },
+    {
+      "he": "האיים ההברדיים",
+      "en": "Hebrides"
+    },
+    {
+      "he": "האנטילים ההולנדים",
+      "en": "Antilles"
+    },
+    {
+      "he": "הודו",
+      "en": "India"
+    },
+    {
+      "he": "הולנד",
+      "en": "Netherlands"
+    },
+    {
+      "he": "הונג קונג",
+      "en": "Hong kong"
+    },
+    {
+      "he": "הונגריה",
+      "en": "Hungary"
+    },
+    {
+      "he": "הונדורס",
+      "en": "Honduras"
+    },
+    {
+      "he": "הממלכה המאוחדת",
+      "en": "United kingdom"
+    },
+    {
+      "he": "הרפ הדומיניקנית",
+      "en": "Dominican r"
+    },
+    {
+      "he": "ויטנאם",
+      "en": "Vietnam"
+    },
+    {
+      "he": "ויטנאם הדרומית",
+      "en": "South vietnam"
+    },
+    {
+      "he": "ונואטו",
+      "en": "Vanuatu"
+    },
+    {
+      "he": "ונצואלה",
+      "en": "Venezuela"
+    },
+    {
+      "he": "ותיקן",
+      "en": "Vatican"
+    },
+    {
+      "he": "זימבאבווה",
+      "en": "Zimbabwe"
+    },
+    {
+      "he": "זמביה",
+      "en": "Zambia"
+    },
+    {
+      "he": "חוף השנהב",
+      "en": "Ivory coast"
+    },
+    {
+      "he": "טג'יקיסטאן",
+      "en": "Tajikistan"
+    },
+    {
+      "he": "טובלו",
+      "en": "Tuvalu"
+    },
+    {
+      "he": "טוגו",
+      "en": "Togo"
+    },
+    {
+      "he": "טונגה",
+      "en": "Tonga"
+    },
+    {
+      "he": "טיוון",
+      "en": "Taiwan"
+    },
+    {
+      "he": "טימור הפורטוגלית",
+      "en": "Portuguese timor"
+    },
+    {
+      "he": "טנגר",
+      "en": "Tangier"
+    },
+    {
+      "he": "טנזניה",
+      "en": "Tanzania"
+    },
+    {
+      "he": "טרינידד וטובגו",
+      "en": "Trinidad and tobago"
+    },
+    {
+      "he": "יוגוסלביה",
+      "en": "Yugoslavia"
+    },
+    {
+      "he": "יוון",
+      "en": "Greece"
+    },
+    {
+      "he": "יפן",
+      "en": "Japan"
+    },
+    {
+      "he": "ירדן",
+      "en": "Jordan"
+    },
+    {
+      "he": "ישראל",
+      "en": "Israel"
+    },
+    {
+      "he": "כווית",
+      "en": "Kuwait"
+    },
+    {
+      "he": "לא רשום",
+      "en": "Unknown"
+    },
+    {
+      "he": "לאוס",
+      "en": "Laos"
+    },
+    {
+      "he": "לבנון",
+      "en": "Lebanon"
+    },
+    {
+      "he": "לוב",
+      "en": "Libya"
+    },
+    {
+      "he": "לוכסמבורג",
+      "en": "Luxembourg"
+    },
+    {
+      "he": "לטביה",
+      "en": "Latvia"
+    },
+    {
+      "he": "ליבריה",
+      "en": "Liberia"
+    },
+    {
+      "he": "ליטא",
+      "en": "Lithuania"
+    },
+    {
+      "he": "ליכטנשטיין",
+      "en": "Liechtenstein"
+    },
+    {
+      "he": "לסוטו",
+      "en": "Lesotho"
+    },
+    {
+      "he": "מאוריטניה",
+      "en": "Mauritania"
+    },
+    {
+      "he": "מאוריציוס",
+      "en": "Mauritius"
+    },
+    {
+      "he": "מאלי",
+      "en": "Mali"
+    },
+    {
+      "he": "מדגסקר",
+      "en": "Madagascar"
+    },
+    {
+      "he": "מוזמביק",
+      "en": "Mozambique"
+    },
+    {
+      "he": "מולדובה",
+      "en": "Moldova"
+    },
+    {
+      "he": "מונגוליה",
+      "en": "Mongolia"
+    },
+    {
+      "he": "מונטנגרו",
+      "en": "Montenegro"
+    },
+    {
+      "he": "מונסרת",
+      "en": "Montserrat"
+    },
+    {
+      "he": "מונקו",
+      "en": "Monaco"
+    },
+    {
+      "he": "מזרח טימור",
+      "en": "East timor"
+    },
+    {
+      "he": "מיאנמר )בורמה(",
+      "en": "Myanmar (burma)"
+    },
+    {
+      "he": "מיקרונזיה",
+      "en": "Micronesia"
+    },
+    {
+      "he": "מלאווי",
+      "en": "Malawi"
+    },
+    {
+      "he": "מלדיבים",
+      "en": "Maladives"
+    },
+    {
+      "he": "מלזיה",
+      "en": "Malaysia"
+    },
+    {
+      "he": "מלטה",
+      "en": "Malta"
+    },
+    {
+      "he": "מצרים",
+      "en": "Egypt"
+    },
+    {
+      "he": "מקאו",
+      "en": "Macao"
+    },
+    {
+      "he": "מקדוניה",
+      "en": "Fyrom"
+    },
+    {
+      "he": "מקסיקו",
+      "en": "Mexico"
+    },
+    {
+      "he": "מרוקו",
+      "en": "Morocco"
+    },
+    {
+      "he": "מרוקו הספרדית",
+      "en": "Spanish morocco"
+    },
+    {
+      "he": "מרטיניק",
+      "en": "Martinique"
+    },
+    {
+      "he": "מרכז אמריקה",
+      "en": "Central america"
+    },
+    {
+      "he": "נאורו",
+      "en": "Nauru"
+    },
+    {
+      "he": "נורבגיה",
+      "en": "Norway"
+    },
+    {
+      "he": "ניגר",
+      "en": "Niger"
+    },
+    {
+      "he": "ניגריה",
+      "en": "Nigeria"
+    },
+    {
+      "he": "ניו זילנד",
+      "en": "New zealand"
+    },
+    {
+      "he": "ניקרגואה",
+      "en": "Nicaragua"
+    },
+    {
+      "he": "נמיביה",
+      "en": "Namibia"
+    },
+    {
+      "he": "נפאל",
+      "en": "Nepal"
+    },
+    {
+      "he": "סאו טומה ופרינציפה",
+      "en": "Sao tome and princip"
+    },
+    {
+      "he": "סודן",
+      "en": "Sudan"
+    },
+    {
+      "he": "סווזילנד",
+      "en": "Swaziland"
+    },
+    {
+      "he": "סומליה",
+      "en": "Somalia"
+    },
+    {
+      "he": "סוריה",
+      "en": "Syria"
+    },
+    {
+      "he": "סורינם",
+      "en": "Suriname"
+    },
+    {
+      "he": "סט הלנה",
+      "en": "St helena"
+    },
+    {
+      "he": "סט וינסנט",
+      "en": "St vincent"
+    },
+    {
+      "he": "סט. לוציה",
+      "en": "St lucia"
+    },
+    {
+      "he": "סט. קיטס ונביס",
+      "en": "St. kitts & nevis"
+    },
+    {
+      "he": "סיירה ליאונה",
+      "en": "Sierra leone"
+    },
+    {
+      "he": "סין",
+      "en": "China"
+    },
+    {
+      "he": "סינגפור",
+      "en": "Singapore"
+    },
+    {
+      "he": "סיקים",
+      "en": "Sikkim"
+    },
+    {
+      "he": "סלובניה",
+      "en": "Slovenia"
+    },
+    {
+      "he": "סלובקיה",
+      "en": "Slovakia"
+    },
+    {
+      "he": "סמואה",
+      "en": "Samoa"
+    },
+    {
+      "he": "סמואה המערבית",
+      "en": "Western samoa"
+    },
+    {
+      "he": "סן מרינו",
+      "en": "San marino"
+    },
+    {
+      "he": "סנגל",
+      "en": "Senegal"
+    },
+    {
+      "he": "ספרד",
+      "en": "Spain"
+    },
+    {
+      "he": "סרביה",
+      "en": "Serbia"
+    },
+    {
+      "he": "סרי לנקה )צילון(",
+      "en": "Sri-lanka"
+    },
+    {
+      "he": "עדן",
+      "en": "Aden"
+    },
+    {
+      "he": "עומן",
+      "en": "Oman"
+    },
+    {
+      "he": "עירק",
+      "en": "Iraq"
+    },
+    {
+      "he": "ערב הסעודית",
+      "en": "Saudi arabia"
+    },
+    {
+      "he": "פאפואה",
+      "en": "Papua"
+    },
+    {
+      "he": "פולין",
+      "en": "Poland"
+    },
+    {
+      "he": "פולינזיה הצרפתית",
+      "en": "French polynesia"
+    },
+    {
+      "he": "פורטו ריקו",
+      "en": "Puerto rico"
+    },
+    {
+      "he": "פורטוגל",
+      "en": "Portugal"
+    },
+    {
+      "he": "פיליפינים",
+      "en": "Philippines"
+    },
+    {
+      "he": "פינלנד",
+      "en": "Finland"
+    },
+    {
+      "he": "פלאו",
+      "en": "Palau"
+    },
+    {
+      "he": "פנמה",
+      "en": "Panama"
+    },
+    {
+      "he": "פקיסטן",
+      "en": "Pakistan"
+    },
+    {
+      "he": "פרגוואי",
+      "en": "Paraguay"
+    },
+    {
+      "he": "פרו",
+      "en": "Peru"
+    },
+    {
+      "he": "צ'ילה",
+      "en": "Chile"
+    },
+    {
+      "he": "צ'צ'ניה",
+      "en": "Chechnya"
+    },
+    {
+      "he": "צאד",
+      "en": "Chad"
+    },
+    {
+      "he": "צכוסלובקיה",
+      "en": "Czechoslovakia"
+    },
+    {
+      "he": "צכיה",
+      "en": "Czech republic"
+    },
+    {
+      "he": "צרפת",
+      "en": "France"
+    },
+    {
+      "he": "קובה",
+      "en": "Cuba"
+    },
+    {
+      "he": "קולומביה",
+      "en": "Colombia"
+    },
+    {
+      "he": "קונגו",
+      "en": "Congo"
+    },
+    {
+      "he": "קונגו. רפ. דמוק.",
+      "en": "Congo"
+    },
+    {
+      "he": "קוסובו",
+      "en": "Republic of kosovo"
+    },
+    {
+      "he": "קוסטה ריקה",
+      "en": "Costa rica"
+    },
+    {
+      "he": "קוריאה",
+      "en": "Korea"
+    },
+    {
+      "he": "קוריאה הדרומית",
+      "en": "S korea"
+    },
+    {
+      "he": "קוריאה הצפונית",
+      "en": "N korea"
+    },
+    {
+      "he": "קזחסטאן",
+      "en": "Kazakhstan"
+    },
+    {
+      "he": "קטר",
+      "en": "Qatar"
+    },
+    {
+      "he": "קירג'זסטאן",
+      "en": "Kirghizstan"
+    },
+    {
+      "he": "קיריבטי",
+      "en": "Kiribati"
+    },
+    {
+      "he": "קלדוניה החדשה",
+      "en": "New caledonia"
+    },
+    {
+      "he": "קמבודיה",
+      "en": "Cambodia"
+    },
+    {
+      "he": "קמרון",
+      "en": "Cameroon"
+    },
+    {
+      "he": "קנדה",
+      "en": "Canada"
+    },
+    {
+      "he": "קניה",
+      "en": "Kenya"
+    },
+    {
+      "he": "קפריסין",
+      "en": "Cyprus"
+    },
+    {
+      "he": "קרואטיה",
+      "en": "Croatia"
+    },
+    {
+      "he": "ראוניון",
+      "en": "Reunion"
+    },
+    {
+      "he": "רואנדה",
+      "en": "Rwanda"
+    },
+    {
+      "he": "רודזיה",
+      "en": "Rodesia"
+    },
+    {
+      "he": "רומניה",
+      "en": "Romania"
+    },
+    {
+      "he": "רוסיה",
+      "en": "Russian federation"
+    },
+    {
+      "he": "רפ מרכז אפריקנית",
+      "en": "Central africa"
+    },
+    {
+      "he": "שאר ארצות אוקיאניה",
+      "en": ""
+    },
+    {
+      "he": "שאר ארצות אירופה",
+      "en": "Other europe"
+    },
+    {
+      "he": "שאר ארצות אסיה",
+      "en": "Other asian"
+    },
+    {
+      "he": "שאר ארצות אפריקה",
+      "en": "Other africa"
+    },
+    {
+      "he": "שוודיה",
+      "en": "Sweden"
+    },
+    {
+      "he": "שוויץ",
+      "en": "Switzerland"
+    },
+    {
+      "he": "תאילנד",
+      "en": "Thailand"
+    },
+    {
+      "he": "תוניסיה",
+      "en": "Tunisia"
+    },
+    {
+      "he": "תורכיה",
+      "en": "Turkey"
+    },
+    {
+      "he": "תורכמניסטאן",
+      "en": "Turkmenistan"
+    },
+    {
+      "he": "תימן",
+      "en": "Yemen"
+    },
+    {
+      "he": "תימן הדמוקרטית",
+      "en": "People's demo pep ye"
+    }
+  ]
+}
