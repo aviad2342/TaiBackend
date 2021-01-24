@@ -4,3 +4,17 @@ node_modules/
 build/
 tmp/
 temp/
+images/
+speakerImages/
+participantImages/
+eventImages/
+courseImages/
+articleImages/
+articleBodyImages/
+articles/
+itemImages/
+therapistImages/
+treatmentImages/
+courseImages/
+eventImages/
+participantImages/
