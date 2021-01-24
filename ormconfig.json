@@ -4,7 +4,7 @@
    "port": 3306,
    "username": "root",
    "password": "Aviad@aviad2342",
-   "database": "tai_db",
+   "database": "crm_db",
    "synchronize": true,
    "logging": false,
    "entities": [
