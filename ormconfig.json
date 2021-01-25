@@ -4,11 +4,11 @@
    "port": 3306,
    "username": "root",
    "password": "Aviad@aviad2342",
-   "database": "crm_db",
+   "database": "tai_db",
    "synchronize": true,
    "logging": false,
    "entities": [
-      "src/entity/**/*.ts"
+      "dist/entity/**/*.js"
    ],
    "migrations": [
       "src/migration/**/*.ts"

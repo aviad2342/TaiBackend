@@ -35,7 +35,7 @@ createConnection().then(connection => {
     // create and setup express app
     const app: express.Application = express();
    // the port the express app will listen on
-    const port: string = process.env.PORT || "5000";
+    const port: string = process.env.PORT || "3000";
 
     app.use(cors());
     app.use(bodyParser.json());
@@ -80,7 +80,6 @@ createConnection().then(connection => {
     app.use("/articleBodyImages",articleBodyImagesRouter);
 
 
-
     // https.createServer({
     //   key: fs.readFileSync(path.resolve("./security/cert.key")),
     //   cert: fs.readFileSync(path.resolve("./security/cert.pem"))}
@@ -94,6 +93,7 @@ createConnection().then(connection => {
       console.log(`Listening at http://localhost:${port}/`);
     });
 
-
   // tslint:disable-next-line: no-console
   }).catch(error => console.log(error));
+
+  // export const myapp: express.Application = app;

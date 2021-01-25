@@ -32,7 +32,7 @@ typeorm_1.createConnection().then(connection => {
     // create and setup express app
     const app = express();
     // the port the express app will listen on
-    const port = process.env.PORT || "5000";
+    const port = process.env.PORT || "3000";
     app.use(cors());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
@@ -86,4 +86,5 @@ typeorm_1.createConnection().then(connection => {
     });
     // tslint:disable-next-line: no-console
 }).catch(error => console.log(error));
+// export const myapp: express.Application = app;
 //# sourceMappingURL=index.js.map
