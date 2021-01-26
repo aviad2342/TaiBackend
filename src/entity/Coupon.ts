@@ -6,7 +6,7 @@ import { Photo } from "./Photo";
 @Entity()
 export class Coupon {
 
-    @PrimaryColumn("varchar")
+    @PrimaryColumn({ type: "varchar" })
     code: string;
 
     @Column("datetime")
