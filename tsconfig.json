@@ -12,6 +12,7 @@
       "rootDir": "./src",
       "types": ["reflect-metadata"],
       "emitDecoratorMetadata": true,
+      "strict": false,
       "experimentalDecorators": true,
       "sourceMap": true,
       "resolveJsonModule": true
