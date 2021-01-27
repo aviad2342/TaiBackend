@@ -48,7 +48,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
-    typeorm_1.Column("date"),
+    typeorm_1.Column("datetime"),
     __metadata("design:type", Date)
 ], User.prototype, "date", void 0);
 __decorate([

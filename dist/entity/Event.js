@@ -27,7 +27,7 @@ __decorate([
     __metadata("design:type", String)
 ], Event.prototype, "description", void 0);
 __decorate([
-    typeorm_1.Column("date"),
+    typeorm_1.Column("datetime"),
     __metadata("design:type", Date)
 ], Event.prototype, "date", void 0);
 __decorate([

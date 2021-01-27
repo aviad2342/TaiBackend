@@ -24,7 +24,7 @@ export class User extends BaseEntity {
     @Column("varchar", {length:255})
     email: string;
 
-    @Column("date")
+    @Column("datetime")
     date: Date;
 
     @Column("varchar", {length:255})

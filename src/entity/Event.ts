@@ -15,7 +15,7 @@ export class Event extends BaseEntity {
     @Column("varchar", {length:255})
     description: string;
 
-    @Column("date")
+    @Column("datetime")
     date: Date;
 
     @Column("datetime")
