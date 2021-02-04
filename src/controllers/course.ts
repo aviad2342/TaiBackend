@@ -12,7 +12,7 @@ export async function getCourses(req: Request, res: Response): Promise<void> {
 
 export async function getCourse(req: Request, res: Response): Promise<void> {
      const course: Course = await getRepository(Course).findOne(req.params.id, { relations: ["lessons"] });
-     if(course.lessons) {
+     if(course.lessons && course.lessons.length > 0) {
         course.lessons = course.lessons.sort((a, b) => {
             return (+a.lessonNumber) - (+b.lessonNumber);
         });

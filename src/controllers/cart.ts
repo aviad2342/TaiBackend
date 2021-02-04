@@ -57,6 +57,7 @@ export async function deleteCart(req: Request, res: Response): Promise<any> {
 
 export async function deleteCartItem(req: Request, res: Response): Promise<any> {
     const results: DeleteResult = await getRepository(CartItem).delete(req.params.id);
-    return res.json(results);
+    const cart: Cart = await getRepository(Cart).findOne(req.params.id, { relations: ["items", "customer"] });
+    return res.json(cart);
 }
 
