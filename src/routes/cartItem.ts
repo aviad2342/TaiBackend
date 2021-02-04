@@ -5,6 +5,8 @@ import * as CartItemController from "../controllers/cartItem";
 
 const router: Router = Router();
 
+router.get("/cartItems", CartItemController.getAllCartItems);
+
 router.get("/cartItems/cart/:id", CartItemController.getCartItems);
 
 router.get("/cartItem/:id", CartItemController.getCartItem);

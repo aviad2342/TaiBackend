@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const CartItemController = require("../controllers/cartItem");
 const router = express_1.Router();
+router.get("/cartItems", CartItemController.getAllCartItems);
 router.get("/cartItems/cart/:id", CartItemController.getCartItems);
 router.get("/cartItem/:id", CartItemController.getCartItem);
 router.post("/cartItem", CartItemController.addCartItem);
