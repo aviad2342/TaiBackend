@@ -11,9 +11,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const fs = require("fs");
 const CartItem_1 = require("../entity/CartItem");
-function getCartItems(req, res) {
+function getAllCartItems(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const items = yield typeorm_1.getRepository(CartItem_1.CartItem).find();
+        res.json(items);
+    });
+}
+exports.getAllCartItems = getAllCartItems;
+function getCartItems(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const items = yield typeorm_1.getRepository(CartItem_1.CartItem).find({ where: { album: req.params.id } });
         res.json(items);
     });
 }

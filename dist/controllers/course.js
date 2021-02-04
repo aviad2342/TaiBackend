@@ -21,7 +21,7 @@ exports.getCourses = getCourses;
 function getCourse(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const course = yield typeorm_1.getRepository(Course_1.Course).findOne(req.params.id, { relations: ["lessons"] });
-        if (course.lessons) {
+        if (course.lessons && course.lessons.length > 0) {
             course.lessons = course.lessons.sort((a, b) => {
                 return (+a.lessonNumber) - (+b.lessonNumber);
             });
