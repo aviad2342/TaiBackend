@@ -5,8 +5,13 @@ import * as fs from  "fs";
 import { CartItem } from "../entity/CartItem";
 
 
-export async function getCartItems(req: Request, res: Response): Promise<void> {
+export async function getAllCartItems(req: Request, res: Response): Promise<void> {
     const items: CartItem[] = await getRepository(CartItem).find();
+        res.json(items);
+}
+
+export async function getCartItems(req: Request, res: Response): Promise<void> {
+    const items: CartItem[] = await getRepository(CartItem).find({ where: { album: req.params.id } });
         res.json(items);
 }
 
