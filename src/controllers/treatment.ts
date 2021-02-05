@@ -3,6 +3,7 @@ import {getConnection, Repository, DeleteResult} from "typeorm";
 import {getRepository} from "typeorm";
 import * as fs from  "fs";
 import { Treatment } from "../entity/Treatment";
+import { Item } from "../entity/Item";
 
 
 export async function getTreatments(req: Request, res: Response): Promise<void> {
@@ -50,6 +51,10 @@ export async function deleteTreatment(req: Request, res: Response): Promise<any>
     const imagePhat: string = treatment.thumbnail.replace("http://aviadbenhayun.com:3000/", "./src/");
     if(fs.existsSync(imagePhat)) {
         fs.unlinkSync(imagePhat);
+    }
+    const item: Item = await getRepository(Item).findOne({ where: { productId: treatment.id } });
+    if(item) {
+        await getRepository(Item).delete(item.id);
     }
     const results: DeleteResult = await getRepository(Treatment).delete(req.params.id);
     return res.json(results);

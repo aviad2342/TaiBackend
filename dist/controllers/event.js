@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const fs = require("fs");
 const Event_1 = require("../entity/Event");
+const Item_1 = require("../entity/Item");
 function getEvents(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const events = yield typeorm_1.getRepository(Event_1.Event).find();
@@ -81,6 +82,10 @@ function deleteEvent(req, res) {
         const imagePhat = event.thumbnail.replace("http://aviadbenhayun.com:3000/", "./src/");
         if (fs.existsSync(imagePhat)) {
             fs.unlinkSync(imagePhat);
+        }
+        const item = yield typeorm_1.getRepository(Item_1.Item).findOne({ where: { productId: event.id } });
+        if (item) {
+            yield typeorm_1.getRepository(Item_1.Item).delete(item.id);
         }
         const results = yield typeorm_1.getRepository(Event_1.Event).delete(req.params.id);
         return res.json(results);

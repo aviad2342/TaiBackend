@@ -3,6 +3,7 @@ import {getConnection, Repository, DeleteResult} from "typeorm";
 import {getRepository} from "typeorm";
 import { Course } from "../entity/Course";
 import * as fs from  "fs";
+import { Item } from "../entity/Item";
 
 
 export async function getCourses(req: Request, res: Response): Promise<void> {
@@ -60,6 +61,10 @@ export async function deleteCourse(req: Request, res: Response): Promise<any> {
     const imagePhat: string = course.thumbnail.replace("http://aviadbenhayun.com:3000/", "./src/");
     if(fs.existsSync(imagePhat)) {
         fs.unlinkSync(imagePhat);
+    }
+    const item: Item = await getRepository(Item).findOne({ where: { productId: course.id } });
+    if(item) {
+        await getRepository(Item).delete(item.id);
     }
     const results: DeleteResult = await getRepository(Course).delete(req.params.id);
     return res.json(results);

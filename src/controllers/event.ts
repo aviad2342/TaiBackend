@@ -3,6 +3,7 @@ import {getConnection, Repository, DeleteResult} from "typeorm";
 import {getRepository} from "typeorm";
 import * as fs from  "fs";
 import { Event } from "../entity/Event";
+import { Item } from "../entity/Item";
 
 
 export async function getEvents(req: Request, res: Response): Promise<void> {
@@ -62,6 +63,10 @@ export async function deleteEvent(req: Request, res: Response): Promise<any> {
     const imagePhat: string = event.thumbnail.replace("http://aviadbenhayun.com:3000/", "./src/");
     if(fs.existsSync(imagePhat)) {
         fs.unlinkSync(imagePhat);
+    }
+    const item: Item = await getRepository(Item).findOne({ where: { productId: event.id } });
+    if(item) {
+        await getRepository(Item).delete(item.id);
     }
     const results: DeleteResult = await getRepository(Event).delete(req.params.id);
     return res.json(results);

@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Article_1 = require("../entity/Article");
 const fs = require("fs");
+const Item_1 = require("../entity/Item");
 function getArticles(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const article = yield typeorm_1.getRepository(Article_1.Article).find();
@@ -102,6 +103,10 @@ function deleteArticle(req, res) {
         }
         if (fs.existsSync(pdfPhat)) {
             fs.unlinkSync(pdfPhat);
+        }
+        const item = yield typeorm_1.getRepository(Item_1.Item).findOne({ where: { productId: article.id } });
+        if (item) {
+            yield typeorm_1.getRepository(Item_1.Item).delete(item.id);
         }
         const results = yield typeorm_1.getRepository(Article_1.Article).delete(req.params.id);
         return res.json(results);

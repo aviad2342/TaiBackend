@@ -19,6 +19,10 @@ __decorate([
 __decorate([
     typeorm_1.Column("varchar", { length: 255 }),
     __metadata("design:type", String)
+], Treatment.prototype, "treatmentName", void 0);
+__decorate([
+    typeorm_1.Column("varchar", { length: 255 }),
+    __metadata("design:type", String)
 ], Treatment.prototype, "treatmentType", void 0);
 __decorate([
     typeorm_1.Column("varchar", { length: 255 }),

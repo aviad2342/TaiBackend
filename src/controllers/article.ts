@@ -3,6 +3,7 @@ import {getConnection, Repository, DeleteResult} from "typeorm";
 import {getRepository} from "typeorm";
 import {Article} from "../entity/Article";
 import * as fs from  "fs";
+import { Item } from "../entity/Item";
 
 
 export async function getArticles(req: Request, res: Response): Promise<void> {
@@ -85,6 +86,10 @@ export async function deleteArticle(req: Request, res: Response): Promise<any> {
     }
     if(fs.existsSync(pdfPhat)) {
         fs.unlinkSync(pdfPhat);
+    }
+    const item: Item = await getRepository(Item).findOne({ where: { productId: article.id } });
+    if(item) {
+        await getRepository(Item).delete(item.id);
     }
     const results: DeleteResult = await getRepository(Article).delete(req.params.id);
     return res.json(results);

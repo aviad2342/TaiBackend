@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const fs = require("fs");
 const Treatment_1 = require("../entity/Treatment");
+const Item_1 = require("../entity/Item");
 function getTreatments(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const treatments = yield typeorm_1.getRepository(Treatment_1.Treatment).find();
@@ -66,6 +67,10 @@ function deleteTreatment(req, res) {
         const imagePhat = treatment.thumbnail.replace("http://aviadbenhayun.com:3000/", "./src/");
         if (fs.existsSync(imagePhat)) {
             fs.unlinkSync(imagePhat);
+        }
+        const item = yield typeorm_1.getRepository(Item_1.Item).findOne({ where: { productId: treatment.id } });
+        if (item) {
+            yield typeorm_1.getRepository(Item_1.Item).delete(item.id);
         }
         const results = yield typeorm_1.getRepository(Treatment_1.Treatment).delete(req.params.id);
         return res.json(results);

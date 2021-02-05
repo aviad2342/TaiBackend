@@ -8,6 +8,9 @@ export class Treatment {
     id: number;
 
     @Column("varchar", {length:255})
+    treatmentName: string;
+
+    @Column("varchar", {length:255})
     treatmentType: string;
 
     @Column("varchar", {length:255})
