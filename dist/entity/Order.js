@@ -16,8 +16,8 @@ const OrderItem_1 = require("./OrderItem");
 let Order = class Order {
 };
 __decorate([
-    typeorm_1.PrimaryGeneratedColumn(),
-    __metadata("design:type", Number)
+    typeorm_1.PrimaryGeneratedColumn("uuid"),
+    __metadata("design:type", String)
 ], Order.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column("varchar", { length: 255 }),

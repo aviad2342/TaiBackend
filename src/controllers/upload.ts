@@ -84,7 +84,6 @@ export async function deleteImage(req: Request, res: Response): Promise<any> {
 }
 
 export async function getImage(req: Request, res: Response): Promise<any> {
-    console.log(req.query.image);
     const imagePhat: string = req.query.image.toString().replace("http://aviadbenhayun.com:3000/", "./src/");
     if(fs.existsSync(imagePhat)) {
         return res.send(fs.readFileSync(imagePhat));

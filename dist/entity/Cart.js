@@ -15,8 +15,8 @@ const Customer_1 = require("./Customer");
 let Cart = class Cart {
 };
 __decorate([
-    typeorm_1.PrimaryGeneratedColumn(),
-    __metadata("design:type", Number)
+    typeorm_1.PrimaryGeneratedColumn("uuid"),
+    __metadata("design:type", String)
 ], Cart.prototype, "id", void 0);
 __decorate([
     typeorm_1.OneToOne(() => Customer_1.Customer),

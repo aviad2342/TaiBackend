@@ -13,8 +13,8 @@ export enum Category {
 @Entity()
 export class Item extends BaseEntity {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
 
     @Column("varchar", {length:255})
     name: string;

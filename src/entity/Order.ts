@@ -9,8 +9,8 @@ import { OrderItem } from "./OrderItem";
 @Entity()
 export class Order {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
 
     @Column("varchar", {length:255})
     cartId: string;

@@ -9,7 +9,7 @@ import config from "../config/config";
 
 export async function login(req: Request, res: Response): Promise<void> {
 
-    let { email, password } = req.body;
+    const { email, password } = req.body;
     if (!(email && password)) {
       res.status(400).send();
     }
@@ -41,7 +41,7 @@ export async function login(req: Request, res: Response): Promise<void> {
         lastName: user.lastName,
         email: user.email,
         profilePicture: user.profilePicture,
-        token: token,
+        token,
         expiresIn: 36000,
       });
 }

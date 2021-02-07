@@ -5,8 +5,8 @@ import { Photo } from "./Photo";
 @Entity()
 export class Album {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
 
     @Column("varchar", {length:255})
     authorId: string;

@@ -5,8 +5,8 @@ import { Article } from "./Article";
 @Entity()
 export class Comment extends BaseEntity {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
 
     @Column("varchar", {length:255})
     authorId: string;

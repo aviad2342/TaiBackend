@@ -14,8 +14,8 @@ const Lesson_1 = require("./Lesson");
 let Course = class Course extends typeorm_1.BaseEntity {
 };
 __decorate([
-    typeorm_1.PrimaryGeneratedColumn(),
-    __metadata("design:type", Number)
+    typeorm_1.PrimaryGeneratedColumn("uuid"),
+    __metadata("design:type", String)
 ], Course.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column("varchar", { length: 255 }),

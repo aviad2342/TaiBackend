@@ -14,8 +14,8 @@ const Event_1 = require("./Event");
 let Speaker = class Speaker extends typeorm_1.BaseEntity {
 };
 __decorate([
-    typeorm_1.PrimaryGeneratedColumn(),
-    __metadata("design:type", Number)
+    typeorm_1.PrimaryGeneratedColumn("uuid"),
+    __metadata("design:type", String)
 ], Speaker.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column("varchar", { length: 255 }),

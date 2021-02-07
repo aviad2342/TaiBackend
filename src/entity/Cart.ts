@@ -6,8 +6,8 @@ import { Customer } from "./Customer";
 @Entity()
 export class Cart {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
 
     @OneToOne(() => Customer)
     @JoinColumn()

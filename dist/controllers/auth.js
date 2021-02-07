@@ -14,7 +14,7 @@ const User_1 = require("../entity/User");
 const config_1 = require("../config/config");
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        let { email, password } = req.body;
+        const { email, password } = req.body;
         if (!(email && password)) {
             res.status(400).send();
         }
@@ -39,7 +39,7 @@ function login(req, res) {
             lastName: user.lastName,
             email: user.email,
             profilePicture: user.profilePicture,
-            token: token,
+            token,
             expiresIn: 36000,
         });
     });

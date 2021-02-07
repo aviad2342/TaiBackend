@@ -14,8 +14,8 @@ const Comment_1 = require("./Comment");
 let Article = class Article extends typeorm_1.BaseEntity {
 };
 __decorate([
-    typeorm_1.PrimaryGeneratedColumn(),
-    __metadata("design:type", Number)
+    typeorm_1.PrimaryGeneratedColumn("uuid"),
+    __metadata("design:type", String)
 ], Article.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column("varchar", { length: 255 }),

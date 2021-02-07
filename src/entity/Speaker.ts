@@ -5,8 +5,8 @@ import { Event } from "./Event";
 @Entity()
 export class Speaker extends BaseEntity {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
 
     @Column("varchar", {length:255})
     title: string;

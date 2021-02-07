@@ -5,8 +5,8 @@ import { Course } from "./Course";
 @Entity()
 export class Lesson extends BaseEntity {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
 
     @Column("varchar", {length:255})
     videoId: string;

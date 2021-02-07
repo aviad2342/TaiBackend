@@ -121,7 +121,6 @@ function deleteImage(req, res) {
 exports.deleteImage = deleteImage;
 function getImage(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(req.query.image);
         const imagePhat = req.query.image.toString().replace("http://aviadbenhayun.com:3000/", "./src/");
         if (fs.existsSync(imagePhat)) {
             return res.send(fs.readFileSync(imagePhat));
