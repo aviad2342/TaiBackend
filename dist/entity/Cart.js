@@ -10,12 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const uuid_1 = require("uuid");
 const CartItem_1 = require("./CartItem");
 const Customer_1 = require("./Customer");
 let Cart = class Cart {
+    addId() {
+        this.id = uuid_1.v4();
+    }
 };
 __decorate([
-    typeorm_1.PrimaryGeneratedColumn("uuid"),
+    typeorm_1.PrimaryColumn("uuid"),
     __metadata("design:type", String)
 ], Cart.prototype, "id", void 0);
 __decorate([
@@ -31,6 +35,12 @@ __decorate([
     typeorm_1.Column("varchar", { length: 255, nullable: true }),
     __metadata("design:type", String)
 ], Cart.prototype, "orderId", void 0);
+__decorate([
+    typeorm_1.BeforeInsert(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], Cart.prototype, "addId", null);
 Cart = __decorate([
     typeorm_1.Entity()
 ], Cart);

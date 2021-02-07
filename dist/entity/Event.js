@@ -10,12 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const uuid_1 = require("uuid");
 const Participant_1 = require("./Participant");
 const Speaker_1 = require("./Speaker");
 let Event = class Event extends typeorm_1.BaseEntity {
+    addId() {
+        this.id = uuid_1.v4();
+    }
 };
 __decorate([
-    typeorm_1.PrimaryGeneratedColumn("uuid"),
+    typeorm_1.PrimaryColumn("uuid"),
     __metadata("design:type", String)
 ], Event.prototype, "id", void 0);
 __decorate([
@@ -90,6 +94,12 @@ __decorate([
     typeorm_1.OneToMany(type => Speaker_1.Speaker, speaker => speaker.event, { onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
     __metadata("design:type", Array)
 ], Event.prototype, "speakers", void 0);
+__decorate([
+    typeorm_1.BeforeInsert(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], Event.prototype, "addId", null);
 Event = __decorate([
     typeorm_1.Entity()
 ], Event);

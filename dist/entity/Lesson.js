@@ -10,11 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const uuid_1 = require("uuid");
 const Course_1 = require("./Course");
 let Lesson = class Lesson extends typeorm_1.BaseEntity {
+    addId() {
+        this.id = uuid_1.v4();
+    }
 };
 __decorate([
-    typeorm_1.PrimaryGeneratedColumn("uuid"),
+    typeorm_1.PrimaryColumn("uuid"),
     __metadata("design:type", String)
 ], Lesson.prototype, "id", void 0);
 __decorate([
@@ -49,6 +53,12 @@ __decorate([
     typeorm_1.ManyToOne(type => Course_1.Course, course => course.lessons, { onDelete: "CASCADE" }),
     __metadata("design:type", Course_1.Course)
 ], Lesson.prototype, "course", void 0);
+__decorate([
+    typeorm_1.BeforeInsert(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], Lesson.prototype, "addId", null);
 Lesson = __decorate([
     typeorm_1.Entity()
 ], Lesson);

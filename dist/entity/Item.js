@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const uuid_1 = require("uuid");
 var Category;
 (function (Category) {
     Category["BOOKS"] = "\u05E1\u05E4\u05E8\u05D9\u05DD";
@@ -21,9 +22,12 @@ var Category;
     Category["OTHER"] = "\u05D0\u05D7\u05E8";
 })(Category = exports.Category || (exports.Category = {}));
 let Item = class Item extends typeorm_1.BaseEntity {
+    addId() {
+        this.id = uuid_1.v4();
+    }
 };
 __decorate([
-    typeorm_1.PrimaryGeneratedColumn("uuid"),
+    typeorm_1.PrimaryColumn("uuid"),
     __metadata("design:type", String)
 ], Item.prototype, "id", void 0);
 __decorate([
@@ -62,6 +66,12 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], Item.prototype, "category", void 0);
+__decorate([
+    typeorm_1.BeforeInsert(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], Item.prototype, "addId", null);
 Item = __decorate([
     typeorm_1.Entity()
 ], Item);

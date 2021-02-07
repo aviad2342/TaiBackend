@@ -1,11 +1,12 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn, OneToMany} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn, OneToMany, BeforeInsert} from "typeorm";
+import { v4 as uuidv4 } from "uuid";
 import { Photo } from "./Photo";
 
 
 @Entity()
 export class Album {
 
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryColumn("uuid")
     id: string;
 
     @Column("varchar", {length:255})
@@ -34,5 +35,10 @@ export class Album {
 
     @OneToMany(type => Photo, photo => photo.album, {onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true} )
     photos: Photo[];
+
+    @BeforeInsert()
+    addId(): void {
+        this.id = uuidv4();
+    }
 
 }

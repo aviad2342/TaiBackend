@@ -1,11 +1,12 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn, OneToMany} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn, OneToMany, BeforeInsert} from "typeorm";
+import { v4 as uuidv4 } from "uuid";
 import { Lesson } from "./Lesson";
 
 
 @Entity()
 export class Course extends BaseEntity {
 
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryColumn("uuid")
     id: string;
 
     @Column("varchar", {length:255})
@@ -37,5 +38,10 @@ export class Course extends BaseEntity {
 
     @OneToMany(type => Lesson, lesson => lesson.course, {onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true} )
     lessons: Lesson[];
+
+    @BeforeInsert()
+    addId(): void {
+        this.id = uuidv4();
+    }
 
 }

@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToOne, JoinColumn, OneToMany} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToOne, JoinColumn, OneToMany, PrimaryColumn, BeforeInsert} from "typeorm";
+import { v4 as uuidv4 } from "uuid";
 import { CartItem } from "./CartItem";
 import { Customer } from "./Customer";
 
@@ -6,7 +7,7 @@ import { Customer } from "./Customer";
 @Entity()
 export class Cart {
 
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryColumn("uuid")
     id: string;
 
     @OneToOne(() => Customer)
@@ -18,5 +19,10 @@ export class Cart {
 
     @Column("varchar", {length:255, nullable: true})
     orderId: string;
+
+    @BeforeInsert()
+    addId(): void {
+        this.id = uuidv4();
+    }
 
 }

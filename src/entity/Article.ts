@@ -1,11 +1,12 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn, OneToMany} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn, OneToMany, BeforeInsert} from "typeorm";
+import { v4 as uuidv4 } from "uuid";
 import { Comment } from "./Comment";
 
 
 @Entity()
 export class Article extends BaseEntity {
 
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryColumn("uuid")
     id: string;
 
     @Column("varchar", {length:255})
@@ -43,5 +44,10 @@ export class Article extends BaseEntity {
 
     @OneToMany(type => Comment, comment => comment.article, {onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true} )
     comments: Comment[];
+
+    @BeforeInsert()
+    addId(): void {
+        this.id = uuidv4();
+    }
 
 }

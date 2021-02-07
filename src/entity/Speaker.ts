@@ -1,11 +1,12 @@
 import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn, BeforeInsert, ManyToOne} from "typeorm";
+import { v4 as uuidv4 } from "uuid";
 import { Event } from "./Event";
 
 
 @Entity()
 export class Speaker extends BaseEntity {
 
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryColumn("uuid")
     id: string;
 
     @Column("varchar", {length:255})
@@ -25,4 +26,9 @@ export class Speaker extends BaseEntity {
 
     @ManyToOne(type => Event, event => event.speakers , {onDelete: "CASCADE"})
     event: Event;
+
+    @BeforeInsert()
+    addId(): void {
+        this.id = uuidv4();
+    }
 }

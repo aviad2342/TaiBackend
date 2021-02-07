@@ -1,11 +1,12 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn, ManyToOne} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn, ManyToOne, BeforeInsert} from "typeorm";
+import { v4 as uuidv4 } from "uuid";
 import { Course } from "./Course";
 
 
 @Entity()
 export class Lesson extends BaseEntity {
 
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryColumn("uuid")
     id: string;
 
     @Column("varchar", {length:255})
@@ -31,5 +32,10 @@ export class Lesson extends BaseEntity {
 
     @ManyToOne(type => Course, course => course.lessons , {onDelete: "CASCADE"})
     course: Course;
+
+    @BeforeInsert()
+    addId(): void {
+        this.id = uuidv4();
+    }
 
 }

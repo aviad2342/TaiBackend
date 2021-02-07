@@ -10,11 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const uuid_1 = require("uuid");
 const Photo_1 = require("./Photo");
 let Album = class Album {
+    addId() {
+        this.id = uuid_1.v4();
+    }
 };
 __decorate([
-    typeorm_1.PrimaryGeneratedColumn("uuid"),
+    typeorm_1.PrimaryColumn("uuid"),
     __metadata("design:type", String)
 ], Album.prototype, "id", void 0);
 __decorate([
@@ -53,6 +57,12 @@ __decorate([
     typeorm_1.OneToMany(type => Photo_1.Photo, photo => photo.album, { onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
     __metadata("design:type", Array)
 ], Album.prototype, "photos", void 0);
+__decorate([
+    typeorm_1.BeforeInsert(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], Album.prototype, "addId", null);
 Album = __decorate([
     typeorm_1.Entity()
 ], Album);

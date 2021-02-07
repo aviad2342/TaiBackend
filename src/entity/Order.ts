@@ -1,15 +1,14 @@
-import {Entity, PrimaryGeneratedColumn, Column, PrimaryColumn, OneToMany, ManyToOne, ManyToMany, JoinTable, OneToOne, JoinColumn} from "typeorm";
-import { CartItem } from "./CartItem";
+import {Entity, PrimaryGeneratedColumn, Column, PrimaryColumn, OneToMany, ManyToOne, ManyToMany, JoinTable, OneToOne, JoinColumn, BeforeInsert} from "typeorm";
+import { v4 as uuidv4 } from "uuid";
 import { Customer } from "./Customer";
 import { DeliveryAddress } from "./deliveryAddress";
-import { Item } from "./Item";
 import { OrderItem } from "./OrderItem";
 
 
 @Entity()
 export class Order {
 
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryColumn("uuid")
     id: string;
 
     @Column("varchar", {length:255})
@@ -48,5 +47,10 @@ export class Order {
 
     @OneToMany(type => OrderItem, orderItem => orderItem.order, {onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true} )
     items: OrderItem[];
+
+    @BeforeInsert()
+    addId(): void {
+        this.id = uuidv4();
+    }
 
 }

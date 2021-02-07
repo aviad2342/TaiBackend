@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn, BeforeInsert} from "typeorm";
+import { v4 as uuidv4 } from "uuid";
 
 export enum Category {
     BOOKS = "ספרים",
@@ -13,7 +14,7 @@ export enum Category {
 @Entity()
 export class Item extends BaseEntity {
 
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryColumn("uuid")
     id: string;
 
     @Column("varchar", {length:255})
@@ -43,5 +44,10 @@ export class Item extends BaseEntity {
         default: Category.OTHER
     })
     category: Category;
+
+    @BeforeInsert()
+    addId(): void {
+        this.id = uuidv4();
+    }
 
 }

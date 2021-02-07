@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn, OneToMany} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn, OneToMany, BeforeInsert} from "typeorm";
+import { v4 as uuidv4 } from "uuid";
 import { Participant } from "./Participant";
 import { Speaker } from "./Speaker";
 
@@ -6,7 +7,7 @@ import { Speaker } from "./Speaker";
 @Entity()
 export class Event extends BaseEntity {
 
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryColumn("uuid")
     id: string;
 
     @Column("varchar", {length:255})
@@ -62,5 +63,10 @@ export class Event extends BaseEntity {
 
     @OneToMany(type => Speaker, speaker => speaker.event, {onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true } )
     speakers: Speaker[];
+
+    @BeforeInsert()
+    addId(): void {
+        this.id = uuidv4();
+    }
 
 }

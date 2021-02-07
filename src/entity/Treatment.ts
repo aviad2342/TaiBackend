@@ -1,10 +1,11 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, PrimaryColumn, BeforeInsert} from "typeorm";
+import { v4 as uuidv4 } from "uuid";
 
 
 @Entity()
 export class Treatment {
 
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryColumn("uuid")
     id: string;
 
     @Column("varchar", {length:255})
@@ -30,6 +31,11 @@ export class Treatment {
 
     @Column("varchar", {length:255})
     therapistProfilePicture: string;
+
+    @BeforeInsert()
+    addId(): void {
+        this.id = uuidv4();
+    }
 
 
 }
