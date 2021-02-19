@@ -6,17 +6,6 @@ import * as fs from  "fs";
 import * as nodemailer from 'nodemailer';
 import { Registered } from "../entity/registered";
 
-const transporter = nodemailer.createTransport({
-    host: "out.walla.co.il",
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: 'aviad2342',
-      pass: 'aviad2510'
-    },
- }
-);
-
 
 export async function getRegisteredUsers(req: Request, res: Response): Promise<void> {
     const users: Registered[] = await getRepository(Registered).find();
@@ -70,12 +59,18 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
     // hash the password, to securely store on DB
      user.hashPassword();
 
-    const results: Registered = await getRepository(Registered).save(user).catch( error => {
-        const imagePhat: string = user.profilePicture.replace("http://aviadbenhayun.com:3000/", "./src/");
-        if(fs.existsSync(imagePhat)) {
-            fs.unlinkSync(imagePhat);
-        }
-     });
+    const results: Registered = await getRepository(Registered).save(user);
+
+    const transporter = nodemailer.createTransport({
+        host: "out.walla.co.il",
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        auth: {
+          user: 'aviad2342',
+          pass: 'aviad2510'
+        },
+     }
+    );
 
      const mailOptions = {
         from : 'from_test@gmail.com',
@@ -84,10 +79,7 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
         text: 'Hello from node.js'
       };
 
-      transporter.sendMail( mailOptions, (error, info) => {
-        if (error) {
-          return res.json(`error: ${error}`);
-        }});
+    await transporter.sendMail(mailOptions);
 
     return res.json(results);
 }
@@ -110,18 +102,30 @@ export async function getRegisteredUserByMail(req: Request, res: Response): Prom
 
 export async function testMail(req: Request, res: Response): Promise<any> {
 
+    let minfo;
+
+    const transporter = nodemailer.createTransport({
+        host: "out.walla.co.il",
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        auth: {
+          user: 'aviad2342',
+          pass: 'aviad2510'
+        },
+     }
+    );
     const mailOptions = {
-       from : 'from_test@gmail.com',
+       from : 'aviad2342@walla.com',
        to : 'aviad.ben.hayun@gmail.com',
        subject : 'Hello',
        text: 'Hello from node.js'
      };
 
-     const minfo = await transporter.sendMail( mailOptions, (error, info) => {
+    minfo = await transporter.sendMail( mailOptions, (error, info) => {
        if (error) {
-         return res.json(`error: ${error}`);
+         minfo = `error: ${error}`;
        }
-       return res.json(info);
+       minfo = info;
     });
 
    return res.json(minfo);

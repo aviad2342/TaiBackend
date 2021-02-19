@@ -28,6 +28,7 @@ const customer_1 = require("./routes/customer");
 const cart_1 = require("./routes/cart");
 const cartItem_1 = require("./routes/cartItem");
 const coupon_1 = require("./routes/coupon");
+const register_1 = require("./routes/register");
 typeorm_1.createConnection().then(connection => {
     // create and setup express app
     const app = express();
@@ -51,7 +52,7 @@ typeorm_1.createConnection().then(connection => {
     app.use("/eventImages", express.static(path.join("TaiBackend/src/eventImages")));
     app.use("/assets", express.static(path.join("TaiBackend/src/assets")));
     app.use("/api/user", user_1.userRouter);
-    app.use("/api/register", user_1.userRouter);
+    app.use("/api/register", register_1.registrationRouter);
     app.use("/api/therapist", therapist_1.therapistRouter);
     app.use("/api/customer", customer_1.customerRouter);
     app.use("/api/treatment", treatment_1.treatmentRouter);

@@ -13,15 +13,6 @@ const User_1 = require("../entity/User");
 const fs = require("fs");
 const nodemailer = require("nodemailer");
 const registered_1 = require("../entity/registered");
-const transporter = nodemailer.createTransport({
-    host: "out.walla.co.il",
-    port: 587,
-    secure: false,
-    auth: {
-        user: 'aviad2342',
-        pass: 'aviad2510'
-    },
-});
 function getRegisteredUsers(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const users = yield typeorm_1.getRepository(registered_1.Registered).find();
@@ -73,11 +64,15 @@ function registerUser(req, res) {
         const user = typeorm_1.getRepository(registered_1.Registered).create(req.body);
         // hash the password, to securely store on DB
         user.hashPassword();
-        const results = yield typeorm_1.getRepository(registered_1.Registered).save(user).catch(error => {
-            const imagePhat = user.profilePicture.replace("http://aviadbenhayun.com:3000/", "./src/");
-            if (fs.existsSync(imagePhat)) {
-                fs.unlinkSync(imagePhat);
-            }
+        const results = yield typeorm_1.getRepository(registered_1.Registered).save(user);
+        const transporter = nodemailer.createTransport({
+            host: "out.walla.co.il",
+            port: 587,
+            secure: false,
+            auth: {
+                user: 'aviad2342',
+                pass: 'aviad2510'
+            },
         });
         const mailOptions = {
             from: 'from_test@gmail.com',
@@ -85,11 +80,7 @@ function registerUser(req, res) {
             subject: 'Hello',
             text: 'Hello from node.js'
         };
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                return res.json(`error: ${error}`);
-            }
-        });
+        yield transporter.sendMail(mailOptions);
         return res.json(results);
     });
 }
@@ -115,17 +106,27 @@ function getRegisteredUserByMail(req, res) {
 exports.getRegisteredUserByMail = getRegisteredUserByMail;
 function testMail(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        let minfo;
+        const transporter = nodemailer.createTransport({
+            host: "out.walla.co.il",
+            port: 587,
+            secure: false,
+            auth: {
+                user: 'aviad2342',
+                pass: 'aviad2510'
+            },
+        });
         const mailOptions = {
-            from: 'from_test@gmail.com',
+            from: 'aviad2342@walla.com',
             to: 'aviad.ben.hayun@gmail.com',
             subject: 'Hello',
             text: 'Hello from node.js'
         };
-        const minfo = yield transporter.sendMail(mailOptions, (error, info) => {
+        minfo = yield transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                return res.json(`error: ${error}`);
+                minfo = `error: ${error}`;
             }
-            return res.json(info);
+            minfo = info;
         });
         return res.json(minfo);
     });
