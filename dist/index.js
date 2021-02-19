@@ -51,6 +51,7 @@ typeorm_1.createConnection().then(connection => {
     app.use("/eventImages", express.static(path.join("TaiBackend/src/eventImages")));
     app.use("/assets", express.static(path.join("TaiBackend/src/assets")));
     app.use("/api/user", user_1.userRouter);
+    app.use("/api/register", user_1.userRouter);
     app.use("/api/therapist", therapist_1.therapistRouter);
     app.use("/api/customer", customer_1.customerRouter);
     app.use("/api/treatment", treatment_1.treatmentRouter);

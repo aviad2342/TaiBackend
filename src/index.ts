@@ -57,6 +57,7 @@ createConnection().then(connection => {
 
 
     app.use("/api/user",userRouter);
+    app.use("/api/register",userRouter);
     app.use("/api/therapist",therapistRouter);
     app.use("/api/customer",customerRouter);
     app.use("/api/treatment",treatmentRouter);
