@@ -108,17 +108,15 @@ function testMail(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         let minfo;
         const transporter = nodemailer.createTransport({
-            host: "out.walla.co.il",
-            port: 587,
-            secure: false,
+            service: 'gmail',
             auth: {
-                user: 'aviad2342',
-                pass: 'aviad2510'
+                user: 'aviad.ben.hayun@gmail.com',
+                pass: 'aviad2342'
             },
         });
         const mailOptions = {
-            from: 'aviad2342@walla.com',
-            to: 'aviad.ben.hayun@gmail.com',
+            from: 'aviad.ben.hayun@gmail.com',
+            to: 'aviad2342@walla.com',
             subject: 'Hello',
             text: 'Hello from node.js'
         };
