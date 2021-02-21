@@ -31,7 +31,7 @@ function verifyUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const pendingUser = yield typeorm_1.getRepository(registered_1.Registered).findOne({ where: { verificationToken: req.params.token } });
         if (!pendingUser) {
-            return res.json(false);
+            return;
         }
         const newUser = new User_1.User();
         newUser.id = pendingUser.id;
@@ -50,7 +50,7 @@ function verifyUser(req, res) {
         newUser.profilePicture = pendingUser.profilePicture;
         const user = typeorm_1.getRepository(User_1.User).create(newUser);
         const results = yield typeorm_1.getRepository(User_1.User).save(user).catch(error => {
-            return res.json(false);
+            return;
         });
         pendingUser.verificationDate = new Date();
         pendingUser.verified = true;
@@ -62,26 +62,32 @@ exports.verifyUser = verifyUser;
 function registerUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const user = typeorm_1.getRepository(registered_1.Registered).create(req.body);
+        let minfo;
         // hash the password, to securely store on DB
         user.hashPassword();
         const result = yield typeorm_1.getRepository(registered_1.Registered).save(user);
         const verificationUrl = 'http://aviadbenhayun.com:3000/api/register/verify/' + result.verificationToken;
+        const link = `<a href="${verificationUrl}">קישור להפעלת חשבון</a>`;
         const transporter = nodemailer.createTransport({
-            host: "out.walla.co.il",
-            port: 587,
-            secure: false,
+            service: 'gmail',
             auth: {
-                user: 'aviad2342',
-                pass: 'aviad2510'
+                user: 'subconsciou.Service@gmail.com',
+                pass: 'aviad2342'
             },
         });
         const mailOptions = {
-            from: 'wosService@gmail.com',
+            from: 'subconsciou.Service@gmail.com',
             to: result.email,
-            subject: 'הפעלת חשבון',
-            text: verificationUrl
+            subject: 'הפעלת חשבון פלאי הנשמה',
+            text: 'להפעלת החשבון לחץ על הקישור:',
+            html: link,
         };
-        yield transporter.sendMail(mailOptions);
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                minfo = error;
+            }
+            minfo = info;
+        });
         return res.json(result);
     });
 }
@@ -119,7 +125,8 @@ function testMail(req, res) {
             from: 'subconsciou.Service@gmail.com',
             to: 'aviad2342@walla.com',
             subject: 'Hello',
-            text: 'Hello from node.js'
+            text: 'Hello from node.js',
+            html: "<b>Hello world?</b>",
         };
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {

@@ -21,7 +21,7 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
     const pendingUser: Registered = await getRepository(Registered).findOne({ where: { verificationToken: req.params.token } });
 
     if (!pendingUser) {
-        return res.json(false);
+        return;
     }
 
     const newUser = new User();
@@ -43,7 +43,7 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
     const user: any = getRepository(User).create(newUser);
 
     const results: User = await getRepository(User).save(user).catch( error => {
-        return res.json(false);
+        return ;
      });
 
      pendingUser.verificationDate = new Date();
@@ -55,33 +55,37 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
 
  export async function registerUser(req: Request, res: Response): Promise<any> {
      const user: any = getRepository(Registered).create(req.body);
-
+     let minfo;
     // hash the password, to securely store on DB
      user.hashPassword();
 
     const result: Registered = await getRepository(Registered).save(user);
 
     const verificationUrl = 'http://aviadbenhayun.com:3000/api/register/verify/' + result.verificationToken;
+    const link = `<a href="${verificationUrl}">קישור להפעלת חשבון</a>`;
 
     const transporter = nodemailer.createTransport({
-        host: "out.walla.co.il",
-        port: 587,
-        secure: false, // true for 465, false for other ports
+      service: 'gmail',
         auth: {
-          user: 'aviad2342',
-          pass: 'aviad2510'
+          user: 'subconsciou.Service@gmail.com',
+          pass: 'aviad2342'
         },
      }
     );
+    const mailOptions = {
+       from : 'subconsciou.Service@gmail.com',
+       to : result.email,
+       subject : 'הפעלת חשבון פלאי הנשמה',
+       text: 'להפעלת החשבון לחץ על הקישור:',
+       html: link,
+     };
 
-     const mailOptions = {
-        from : 'wosService@gmail.com',
-        to : result.email,
-        subject : 'הפעלת חשבון',
-        text: verificationUrl
-      };
-
-    await transporter.sendMail(mailOptions);
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        minfo = error;
+      }
+      minfo = info;
+    });
 
     return res.json(result);
 }
@@ -118,7 +122,8 @@ export async function testMail(req: Request, res: Response): Promise<any> {
        from : 'subconsciou.Service@gmail.com',
        to : 'aviad2342@walla.com',
        subject : 'Hello',
-       text: 'Hello from node.js'
+       text: 'Hello from node.js',
+       html: "<b>Hello world?</b>",
      };
 
     transporter.sendMail(mailOptions, (error, info) => {
