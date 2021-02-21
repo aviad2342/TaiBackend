@@ -64,7 +64,8 @@ function registerUser(req, res) {
         const user = typeorm_1.getRepository(registered_1.Registered).create(req.body);
         // hash the password, to securely store on DB
         user.hashPassword();
-        const results = yield typeorm_1.getRepository(registered_1.Registered).save(user);
+        const result = yield typeorm_1.getRepository(registered_1.Registered).save(user);
+        const verificationUrl = 'http://aviadbenhayun.com:3000/api/register/verify/' + result.verificationToken;
         const transporter = nodemailer.createTransport({
             host: "out.walla.co.il",
             port: 587,
@@ -75,13 +76,13 @@ function registerUser(req, res) {
             },
         });
         const mailOptions = {
-            from: 'from_test@gmail.com',
-            to: results.email,
-            subject: 'Hello',
-            text: 'Hello from node.js'
+            from: 'wosService@gmail.com',
+            to: result.email,
+            subject: 'הפעלת חשבון',
+            text: verificationUrl
         };
         yield transporter.sendMail(mailOptions);
-        return res.json(results);
+        return res.json(result);
     });
 }
 exports.registerUser = registerUser;
@@ -110,19 +111,19 @@ function testMail(req, res) {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'aviad.ben.hayun@gmail.com',
+                user: 'subconsciou.Service@gmail.com',
                 pass: 'aviad2342'
             },
         });
         const mailOptions = {
-            from: 'aviad.ben.hayun@gmail.com',
+            from: 'subconsciou.Service@gmail.com',
             to: 'aviad2342@walla.com',
             subject: 'Hello',
             text: 'Hello from node.js'
         };
-        minfo = yield transporter.sendMail(mailOptions, (error, info) => {
+        transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                minfo = `error: ${error}`;
+                minfo = error;
             }
             minfo = info;
         });

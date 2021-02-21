@@ -59,7 +59,9 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
     // hash the password, to securely store on DB
      user.hashPassword();
 
-    const results: Registered = await getRepository(Registered).save(user);
+    const result: Registered = await getRepository(Registered).save(user);
+
+    const verificationUrl = 'http://aviadbenhayun.com:3000/api/register/verify/' + result.verificationToken;
 
     const transporter = nodemailer.createTransport({
         host: "out.walla.co.il",
@@ -73,15 +75,15 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
     );
 
      const mailOptions = {
-        from : 'from_test@gmail.com',
-        to : results.email,
-        subject : 'Hello',
-        text: 'Hello from node.js'
+        from : 'wosService@gmail.com',
+        to : result.email,
+        subject : 'הפעלת חשבון',
+        text: verificationUrl
       };
 
     await transporter.sendMail(mailOptions);
 
-    return res.json(results);
+    return res.json(result);
 }
 
 
@@ -107,23 +109,23 @@ export async function testMail(req: Request, res: Response): Promise<any> {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
         auth: {
-          user: 'aviad.ben.hayun@gmail.com',
+          user: 'subconsciou.Service@gmail.com',
           pass: 'aviad2342'
         },
      }
     );
     const mailOptions = {
-       from : 'aviad.ben.hayun@gmail.com',
+       from : 'subconsciou.Service@gmail.com',
        to : 'aviad2342@walla.com',
        subject : 'Hello',
        text: 'Hello from node.js'
      };
 
-    minfo = await transporter.sendMail( mailOptions, (error, info) => {
-       if (error) {
-         minfo = `error: ${error}`;
-       }
-       minfo = info;
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        minfo = error;
+      }
+      minfo = info;
     });
 
    return res.json(minfo);
