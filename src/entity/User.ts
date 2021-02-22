@@ -18,10 +18,10 @@ export class User extends BaseEntity {
     @Column("varchar", {length:255})
     password: string;
 
-    @Column("varchar", {length:255})
+    @Column("varchar", {length:255, unique: true})
     phone: string;
 
-    @Column("varchar", {length:255})
+    @Column("varchar", {length:255, unique: true})
     email: string;
 
     @Column("datetime")

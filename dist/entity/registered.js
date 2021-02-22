@@ -43,11 +43,11 @@ __decorate([
     __metadata("design:type", String)
 ], Registered.prototype, "password", void 0);
 __decorate([
-    typeorm_1.Column("varchar", { length: 255 }),
+    typeorm_1.Column("varchar", { length: 255, unique: true }),
     __metadata("design:type", String)
 ], Registered.prototype, "phone", void 0);
 __decorate([
-    typeorm_1.Column("varchar", { length: 255 }),
+    typeorm_1.Column("varchar", { length: 255, unique: true }),
     __metadata("design:type", String)
 ], Registered.prototype, "email", void 0);
 __decorate([
