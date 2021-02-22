@@ -59,7 +59,12 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
     // hash the password, to securely store on DB
      user.hashPassword();
 
-    const result: Registered = await getRepository(Registered).save(user);
+    const result: Registered = await getRepository(Registered).save(user).catch( error => {
+      const imagePhat: string = user.profilePicture.replace("http://aviadbenhayun.com:3000/", "./src/");
+      if(fs.existsSync(imagePhat)) {
+          fs.unlinkSync(imagePhat);
+      }
+   });
 
     const verificationUrl = 'http://aviadbenhayun.com:3000/api/register/verify/' + result.verificationToken;
     const link = `<a href="${verificationUrl}">קישור להפעלת חשבון</a>`;

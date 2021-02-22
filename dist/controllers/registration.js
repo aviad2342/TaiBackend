@@ -65,7 +65,12 @@ function registerUser(req, res) {
         let minfo;
         // hash the password, to securely store on DB
         user.hashPassword();
-        const result = yield typeorm_1.getRepository(registered_1.Registered).save(user);
+        const result = yield typeorm_1.getRepository(registered_1.Registered).save(user).catch(error => {
+            const imagePhat = user.profilePicture.replace("http://aviadbenhayun.com:3000/", "./src/");
+            if (fs.existsSync(imagePhat)) {
+                fs.unlinkSync(imagePhat);
+            }
+        });
         const verificationUrl = 'http://aviadbenhayun.com:3000/api/register/verify/' + result.verificationToken;
         const link = `<a href="${verificationUrl}">קישור להפעלת חשבון</a>`;
         const transporter = nodemailer.createTransport({
