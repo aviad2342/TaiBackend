@@ -91,7 +91,7 @@ __decorate([
     __metadata("design:type", Date)
 ], Registered.prototype, "verificationDate", void 0);
 __decorate([
-    typeorm_1.Column("uuid"),
+    typeorm_1.Column("uuid", { nullable: true }),
     __metadata("design:type", String)
 ], Registered.prototype, "verificationToken", void 0);
 __decorate([

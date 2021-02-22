@@ -53,7 +53,7 @@ export class Registered extends BaseEntity {
     @Column("datetime", {nullable: true})
     verificationDate: Date;
 
-    @Column("uuid")
+    @Column("uuid", {nullable: true})
     verificationToken: string;
 
     @Column("boolean")
