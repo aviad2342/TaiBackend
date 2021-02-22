@@ -1,4 +1,4 @@
-import {Entity, Column, BaseEntity, PrimaryColumn, BeforeInsert} from "typeorm";
+import {Entity, Column, BaseEntity, PrimaryColumn, BeforeInsert, Generated} from "typeorm";
 import { v4 as uuidv4 } from "uuid";
 import * as bcrypt from "bcrypt";
 
@@ -54,6 +54,7 @@ export class Registered extends BaseEntity {
     verificationDate: Date;
 
     @Column("uuid", {nullable: true})
+    @Generated("uuid")
     verificationToken: string;
 
     @Column("boolean")
@@ -63,6 +64,8 @@ export class Registered extends BaseEntity {
     addId(): void {
         this.id = uuidv4();
     }
+
+    @BeforeInsert()
     addTokend(): void {
         this.verificationToken = uuidv4();
     }

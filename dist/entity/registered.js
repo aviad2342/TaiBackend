@@ -92,6 +92,7 @@ __decorate([
 ], Registered.prototype, "verificationDate", void 0);
 __decorate([
     typeorm_1.Column("uuid", { nullable: true }),
+    typeorm_1.Generated("uuid"),
     __metadata("design:type", String)
 ], Registered.prototype, "verificationToken", void 0);
 __decorate([
@@ -104,6 +105,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], Registered.prototype, "addId", null);
+__decorate([
+    typeorm_1.BeforeInsert(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], Registered.prototype, "addTokend", null);
 Registered = __decorate([
     typeorm_1.Entity()
 ], Registered);
