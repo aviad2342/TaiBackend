@@ -19,12 +19,30 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
 
  export async function verifyUser(req: Request, res: Response): Promise<any> {
     const pendingUser: Registered = await getRepository(Registered).findOne({ where: { verificationToken: req.params.token } });
+    let registeredUserId = '';
+    let registeredUserFirstName = '';
+    let registeredUserLastName = '';
+    let isAlreadyVerified = false;
+    let isNotRegistered = false;
+    let didSaveUser = true;
+    let didUpdateRegisteredUser = true;
 
     if (!pendingUser) {
-        return;
+      isNotRegistered = true ;
     }
 
-    const newUser = new User();
+    if (pendingUser.verified) {
+      isAlreadyVerified = true ;
+    }
+
+    if (pendingUser) {
+      registeredUserId = pendingUser.id;
+      registeredUserFirstName = pendingUser.firstName;
+      registeredUserLastName = pendingUser.lastName;
+    }
+
+    if (pendingUser && !pendingUser.verified ) {
+      const newUser = new User();
         newUser.id = pendingUser.id;
         newUser.firstName = pendingUser.firstName;
         newUser.lastName = pendingUser.lastName;
@@ -43,14 +61,30 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
     const user: any = getRepository(User).create(newUser);
 
     const results: User = await getRepository(User).save(user).catch( error => {
-        return ;
+      didSaveUser = false ;
      });
 
      pendingUser.verificationDate = new Date();
      pendingUser.verified = true;
-     await getRepository(Registered).save(pendingUser);
+     await getRepository(Registered).save(pendingUser).catch( error => {
+      didUpdateRegisteredUser = false ;
+   });
 
-     return res.json(results);
+    }
+
+
+     const resObject = {
+      id: registeredUserId,
+      firstName: registeredUserFirstName,
+      lastName: registeredUserLastName,
+      verified: didSaveUser,
+      alreadyVerified: isAlreadyVerified,
+      userSaved: didSaveUser,
+      UpdateRegisteredUser: didUpdateRegisteredUser,
+      notRegistered: isNotRegistered
+    }
+
+     return res.json(resObject);
 }
 
  export async function registerUser(req: Request, res: Response): Promise<any> {
@@ -66,7 +100,7 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
       }
    });
 
-    const verificationUrl = 'http://aviadbenhayun.com:3000/api/register/verify/' + result.verificationToken;
+    const verificationUrl = 'http://localhost:8100/verification/' + result.verificationToken;
     const link = `<a href="${verificationUrl}">קישור להפעלת חשבון</a>`;
 
     const transporter = nodemailer.createTransport({
@@ -85,11 +119,12 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
        html: link,
      };
 
-    transporter.sendMail(mailOptions, (error, info) => {
+    transporter.sendMail(mailOptions, async (error, info) => {
       if (error) {
         minfo = error;
       }
-      minfo = info;
+      result.emailSent = true;
+      await getRepository(Registered).save(result);
     });
 
     return res.json(result);

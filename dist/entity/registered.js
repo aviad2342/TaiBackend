@@ -98,6 +98,10 @@ __decorate([
 __decorate([
     typeorm_1.Column("boolean"),
     __metadata("design:type", Boolean)
+], Registered.prototype, "emailSent", void 0);
+__decorate([
+    typeorm_1.Column("boolean"),
+    __metadata("design:type", Boolean)
 ], Registered.prototype, "verified", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),

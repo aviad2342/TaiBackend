@@ -58,6 +58,9 @@ export class Registered extends BaseEntity {
     verificationToken: string;
 
     @Column("boolean")
+    emailSent: boolean;
+
+    @Column("boolean")
     verified: boolean;
 
     @BeforeInsert()
