@@ -19,29 +19,33 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
 
  export async function verifyUser(req: Request, res: Response): Promise<any> {
     const pendingUser: Registered = await getRepository(Registered).findOne({ where: { verificationToken: req.params.token } });
-    let registeredUserId = '';
-    let registeredUserFirstName = '';
-    let registeredUserLastName = '';
-    let isAlreadyVerified = false;
-    let isNotRegistered = false;
-    let didSaveUser = true;
-    let didUpdateRegisteredUser = true;
+
+    const resObject = {
+      id: '',
+      firstName: '',
+      lastName: '',
+      verified: false,
+      alreadyVerified: false,
+      userSaved: true,
+      UpdateRegisteredUser: true,
+      notRegistered: false
+    }
 
     if (!pendingUser) {
-      isNotRegistered = true ;
+      resObject.notRegistered = true;
+      return res.json(resObject);
     }
+
+    resObject.id = pendingUser.id;
+    resObject.firstName = pendingUser.firstName;
+    resObject.lastName = pendingUser.lastName;
 
     if (pendingUser.verified) {
-      isAlreadyVerified = true ;
+      resObject.verified = true;
+      resObject.alreadyVerified = true;
+      return res.json(resObject);
     }
 
-    if (pendingUser) {
-      registeredUserId = pendingUser.id;
-      registeredUserFirstName = pendingUser.firstName;
-      registeredUserLastName = pendingUser.lastName;
-    }
-
-    if (pendingUser && !pendingUser.verified ) {
       const newUser = new User();
         newUser.id = pendingUser.id;
         newUser.firstName = pendingUser.firstName;
@@ -61,28 +65,17 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
     const user: any = getRepository(User).create(newUser);
 
     const results: User = await getRepository(User).save(user).catch( error => {
-      didSaveUser = false ;
+      resObject.userSaved = false;
      });
 
      pendingUser.verificationDate = new Date();
      pendingUser.verified = true;
+
      await getRepository(Registered).save(pendingUser).catch( error => {
-      didUpdateRegisteredUser = false ;
+      resObject.UpdateRegisteredUser = false;
    });
+    resObject.verified = true;
 
-    }
-
-
-     const resObject = {
-      id: registeredUserId,
-      firstName: registeredUserFirstName,
-      lastName: registeredUserLastName,
-      verified: didSaveUser,
-      alreadyVerified: isAlreadyVerified,
-      userSaved: didSaveUser,
-      UpdateRegisteredUser: didUpdateRegisteredUser,
-      notRegistered: isNotRegistered
-    }
 
      return res.json(resObject);
 }

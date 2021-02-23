@@ -30,60 +30,53 @@ exports.getRegisteredUser = getRegisteredUser;
 function verifyUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const pendingUser = yield typeorm_1.getRepository(registered_1.Registered).findOne({ where: { verificationToken: req.params.token } });
-        let registeredUserId = '';
-        let registeredUserFirstName = '';
-        let registeredUserLastName = '';
-        let isAlreadyVerified = false;
-        let isNotRegistered = false;
-        let didSaveUser = true;
-        let didUpdateRegisteredUser = true;
-        if (!pendingUser) {
-            isNotRegistered = true;
-        }
-        if (pendingUser.verified) {
-            isAlreadyVerified = true;
-        }
-        if (pendingUser) {
-            registeredUserId = pendingUser.id;
-            registeredUserFirstName = pendingUser.firstName;
-            registeredUserLastName = pendingUser.lastName;
-        }
-        if (pendingUser && !pendingUser.verified) {
-            const newUser = new User_1.User();
-            newUser.id = pendingUser.id;
-            newUser.firstName = pendingUser.firstName;
-            newUser.lastName = pendingUser.lastName;
-            newUser.password = pendingUser.password;
-            newUser.phone = pendingUser.phone;
-            newUser.email = pendingUser.email;
-            newUser.date = pendingUser.date;
-            newUser.country = pendingUser.country;
-            newUser.city = pendingUser.city;
-            newUser.street = pendingUser.street;
-            newUser.houseNumber = pendingUser.houseNumber;
-            newUser.apartment = pendingUser.apartment;
-            newUser.entry = pendingUser.entry;
-            newUser.profilePicture = pendingUser.profilePicture;
-            const user = typeorm_1.getRepository(User_1.User).create(newUser);
-            const results = yield typeorm_1.getRepository(User_1.User).save(user).catch(error => {
-                didSaveUser = false;
-            });
-            pendingUser.verificationDate = new Date();
-            pendingUser.verified = true;
-            yield typeorm_1.getRepository(registered_1.Registered).save(pendingUser).catch(error => {
-                didUpdateRegisteredUser = false;
-            });
-        }
         const resObject = {
-            id: registeredUserId,
-            firstName: registeredUserFirstName,
-            lastName: registeredUserLastName,
-            verified: didSaveUser,
-            alreadyVerified: isAlreadyVerified,
-            userSaved: didSaveUser,
-            UpdateRegisteredUser: didUpdateRegisteredUser,
-            notRegistered: isNotRegistered
+            id: '',
+            firstName: '',
+            lastName: '',
+            verified: false,
+            alreadyVerified: false,
+            userSaved: true,
+            UpdateRegisteredUser: true,
+            notRegistered: false
         };
+        if (!pendingUser) {
+            resObject.notRegistered = true;
+            return res.json(resObject);
+        }
+        resObject.id = pendingUser.id;
+        resObject.firstName = pendingUser.firstName;
+        resObject.lastName = pendingUser.lastName;
+        if (pendingUser.verified) {
+            resObject.verified = true;
+            resObject.alreadyVerified = true;
+            return res.json(resObject);
+        }
+        const newUser = new User_1.User();
+        newUser.id = pendingUser.id;
+        newUser.firstName = pendingUser.firstName;
+        newUser.lastName = pendingUser.lastName;
+        newUser.password = pendingUser.password;
+        newUser.phone = pendingUser.phone;
+        newUser.email = pendingUser.email;
+        newUser.date = pendingUser.date;
+        newUser.country = pendingUser.country;
+        newUser.city = pendingUser.city;
+        newUser.street = pendingUser.street;
+        newUser.houseNumber = pendingUser.houseNumber;
+        newUser.apartment = pendingUser.apartment;
+        newUser.entry = pendingUser.entry;
+        newUser.profilePicture = pendingUser.profilePicture;
+        const user = typeorm_1.getRepository(User_1.User).create(newUser);
+        const results = yield typeorm_1.getRepository(User_1.User).save(user).catch(error => {
+            resObject.userSaved = false;
+        });
+        pendingUser.verificationDate = new Date();
+        pendingUser.verified = true;
+        yield typeorm_1.getRepository(registered_1.Registered).save(pendingUser).catch(error => {
+            resObject.UpdateRegisteredUser = false;
+        });
+        resObject.verified = true;
         return res.json(resObject);
     });
 }
