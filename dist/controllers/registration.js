@@ -52,7 +52,7 @@ function verifyUser(req, res) {
         if (pendingUser.verified) {
             resObject.verified = true;
             resObject.alreadyVerified = true;
-            resObject.success = true;
+            resObject.success = false;
             return res.json(resObject);
         }
         const newUser = new User_1.User();
@@ -75,13 +75,14 @@ function verifyUser(req, res) {
             resObject.userSaved = false;
             resObject.success = false;
         });
+        resObject.verified = true;
         pendingUser.verificationDate = new Date();
         pendingUser.verified = true;
         yield typeorm_1.getRepository(registered_1.Registered).save(pendingUser).catch(error => {
             resObject.UpdateRegisteredUser = false;
+            resObject.verified = false;
             resObject.success = false;
         });
-        resObject.verified = true;
         return res.json(resObject);
     });
 }

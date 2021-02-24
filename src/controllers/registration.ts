@@ -45,7 +45,7 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
     if (pendingUser.verified) {
       resObject.verified = true;
       resObject.alreadyVerified = true;
-      resObject.success = true;
+      resObject.success = false;
       return res.json(resObject);
     }
 
@@ -72,14 +72,16 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
       resObject.success = false;
      });
 
+     resObject.verified = true;
+
      pendingUser.verificationDate = new Date();
      pendingUser.verified = true;
 
      await getRepository(Registered).save(pendingUser).catch( error => {
       resObject.UpdateRegisteredUser = false;
+      resObject.verified = false;
       resObject.success = false;
    });
-    resObject.verified = true;
 
 
      return res.json(resObject);
