@@ -34,6 +34,7 @@ function verifyUser(req, res) {
             id: '',
             firstName: '',
             lastName: '',
+            success: true,
             verified: false,
             alreadyVerified: false,
             userSaved: true,
@@ -42,6 +43,7 @@ function verifyUser(req, res) {
         };
         if (!pendingUser) {
             resObject.notRegistered = true;
+            resObject.success = false;
             return res.json(resObject);
         }
         resObject.id = pendingUser.id;
@@ -50,6 +52,7 @@ function verifyUser(req, res) {
         if (pendingUser.verified) {
             resObject.verified = true;
             resObject.alreadyVerified = true;
+            resObject.success = true;
             return res.json(resObject);
         }
         const newUser = new User_1.User();
@@ -70,11 +73,13 @@ function verifyUser(req, res) {
         const user = typeorm_1.getRepository(User_1.User).create(newUser);
         const results = yield typeorm_1.getRepository(User_1.User).save(user).catch(error => {
             resObject.userSaved = false;
+            resObject.success = false;
         });
         pendingUser.verificationDate = new Date();
         pendingUser.verified = true;
         yield typeorm_1.getRepository(registered_1.Registered).save(pendingUser).catch(error => {
             resObject.UpdateRegisteredUser = false;
+            resObject.success = false;
         });
         resObject.verified = true;
         return res.json(resObject);

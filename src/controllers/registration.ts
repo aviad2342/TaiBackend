@@ -24,6 +24,7 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
       id: '',
       firstName: '',
       lastName: '',
+      success: true,
       verified: false,
       alreadyVerified: false,
       userSaved: true,
@@ -33,6 +34,7 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
 
     if (!pendingUser) {
       resObject.notRegistered = true;
+      resObject.success = false;
       return res.json(resObject);
     }
 
@@ -43,6 +45,7 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
     if (pendingUser.verified) {
       resObject.verified = true;
       resObject.alreadyVerified = true;
+      resObject.success = true;
       return res.json(resObject);
     }
 
@@ -66,6 +69,7 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
 
     const results: User = await getRepository(User).save(user).catch( error => {
       resObject.userSaved = false;
+      resObject.success = false;
      });
 
      pendingUser.verificationDate = new Date();
@@ -73,6 +77,7 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
 
      await getRepository(Registered).save(pendingUser).catch( error => {
       resObject.UpdateRegisteredUser = false;
+      resObject.success = false;
    });
     resObject.verified = true;
 
