@@ -9,11 +9,11 @@ router.get("/coupons", CouponController.getCoupons);
 
 router.get("/coupon/:code", CouponController.getCoupon);
 
-router.get("/coupons/:customerId", CouponController.getCustomerCoupons);
+router.get("/coupons/:userId", CouponController.getCustomerCoupons);
 
 router.post("/coupon", CouponController.addCoupon);
 
-router.post("/customer", CouponController.addCouponCustomer);
+router.post("/customer", CouponController.couponUse);
 
 router.put("/coupon/:code", CouponController.updateCoupon);
 

@@ -2,7 +2,7 @@ import {Request, Response} from "express";
 import {getConnection, Repository, DeleteResult} from "typeorm";
 import {getRepository} from "typeorm";
 import { Coupon } from "../entity/Coupon";
-import { CouponCustomers } from "../entity/CouponCustomers";
+import { CouponUsers } from "../entity/CouponUsers";
 
 
 export async function getCoupons(req: Request, res: Response): Promise<void> {
@@ -11,13 +11,13 @@ export async function getCoupons(req: Request, res: Response): Promise<void> {
 }
 
 export async function getCoupon(req: Request, res: Response): Promise<void> {
-    const coupon: Coupon = await getRepository(Coupon).findOne(req.params.code, { relations: ["customers"] });
+    const coupon: Coupon = await getRepository(Coupon).findOne(req.params.code);
          res.json(coupon);
 }
 
 export async function getCustomerCoupons(req: Request, res: Response): Promise<void> {
-     const coupons: Coupon[] = await getRepository(Coupon).find({where: { customer: req.params.customerId }, relations: ["customers"] });
-         res.json(coupons);
+     const userCoupons: CouponUsers[] = await getRepository(CouponUsers).find({ where: { album: req.params.userId } });
+         res.json(userCoupons);
  }
 
  export async function addCoupon(req: Request, res: Response): Promise<any> {
@@ -26,12 +26,12 @@ export async function getCustomerCoupons(req: Request, res: Response): Promise<v
      return res.json(results);
 }
 
-export async function addCouponCustomer(req: Request, res: Response): Promise<any> {
-    const coupon: Coupon = await getRepository(Coupon).findOne(req.body.code);
+export async function couponUse(req: Request, res: Response): Promise<any> {
+    const coupon: Coupon = await getRepository(Coupon).findOne(req.body.couponCode);
     coupon.quantity--;
     await getRepository(Coupon).save(coupon);
-    const customer: any = getRepository(CouponCustomers).create(req.body);
-    const results: CouponCustomers = await getRepository(CouponCustomers).save(customer);
+    const couponUser: any = getRepository(CouponUsers).create(req.body);
+    const results: CouponUsers = await getRepository(CouponUsers).save(couponUser);
     return res.json(results);
 }
 

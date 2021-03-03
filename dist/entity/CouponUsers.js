@@ -10,19 +10,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const Coupon_1 = require("./Coupon");
-let CouponCustomers = class CouponCustomers {
+let CouponUsers = class CouponUsers extends typeorm_1.BaseEntity {
 };
 __decorate([
-    typeorm_1.PrimaryColumn("varchar", { length: 255 }),
-    __metadata("design:type", String)
-], CouponCustomers.prototype, "customerId", void 0);
+    typeorm_1.PrimaryGeneratedColumn(),
+    __metadata("design:type", Number)
+], CouponUsers.prototype, "id", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => Coupon_1.Coupon, coupon => coupon.customers, { onDelete: "CASCADE" }),
-    __metadata("design:type", Coupon_1.Coupon)
-], CouponCustomers.prototype, "coupon", void 0);
-CouponCustomers = __decorate([
-    typeorm_1.Entity()
-], CouponCustomers);
-exports.CouponCustomers = CouponCustomers;
-//# sourceMappingURL=CouponCustomers.js.map
+    typeorm_1.Column("varchar", { length: 255 }),
+    __metadata("design:type", String)
+], CouponUsers.prototype, "userId", void 0);
+__decorate([
+    typeorm_1.Column("varchar", { length: 255 }),
+    __metadata("design:type", String)
+], CouponUsers.prototype, "couponCode", void 0);
+__decorate([
+    typeorm_1.Column("datetime"),
+    __metadata("design:type", Date)
+], CouponUsers.prototype, "date", void 0);
+CouponUsers = __decorate([
+    typeorm_1.Entity(),
+    typeorm_1.TableInheritance({ column: { type: "varchar", name: "type" } })
+], CouponUsers);
+exports.CouponUsers = CouponUsers;
+//# sourceMappingURL=CouponUsers.js.map

@@ -1,5 +1,4 @@
 import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn, OneToMany} from "typeorm";
-import { CouponCustomers } from "./CouponCustomers";
 import { Photo } from "./Photo";
 
 
@@ -8,6 +7,9 @@ export class Coupon {
 
     @PrimaryColumn()
     code: string;
+
+    @Column("datetime")
+    date: Date;
 
     @Column("datetime")
     expirationDate: Date;
@@ -21,10 +23,7 @@ export class Coupon {
     @Column({ type: "int" })
     discount: number;
 
-    @Column("varchar", {length:255})
+    @Column("varchar", {length:255, nullable: true})
     itemId: string;
-
-    @OneToMany(type => CouponCustomers, customer => customer.coupon, {onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true} )
-    customers: CouponCustomers[];
 
 }

@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Coupon_1 = require("../entity/Coupon");
-const CouponCustomers_1 = require("../entity/CouponCustomers");
+const CouponUsers_1 = require("../entity/CouponUsers");
 function getCoupons(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const coupons = yield typeorm_1.getRepository(Coupon_1.Coupon).find();
@@ -20,15 +20,15 @@ function getCoupons(req, res) {
 exports.getCoupons = getCoupons;
 function getCoupon(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const coupon = yield typeorm_1.getRepository(Coupon_1.Coupon).findOne(req.params.code, { relations: ["customers"] });
+        const coupon = yield typeorm_1.getRepository(Coupon_1.Coupon).findOne(req.params.code);
         res.json(coupon);
     });
 }
 exports.getCoupon = getCoupon;
 function getCustomerCoupons(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const coupons = yield typeorm_1.getRepository(Coupon_1.Coupon).find({ where: { customer: req.params.customerId }, relations: ["customers"] });
-        res.json(coupons);
+        const userCoupons = yield typeorm_1.getRepository(CouponUsers_1.CouponUsers).find({ where: { album: req.params.userId } });
+        res.json(userCoupons);
     });
 }
 exports.getCustomerCoupons = getCustomerCoupons;
@@ -40,17 +40,17 @@ function addCoupon(req, res) {
     });
 }
 exports.addCoupon = addCoupon;
-function addCouponCustomer(req, res) {
+function couponUse(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const coupon = yield typeorm_1.getRepository(Coupon_1.Coupon).findOne(req.body.code);
+        const coupon = yield typeorm_1.getRepository(Coupon_1.Coupon).findOne(req.body.couponCode);
         coupon.quantity--;
         yield typeorm_1.getRepository(Coupon_1.Coupon).save(coupon);
-        const customer = typeorm_1.getRepository(CouponCustomers_1.CouponCustomers).create(req.body);
-        const results = yield typeorm_1.getRepository(CouponCustomers_1.CouponCustomers).save(customer);
+        const couponUser = typeorm_1.getRepository(CouponUsers_1.CouponUsers).create(req.body);
+        const results = yield typeorm_1.getRepository(CouponUsers_1.CouponUsers).save(couponUser);
         return res.json(results);
     });
 }
-exports.addCouponCustomer = addCouponCustomer;
+exports.couponUse = couponUse;
 function updateCoupon(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const coupon = yield typeorm_1.getRepository(Coupon_1.Coupon).findOne(req.params.id);
