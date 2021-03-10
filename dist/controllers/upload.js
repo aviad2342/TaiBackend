@@ -58,6 +58,13 @@ function uploadEventImage(req, res) {
     });
 }
 exports.uploadEventImage = uploadEventImage;
+function uploadTestimonyImage(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const url = req.protocol + "://" + req.get("host") + "/testimonyImages/" + req.file.filename;
+        return res.json({ imageUrl: url });
+    });
+}
+exports.uploadTestimonyImage = uploadTestimonyImage;
 function uploadEventPictures(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const files = Object.values(req.files);

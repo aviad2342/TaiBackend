@@ -29,6 +29,7 @@ import { cartRouter } from "./routes/cart";
 import { cartItemRouter } from "./routes/cartItem";
 import { couponRouter } from "./routes/coupon";
 import { registrationRouter } from "./routes/register";
+import { testimonyRouter } from "./routes/testimony";
 
 
 createConnection().then(connection => {
@@ -46,6 +47,7 @@ createConnection().then(connection => {
     app.use("/userImages", express.static(path.join("TaiBackend/src/userImages")));
     app.use("/therapistImages", express.static(path.join("TaiBackend/src/therapistImages")));
     app.use("/treatmentImages", express.static(path.join("TaiBackend/src/treatmentImages")));
+    app.use("/testimonyImages", express.static(path.join("TaiBackend/src/testimonyImages")));
     app.use("/articleImages", express.static(path.join("TaiBackend/src/articleImages")));
     app.use("/itemImages", express.static(path.join("TaiBackend/src/itemImages")));
     app.use("/articles", express.static(path.join("TaiBackend/src/articles")));
@@ -72,6 +74,7 @@ createConnection().then(connection => {
     app.use("/api/course",courseRouter);
     app.use("/api/lesson",lessonRouter);
     app.use("/api/comment",commentRouter);
+    app.use("/api/testimony",testimonyRouter);
     app.use("/api/event",eventRouter);
     app.use("/api/speaker",speakerRouter);
     app.use("/api/participant",participantRouter);

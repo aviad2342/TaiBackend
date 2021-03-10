@@ -36,6 +36,11 @@ export async function uploadEventImage(req: Request, res: Response): Promise<any
     return res.json({imageUrl: url});
 }
 
+export async function uploadTestimonyImage(req: Request, res: Response): Promise<any> {
+    const url: string = req.protocol + "://" + req.get("host") + "/testimonyImages/" + req.file.filename;
+    return res.json({imageUrl: url});
+}
+
 export async function uploadEventPictures(req: Request, res: Response): Promise<any> {
     const files: any[] = Object.values(req.files);
     // const url: string = req.protocol + "://" + req.get("host") + "/eventImages/";

@@ -55,6 +55,11 @@ function updateItem(req, res) {
 exports.updateItem = updateItem;
 function deleteItem(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const item = yield typeorm_1.getRepository(Item_1.Item).findOne(req.params.id);
+        const imagePhat = item.thumbnail.replace("http://aviadbenhayun.com:3000/", "./src/");
+        if (fs.existsSync(imagePhat)) {
+            fs.unlinkSync(imagePhat);
+        }
         const results = yield typeorm_1.getRepository(Item_1.Item).delete(req.params.id);
         return res.json(results);
     });

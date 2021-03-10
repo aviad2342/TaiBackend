@@ -29,6 +29,7 @@ const cart_1 = require("./routes/cart");
 const cartItem_1 = require("./routes/cartItem");
 const coupon_1 = require("./routes/coupon");
 const register_1 = require("./routes/register");
+const testimony_1 = require("./routes/testimony");
 typeorm_1.createConnection().then(connection => {
     // create and setup express app
     const app = express();
@@ -42,6 +43,7 @@ typeorm_1.createConnection().then(connection => {
     app.use("/userImages", express.static(path.join("TaiBackend/src/userImages")));
     app.use("/therapistImages", express.static(path.join("TaiBackend/src/therapistImages")));
     app.use("/treatmentImages", express.static(path.join("TaiBackend/src/treatmentImages")));
+    app.use("/testimonyImages", express.static(path.join("TaiBackend/src/testimonyImages")));
     app.use("/articleImages", express.static(path.join("TaiBackend/src/articleImages")));
     app.use("/itemImages", express.static(path.join("TaiBackend/src/itemImages")));
     app.use("/articles", express.static(path.join("TaiBackend/src/articles")));
@@ -66,6 +68,7 @@ typeorm_1.createConnection().then(connection => {
     app.use("/api/course", course_1.courseRouter);
     app.use("/api/lesson", lesson_1.lessonRouter);
     app.use("/api/comment", comment_1.commentRouter);
+    app.use("/api/testimony", testimony_1.testimonyRouter);
     app.use("/api/event", event_1.eventRouter);
     app.use("/api/speaker", speaker_1.speakerRouter);
     app.use("/api/participant", participant_1.participantRouter);

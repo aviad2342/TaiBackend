@@ -14,6 +14,7 @@ import { articleBodyImages } from "../middleware/articleBodyImages";
 import { uploadItemImage } from "../middleware/itemImages";
 import { uploadTherapistImage } from "../middleware/therapistImages";
 import { uploadTreatmentImage } from "../middleware/treatmentImages";
+import { uploadTestimonyImage } from "../middleware/testimonyImages";
 
 
 const router: Router = Router();
@@ -23,6 +24,8 @@ router.get("/download/image", uploadController.getImage);
 router.post("/upload", upload, uploadController.uploadImage);
 
 router.post("/uploadUserImage", uploadUserImage, uploadController.uploadUserImage);
+
+router.post("/uploadTestimonyImage", uploadTestimonyImage, uploadController.uploadTestimonyImage);
 
 router.post("/uploadTherapistImage", uploadTherapistImage, uploadController.uploadTherapistImage);
 

@@ -40,6 +40,11 @@ export async function updateItem(req: Request, res: Response): Promise<any> {
 }
 
 export async function deleteItem(req: Request, res: Response): Promise<any> {
+    const item: Item = await getRepository(Item).findOne(req.params.id);
+    const imagePhat: string = item.thumbnail.replace("http://aviadbenhayun.com:3000/", "./src/");
+        if(fs.existsSync(imagePhat)) {
+            fs.unlinkSync(imagePhat);
+        }
     const results: DeleteResult = await getRepository(Item).delete(req.params.id);
     return res.json(results);
 }
