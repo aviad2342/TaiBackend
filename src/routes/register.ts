@@ -15,7 +15,7 @@ router.get("/user/email/:email", registrationController.getRegisteredUserByMail)
 
 router.post("/user", registrationController.registerUser);
 
-router.post("/user/email/:email", registrationController.resetUserPassword);
+router.post("/user/email", registrationController.resetUserPassword);
 
 router.delete("/user/:id", registrationController.deleteRegisteredUser);
 
