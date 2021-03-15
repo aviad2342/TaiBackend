@@ -145,9 +145,17 @@ function getRegisteredUserByMail(req, res) {
     });
 }
 exports.getRegisteredUserByMail = getRegisteredUserByMail;
-function testMail(req, res) {
+function resetUserPassword(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        let minfo;
+        const user = yield typeorm_1.getRepository(User_1.User).findOne({ where: { email: req.params.email } });
+        const email = user.email;
+        const resetPasswordUrl = 'http://localhost:8100/passwordreset/' + email;
+        const link = `<p>לאיפוס הסיסמה לחץ על הקישור:</p>
+    <br>
+    <a href="${resetPasswordUrl}"> קישור לאיפוס הסיסמה</a>
+    <br>
+    <img src="https://images.ravpages.co.il/xsite_resources/user_content/5c/f5/a5/b4/5cf5a5b4496ea854fc907351d3823ee1/images/3495e0655839037a776975053843933c_226X236.png?ver=3.12&rxc=1532355884" alt="פילאי הנשמה">
+  `;
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -157,19 +165,19 @@ function testMail(req, res) {
         });
         const mailOptions = {
             from: 'subconsciou.Service@gmail.com',
-            to: 'aviad2342@walla.com',
-            subject: 'Hello',
-            text: 'Hello from node.js',
-            html: "<b>Hello world?</b>",
+            to: email,
+            subject: 'איפוס סיסמה',
+            text: 'לאיפוס הסיסמה לחץ על הקישור:',
+            html: link,
         };
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                minfo = error;
+                return res.send(false);
             }
-            minfo = info;
+            return res.send(true);
         });
-        return res.json(minfo);
+        return res.json(true);
     });
 }
-exports.testMail = testMail;
+exports.resetUserPassword = resetUserPassword;
 //# sourceMappingURL=registration.js.map

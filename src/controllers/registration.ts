@@ -146,9 +146,16 @@ export async function getRegisteredUserByMail(req: Request, res: Response): Prom
       return res.json(user);
 }
 
-export async function testMail(req: Request, res: Response): Promise<any> {
-
-    let minfo;
+export async function resetUserPassword(req: Request, res: Response): Promise<any> {
+    const user: User = await getRepository(User).findOne({ where: { email: req.params.email } });
+    const email = user.email;
+    const resetPasswordUrl = 'http://localhost:8100/passwordreset/' + email;
+    const link = `<p>לאיפוס הסיסמה לחץ על הקישור:</p>
+    <br>
+    <a href="${resetPasswordUrl}"> קישור לאיפוס הסיסמה</a>
+    <br>
+    <img src="https://images.ravpages.co.il/xsite_resources/user_content/5c/f5/a5/b4/5cf5a5b4496ea854fc907351d3823ee1/images/3495e0655839037a776975053843933c_226X236.png?ver=3.12&rxc=1532355884" alt="פילאי הנשמה">
+  `;
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -160,20 +167,20 @@ export async function testMail(req: Request, res: Response): Promise<any> {
     );
     const mailOptions = {
        from : 'subconsciou.Service@gmail.com',
-       to : 'aviad2342@walla.com',
-       subject : 'Hello',
-       text: 'Hello from node.js',
-       html: "<b>Hello world?</b>",
+       to : email,
+       subject : 'איפוס סיסמה',
+       text: 'לאיפוס הסיסמה לחץ על הקישור:',
+       html: link,
      };
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        minfo = error;
+        return res.send(false);
       }
-      minfo = info;
+      return res.send(true);
     });
 
-   return res.json(minfo);
+   return res.json(true);
 }
 
 

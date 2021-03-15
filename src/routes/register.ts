@@ -15,9 +15,9 @@ router.get("/user/email/:email", registrationController.getRegisteredUserByMail)
 
 router.post("/user", registrationController.registerUser);
 
-router.delete("/user/:id", registrationController.deleteRegisteredUser);
+router.post("/user/email/:email", registrationController.resetUserPassword);
 
-router.get("/test", registrationController.testMail);
+router.delete("/user/:id", registrationController.deleteRegisteredUser);
 
 
 export const registrationRouter: Router = router;
