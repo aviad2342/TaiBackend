@@ -147,7 +147,7 @@ function getRegisteredUserByMail(req, res) {
 exports.getRegisteredUserByMail = getRegisteredUserByMail;
 function resetUserPassword(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const user = yield typeorm_1.getRepository(User_1.User).findOne({ where: { email: req.params.email } });
+        const user = yield typeorm_1.getRepository(User_1.User).findOne({ where: { email: req.body.email } });
         const email = user.email;
         const resetPasswordUrl = 'http://localhost:8100/passwordreset/' + email;
         const link = `<p>לאיפוס הסיסמה לחץ על הקישור:</p>

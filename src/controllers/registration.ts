@@ -147,7 +147,7 @@ export async function getRegisteredUserByMail(req: Request, res: Response): Prom
 }
 
 export async function resetUserPassword(req: Request, res: Response): Promise<any> {
-    const user: User = await getRepository(User).findOne({ where: { email: req.params.email } });
+    const user: User = await getRepository(User).findOne({ where: { email: req.body.email } });
     const email = user.email;
     const resetPasswordUrl = 'http://localhost:8100/passwordreset/' + email;
     const link = `<p>לאיפוס הסיסמה לחץ על הקישור:</p>
