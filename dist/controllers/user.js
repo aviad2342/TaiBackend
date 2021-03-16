@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const User_1 = require("../entity/User");
 const fs = require("fs");
+const PasswordReset_1 = require("../entity/PasswordReset");
 // const userRepository: Repository<User> = await getRepository(User);
 function getUsers(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -98,4 +99,24 @@ function getUserByMail(req, res) {
     });
 }
 exports.getUserByMail = getUserByMail;
+function getPasswordReset(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const passwordReset = yield typeorm_1.getRepository(PasswordReset_1.PasswordReset).findOne(req.params.token);
+        res.json(passwordReset);
+    });
+}
+exports.getPasswordReset = getPasswordReset;
+function updateUserPassword(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id);
+        const oldPassword = user.password;
+        const passwordReset = yield typeorm_1.getRepository(PasswordReset_1.PasswordReset).findOne(req.params.token);
+        typeorm_1.getRepository(User_1.User).merge(user, req.body);
+        const result = yield typeorm_1.getRepository(User_1.User).save(user);
+        passwordReset.success = (oldPassword !== result.password);
+        const passwordResetResult = yield typeorm_1.getRepository(PasswordReset_1.PasswordReset).save(passwordReset);
+        return res.json(passwordResetResult);
+    });
+}
+exports.updateUserPassword = updateUserPassword;
 //# sourceMappingURL=user.js.map

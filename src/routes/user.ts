@@ -9,6 +9,8 @@ router.get("/users", UserController.getUsers);
 
 router.get("/user/:id", UserController.getUser);
 
+router.get("/resetpassword/:token", UserController.getPasswordReset);
+
 router.get("/user/email/:email", UserController.getUserByMail);
 
 router.post("/user", UserController.addUser);
@@ -16,6 +18,8 @@ router.post("/user", UserController.addUser);
 router.post("/register", UserController.registerUser);
 
 router.put("/user/:id", UserController.updateUser);
+
+router.put("/password/:id/:token", UserController.updateUserPassword);
 
 router.put("/user/image/:id", UserController.updateUserAndProfilePicture);
 

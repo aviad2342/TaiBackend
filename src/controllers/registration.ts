@@ -5,6 +5,7 @@ import {User} from "../entity/User";
 import * as fs from  "fs";
 import * as nodemailer from 'nodemailer';
 import { Registered } from "../entity/registered";
+import { PasswordReset } from "../entity/PasswordReset";
 
 
 export async function getRegisteredUsers(req: Request, res: Response): Promise<void> {
@@ -147,9 +148,12 @@ export async function getRegisteredUserByMail(req: Request, res: Response): Prom
 }
 
 export async function resetUserPassword(req: Request, res: Response): Promise<any> {
-    const user: User = await getRepository(User).findOne({ where: { email: req.body.email } });
-    const email = user.email;
-    const resetPasswordUrl = 'http://localhost:8100/passwordreset/' + email;
+    const passwordReset: any = getRepository(PasswordReset).create(req.body);
+    const result: PasswordReset = await getRepository(PasswordReset).save(passwordReset);
+
+    const token = result.token;
+    const email = result.email;
+    const resetPasswordUrl = 'http://localhost:8100/passwordreset/' + token;
     const link = `<p>לאיפוס הסיסמה לחץ על הקישור:</p>
     <br>
     <a href="${resetPasswordUrl}"> קישור לאיפוס הסיסמה</a>
@@ -175,12 +179,12 @@ export async function resetUserPassword(req: Request, res: Response): Promise<an
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        return res.send(false);
+        result.emailSent = false;
+        return res.send(result);
       }
-      return res.send(true);
     });
 
-   return res.json(true);
+   return res.json(result);
 }
 
 

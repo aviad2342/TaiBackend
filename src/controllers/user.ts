@@ -5,6 +5,7 @@ import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 import {User} from "../entity/User";
 import * as fs from  "fs";
+import { PasswordReset } from "../entity/PasswordReset";
 
  // const userRepository: Repository<User> = await getRepository(User);
 
@@ -81,6 +82,22 @@ export async function deleteUser(req: Request, res: Response): Promise<any> {
 export async function getUserByMail(req: Request, res: Response): Promise<any> {
       const user: User = await getRepository(User).findOne({ where: { email: req.params.email } });
       return res.json(user);
+}
+
+export async function getPasswordReset(req: Request, res: Response): Promise<void> {
+    const passwordReset: PasswordReset = await getRepository(PasswordReset).findOne(req.params.token);
+        res.json(passwordReset);
+}
+
+export async function updateUserPassword(req: Request, res: Response): Promise<any> {
+    const user: User = await getRepository(User).findOne(req.params.id);
+    const oldPassword = user.password;
+    const passwordReset: PasswordReset = await getRepository(PasswordReset).findOne(req.params.token);
+    getRepository(User).merge(user, req.body);
+    const result: User = await getRepository(User).save(user);
+    passwordReset.success = (oldPassword !== result.password);
+    const passwordResetResult: PasswordReset = await getRepository(PasswordReset).save(passwordReset);
+    return res.json(passwordResetResult);
 }
 
 

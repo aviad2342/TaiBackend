@@ -13,6 +13,7 @@ const User_1 = require("../entity/User");
 const fs = require("fs");
 const nodemailer = require("nodemailer");
 const registered_1 = require("../entity/registered");
+const PasswordReset_1 = require("../entity/PasswordReset");
 function getRegisteredUsers(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const users = yield typeorm_1.getRepository(registered_1.Registered).find();
@@ -147,9 +148,11 @@ function getRegisteredUserByMail(req, res) {
 exports.getRegisteredUserByMail = getRegisteredUserByMail;
 function resetUserPassword(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const user = yield typeorm_1.getRepository(User_1.User).findOne({ where: { email: req.body.email } });
-        const email = user.email;
-        const resetPasswordUrl = 'http://localhost:8100/passwordreset/' + email;
+        const passwordReset = typeorm_1.getRepository(PasswordReset_1.PasswordReset).create(req.body);
+        const result = yield typeorm_1.getRepository(PasswordReset_1.PasswordReset).save(passwordReset);
+        const token = result.token;
+        const email = result.email;
+        const resetPasswordUrl = 'http://localhost:8100/passwordreset/' + token;
         const link = `<p>לאיפוס הסיסמה לחץ על הקישור:</p>
     <br>
     <a href="${resetPasswordUrl}"> קישור לאיפוס הסיסמה</a>
@@ -172,11 +175,11 @@ function resetUserPassword(req, res) {
         };
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                return res.send(false);
+                result.emailSent = false;
+                return res.send(result);
             }
-            return res.send(true);
         });
-        return res.json(true);
+        return res.json(result);
     });
 }
 exports.resetUserPassword = resetUserPassword;
