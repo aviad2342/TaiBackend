@@ -154,15 +154,8 @@ export async function resetUserPassword(req: Request, res: Response): Promise<an
     const token = result.token;
     const email = result.email;
     const resetPasswordUrl = 'http://localhost:8100/passwordreset/' + token;
-    const link = `<p>לאיפוס הסיסמה לחץ על הקישור:</p>
-    <br>
-    <a href="${resetPasswordUrl}"> קישור לאיפוס הסיסמה</a>
-    <br>
-    <img src="https://images.ravpages.co.il/xsite_resources/user_content/5c/f5/a5/b4/5cf5a5b4496ea854fc907351d3823ee1/images/3495e0655839037a776975053843933c_226X236.png?ver=3.12&rxc=1532355884" alt="פילאי הנשמה">
-  `;
-
-  const test = `<div style="width: 50%; margin: 0px auto 0px auto; text-align: center;">
-                    <p style="font-size: larger;">לאיפוס הסיסמה לחץ על הקישור:</p>
+    const link = `<div style="width: 50%; margin: 0px auto 0px auto; text-align: center; border: 1px solid black; background-color: aliceblue;">
+                    <p style="font-size: x-large; font-weight: bold;">לאיפוס הסיסמה לחץ על הקישור:</p>
                     <br>
                     <a style="font-size: large;" href="${resetPasswordUrl}"> קישור לאיפוס הסיסמה</a>
                     <br>
@@ -182,7 +175,7 @@ export async function resetUserPassword(req: Request, res: Response): Promise<an
        to : email,
        subject : 'איפוס סיסמה',
        text: 'לאיפוס הסיסמה לחץ על הקישור:',
-       html: test,
+       html: link,
      };
 
     transporter.sendMail(mailOptions, (error, info) => {
