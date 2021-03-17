@@ -93,9 +93,9 @@ export async function updateUserPassword(req: Request, res: Response): Promise<a
     const user: User = await getRepository(User).findOne(req.params.id);
     const oldPassword = user.password;
     const passwordReset: PasswordReset = await getRepository(PasswordReset).findOne(req.params.token);
+    getRepository(User).merge(user, req.body);
     // hash the password, to securely store on DB
     user.hashPassword();
-    getRepository(User).merge(user, req.body);
     const result: User = await getRepository(User).save(user);
     passwordReset.success = (oldPassword !== result.password);
     passwordReset.activated = passwordReset.success;

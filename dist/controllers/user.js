@@ -111,9 +111,9 @@ function updateUserPassword(req, res) {
         const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id);
         const oldPassword = user.password;
         const passwordReset = yield typeorm_1.getRepository(PasswordReset_1.PasswordReset).findOne(req.params.token);
+        typeorm_1.getRepository(User_1.User).merge(user, req.body);
         // hash the password, to securely store on DB
         user.hashPassword();
-        typeorm_1.getRepository(User_1.User).merge(user, req.body);
         const result = yield typeorm_1.getRepository(User_1.User).save(user);
         passwordReset.success = (oldPassword !== result.password);
         passwordReset.activated = passwordReset.success;
