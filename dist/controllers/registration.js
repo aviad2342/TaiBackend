@@ -159,6 +159,13 @@ function resetUserPassword(req, res) {
     <br>
     <img src="https://images.ravpages.co.il/xsite_resources/user_content/5c/f5/a5/b4/5cf5a5b4496ea854fc907351d3823ee1/images/3495e0655839037a776975053843933c_226X236.png?ver=3.12&rxc=1532355884" alt="פילאי הנשמה">
   `;
+        const test = `<div style="width: 50%; margin: 0px auto 0px auto; text-align: center;">
+                    <p style="font-size: larger;">לאיפוס הסיסמה לחץ על הקישור:</p>
+                    <br>
+                    <a style="font-size: large;" href="${resetPasswordUrl}"> קישור לאיפוס הסיסמה</a>
+                    <br>
+                    <img src="https://images.ravpages.co.il/xsite_resources/user_content/5c/f5/a5/b4/5cf5a5b4496ea854fc907351d3823ee1/images/3495e0655839037a776975053843933c_226X236.png?ver=3.12&rxc=1532355884" alt="פילאי הנשמה">
+                </div>`;
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -171,7 +178,7 @@ function resetUserPassword(req, res) {
             to: email,
             subject: 'איפוס סיסמה',
             text: 'לאיפוס הסיסמה לחץ על הקישור:',
-            html: link,
+            html: test,
         };
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
@@ -179,6 +186,8 @@ function resetUserPassword(req, res) {
                 return res.send(result);
             }
         });
+        result.emailSent = true;
+        yield typeorm_1.getRepository(PasswordReset_1.PasswordReset).save(result);
         return res.json(result);
     });
 }
