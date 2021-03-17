@@ -29,6 +29,9 @@ export class PasswordReset extends BaseEntity {
     @Column("boolean", {nullable: true})
     success: boolean;
 
+    @Column("boolean", {nullable: true})
+    activated: boolean;
+
     @BeforeInsert()
     addId(): void {
         this.token = uuidv4();

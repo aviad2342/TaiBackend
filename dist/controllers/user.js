@@ -116,6 +116,7 @@ function updateUserPassword(req, res) {
         typeorm_1.getRepository(User_1.User).merge(user, req.body);
         const result = yield typeorm_1.getRepository(User_1.User).save(user);
         passwordReset.success = (oldPassword !== result.password);
+        passwordReset.activated = passwordReset.success;
         const passwordResetResult = yield typeorm_1.getRepository(PasswordReset_1.PasswordReset).save(passwordReset);
         return res.json(passwordResetResult);
     });

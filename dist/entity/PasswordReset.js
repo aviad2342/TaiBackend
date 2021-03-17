@@ -49,6 +49,10 @@ __decorate([
     __metadata("design:type", Boolean)
 ], PasswordReset.prototype, "success", void 0);
 __decorate([
+    typeorm_1.Column("boolean", { nullable: true }),
+    __metadata("design:type", Boolean)
+], PasswordReset.prototype, "activated", void 0);
+__decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
