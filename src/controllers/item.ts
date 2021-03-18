@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {getConnection, Repository, DeleteResult} from "typeorm";
+import {getConnection, Repository, DeleteResult, BaseEntity} from "typeorm";
 import {getRepository} from "typeorm";
 import * as fs from  "fs";
 import {Item} from "../entity/Item";
@@ -47,5 +47,10 @@ export async function deleteItem(req: Request, res: Response): Promise<any> {
         }
     const results: DeleteResult = await getRepository(Item).delete(req.params.id);
     return res.json(results);
+}
+
+export async function getProduct(req: Request, res: Response): Promise<void> {
+    const product: BaseEntity = await getRepository(BaseEntity).findOne(req.params.id);
+        res.json(product);
 }
 

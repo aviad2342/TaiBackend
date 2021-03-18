@@ -5,6 +5,7 @@ const ItemController = require("../controllers/item");
 const router = express_1.Router();
 router.get("/items", ItemController.getItems);
 router.get("/item/:id", ItemController.getItem);
+router.get("/product/:id", ItemController.getProduct);
 router.post("/item", ItemController.addItem);
 router.put("/item/:id", ItemController.updateItem);
 router.delete("/item/:id", ItemController.deleteItem);
