@@ -4,6 +4,10 @@ import {getRepository} from "typeorm";
 import * as fs from  "fs";
 import {Item} from "../entity/Item";
 
+interface Product {
+    id: string;
+    name: string;
+  }
 
 export async function getItems(req: Request, res: Response): Promise<void> {
     const items: Item[] = await getRepository(Item).find();
@@ -51,8 +55,8 @@ export async function deleteItem(req: Request, res: Response): Promise<any> {
 
 export async function getProduct(req: Request, res: Response): Promise<void> {
     const entityManager = getManager();
-    const products = await entityManager.query("SELECT id, 'article' as name from crm_db.article union SELECT id, 'course' as name from crm_db.course union SELECT id, 'event' as name from crm_db.event;");
-    // const product = products
-        res.json(products);
+    const products: Product[] = await entityManager.query("SELECT id, 'article' as name from crm_db.article union SELECT id, 'course' as name from crm_db.course union SELECT id, 'event' as name from crm_db.event;");
+    const product: Product = products.find(p => p.id === req.params.id);
+        res.json(product.name);
 }
 
