@@ -56,8 +56,8 @@ function deleteLesson(req, res) {
         const lessonCourse = lesson.course;
         const results = yield typeorm_1.getRepository(Lesson_1.Lesson).delete(req.params.id);
         const lessons = yield typeorm_1.getRepository(Lesson_1.Lesson).find({ where: { course: lessonCourse }, order: { lessonNumber: "ASC" } });
-        lessons.forEach((lessonElement, Index) => __awaiter(this, void 0, void 0, function* () {
-            lessonElement.lessonNumber = (Index + 1).toString();
+        lessons.forEach((lessonElement, index) => __awaiter(this, void 0, void 0, function* () {
+            lessonElement.lessonNumber = (index + 1).toString();
             yield typeorm_1.getRepository(Lesson_1.Lesson).save(lessonElement);
         }));
         const course = yield typeorm_1.getRepository(Course_1.Course).findOne(lesson.course.id);

@@ -68,8 +68,10 @@ function deleteItem(req, res) {
 exports.deleteItem = deleteItem;
 function getProduct(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const product = yield typeorm_2.getRepository(typeorm_1.BaseEntity).findOne(req.params.id);
-        res.json(product);
+        const entityManager = typeorm_1.getManager();
+        const products = yield entityManager.query("SELECT id, 'article' as name from crm_db.article union SELECT id, 'course' as name from crm_db.course union SELECT id, 'event' as name from crm_db.event;");
+        const product = products.findOne(req.params.id);
+        res.json(product.name);
     });
 }
 exports.getProduct = getProduct;

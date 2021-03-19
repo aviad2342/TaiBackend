@@ -41,8 +41,8 @@ export async function deleteLesson(req: Request, res: Response): Promise<any> {
     const lessonCourse: Course = lesson.course;
     const results: DeleteResult = await getRepository(Lesson).delete(req.params.id);
     const lessons: Lesson[] = await getRepository(Lesson).find({ where: { course: lessonCourse }, order: {lessonNumber: "ASC"}});
-    lessons.forEach(async (lessonElement, Index) => {
-            lessonElement.lessonNumber = (Index + 1).toString();
+    lessons.forEach(async (lessonElement, index) => {
+            lessonElement.lessonNumber = (index + 1).toString();
             await getRepository(Lesson).save(lessonElement);
     });
      const course: Course = await getRepository(Course).findOne(lesson.course.id);
