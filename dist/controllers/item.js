@@ -69,7 +69,8 @@ exports.deleteItem = deleteItem;
 function getProduct(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const entityManager = typeorm_1.getManager();
-        const products = yield entityManager.query("SELECT id, 'article' as name from crm_db.article union SELECT id, 'course' as name from crm_db.course union SELECT id, 'event' as name from crm_db.event;");
+        const products = yield entityManager
+            .query("SELECT id, 'article' as name from crm_db.article union SELECT id, 'course' as name from crm_db.course union SELECT id, 'event' as name from crm_db.event SELECT id, 'treatment' as name from crm_db.treatment;");
         const product = products.find(p => p.id === req.params.id);
         res.json(product.name);
     });
