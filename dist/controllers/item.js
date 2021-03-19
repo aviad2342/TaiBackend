@@ -70,8 +70,8 @@ function getProduct(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const entityManager = typeorm_1.getManager();
         const products = yield entityManager.query("SELECT id, 'article' as name from crm_db.article union SELECT id, 'course' as name from crm_db.course union SELECT id, 'event' as name from crm_db.event;");
-        const product = products.findOne(req.params.id);
-        res.json(product.name);
+        // const product = products
+        res.json(products);
     });
 }
 exports.getProduct = getProduct;

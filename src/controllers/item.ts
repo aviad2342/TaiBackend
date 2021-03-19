@@ -52,7 +52,7 @@ export async function deleteItem(req: Request, res: Response): Promise<any> {
 export async function getProduct(req: Request, res: Response): Promise<void> {
     const entityManager = getManager();
     const products = await entityManager.query("SELECT id, 'article' as name from crm_db.article union SELECT id, 'course' as name from crm_db.course union SELECT id, 'event' as name from crm_db.event;");
-    const product = products.findOne(req.params.id);
-        res.json(product.name);
+    // const product = products
+        res.json(products);
 }
 
