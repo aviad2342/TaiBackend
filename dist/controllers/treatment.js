@@ -56,8 +56,23 @@ function updateTreatment(req, res) {
             }
         }
         typeorm_1.getRepository(Treatment_1.Treatment).merge(treatment, req.body);
-        const results = yield typeorm_1.getRepository(Treatment_1.Treatment).save(treatment);
-        return res.json(results);
+        const result = yield typeorm_1.getRepository(Treatment_1.Treatment).save(treatment);
+        const item = yield typeorm_1.getRepository(Item_1.Item).findOne({ where: { productId: result.id } });
+        if (item) {
+            if (item.name !== result.therapistName || item.description !== result.description || item.thumbnail !== result.thumbnail) {
+                if (item.name !== result.therapistName) {
+                    item.name = result.therapistName;
+                }
+                if (item.description !== result.description) {
+                    item.description = result.description;
+                }
+                if (item.thumbnail !== result.thumbnail) {
+                    item.thumbnail = result.thumbnail;
+                }
+                yield typeorm_1.getRepository(Item_1.Item).save(item);
+            }
+        }
+        return res.json(result);
     });
 }
 exports.updateTreatment = updateTreatment;

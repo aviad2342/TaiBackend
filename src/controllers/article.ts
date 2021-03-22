@@ -53,10 +53,10 @@ export async function updateArticle(req: Request, res: Response): Promise<any> {
         }
     }
 
-    let results: Article;
+    let result: Article;
     try {
         getRepository(Article).merge(article, req.body);
-        results = await getRepository(Article).save(article);
+        result = await getRepository(Article).save(article);
     } catch(error) {
         const imagePhat: string = article.thumbnail.replace("http://aviadbenhayun.com:3000/", "./src/");
         const pdfPhat: string = article.pdf.replace("http://aviadbenhayun.com:3000/", "./src/");
@@ -68,7 +68,23 @@ export async function updateArticle(req: Request, res: Response): Promise<any> {
         }
     }
 
-    return res.json(results);
+    const item: Item = await getRepository(Item).findOne({ where: { productId: result.id } });
+    if(item) {
+        if(item.name !== result.title || item.description !== result.subtitle || item.thumbnail !== result.thumbnail) {
+            if(item.name !== result.title) {
+                item.name = result.title;
+            }
+            if(item.description !== result.subtitle ) {
+                item.description = result.subtitle ;
+            }
+            if(item.thumbnail !== result.thumbnail) {
+                item.thumbnail = result.thumbnail;
+            }
+            await getRepository(Item).save(item);
+        }
+    }
+
+    return res.json(result);
 }
 
 

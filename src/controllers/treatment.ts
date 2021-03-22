@@ -41,8 +41,24 @@ export async function updateTreatment(req: Request, res: Response): Promise<any>
     }
     }
     getRepository(Treatment).merge(treatment, req.body);
-    const results: Treatment = await getRepository(Treatment).save(treatment);
-    return res.json(results);
+    const result: Treatment = await getRepository(Treatment).save(treatment);
+
+    const item: Item = await getRepository(Item).findOne({ where: { productId: result.id } });
+    if(item) {
+        if(item.name !== result.therapistName || item.description !== result.description || item.thumbnail !== result.thumbnail) {
+            if(item.name !== result.therapistName) {
+                item.name = result.therapistName;
+            }
+            if(item.description !== result.description ) {
+                item.description = result.description ;
+            }
+            if(item.thumbnail !== result.thumbnail) {
+                item.thumbnail = result.thumbnail;
+            }
+            await getRepository(Item).save(item);
+        }
+    }
+    return res.json(result);
 }
 
 

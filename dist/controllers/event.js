@@ -49,8 +49,23 @@ function updateEvent(req, res) {
             }
         }
         typeorm_1.getRepository(Event_1.Event).merge(event, req.body);
-        const results = yield typeorm_1.getRepository(Event_1.Event).save(event);
-        return res.json(results);
+        const result = yield typeorm_1.getRepository(Event_1.Event).save(event);
+        const item = yield typeorm_1.getRepository(Item_1.Item).findOne({ where: { productId: result.id } });
+        if (item) {
+            if (item.name !== result.title || item.description !== result.description || item.thumbnail !== result.thumbnail) {
+                if (item.name !== result.title) {
+                    item.name = result.title;
+                }
+                if (item.description !== result.description) {
+                    item.description = result.description;
+                }
+                if (item.thumbnail !== result.thumbnail) {
+                    item.thumbnail = result.thumbnail;
+                }
+                yield typeorm_1.getRepository(Item_1.Item).save(item);
+            }
+        }
+        return res.json(result);
     });
 }
 exports.updateEvent = updateEvent;

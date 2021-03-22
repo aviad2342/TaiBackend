@@ -45,6 +45,9 @@ export class Article extends BaseEntity {
     @OneToMany(type => Comment, comment => comment.article, {onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true} )
     comments: Comment[];
 
+    @Column("boolean")
+    isPublic: boolean;
+
     @BeforeInsert()
     addId(): void {
         this.id = uuidv4();

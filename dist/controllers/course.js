@@ -54,8 +54,23 @@ function updateCourse(req, res) {
             }
         }
         typeorm_1.getRepository(Course_1.Course).merge(course, req.body);
-        const results = yield typeorm_1.getRepository(Course_1.Course).save(course);
-        return res.json(results);
+        const result = yield typeorm_1.getRepository(Course_1.Course).save(course);
+        const item = yield typeorm_1.getRepository(Item_1.Item).findOne({ where: { productId: result.id } });
+        if (item) {
+            if (item.name !== result.title || item.description !== result.description || item.thumbnail !== result.thumbnail) {
+                if (item.name !== result.title) {
+                    item.name = result.title;
+                }
+                if (item.description !== result.description) {
+                    item.description = result.description;
+                }
+                if (item.thumbnail !== result.thumbnail) {
+                    item.thumbnail = result.thumbnail;
+                }
+                yield typeorm_1.getRepository(Item_1.Item).save(item);
+            }
+        }
+        return res.json(result);
     });
 }
 exports.updateCourse = updateCourse;

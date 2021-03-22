@@ -67,10 +67,10 @@ function updateArticle(req, res) {
                 fs.unlinkSync(pdfPhat);
             }
         }
-        let results;
+        let result;
         try {
             typeorm_1.getRepository(Article_1.Article).merge(article, req.body);
-            results = yield typeorm_1.getRepository(Article_1.Article).save(article);
+            result = yield typeorm_1.getRepository(Article_1.Article).save(article);
         }
         catch (error) {
             const imagePhat = article.thumbnail.replace("http://aviadbenhayun.com:3000/", "./src/");
@@ -82,7 +82,22 @@ function updateArticle(req, res) {
                 fs.unlinkSync(pdfPhat);
             }
         }
-        return res.json(results);
+        const item = yield typeorm_1.getRepository(Item_1.Item).findOne({ where: { productId: result.id } });
+        if (item) {
+            if (item.name !== result.title || item.description !== result.subtitle || item.thumbnail !== result.thumbnail) {
+                if (item.name !== result.title) {
+                    item.name = result.title;
+                }
+                if (item.description !== result.subtitle) {
+                    item.description = result.subtitle;
+                }
+                if (item.thumbnail !== result.thumbnail) {
+                    item.thumbnail = result.thumbnail;
+                }
+                yield typeorm_1.getRepository(Item_1.Item).save(item);
+            }
+        }
+        return res.json(result);
     });
 }
 exports.updateArticle = updateArticle;

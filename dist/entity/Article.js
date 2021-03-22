@@ -70,6 +70,10 @@ __decorate([
     __metadata("design:type", Array)
 ], Article.prototype, "comments", void 0);
 __decorate([
+    typeorm_1.Column("boolean"),
+    __metadata("design:type", Boolean)
+], Article.prototype, "isPublic", void 0);
+__decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

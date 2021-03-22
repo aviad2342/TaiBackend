@@ -41,8 +41,24 @@ export async function updateCourse(req: Request, res: Response): Promise<any> {
     }
     }
     getRepository(Course).merge(course, req.body);
-    const results: Course = await getRepository(Course).save(course);
-    return res.json(results);
+    const result: Course = await getRepository(Course).save(course);
+
+    const item: Item = await getRepository(Item).findOne({ where: { productId: result.id } });
+    if(item) {
+        if(item.name !== result.title || item.description !== result.description || item.thumbnail !== result.thumbnail) {
+            if(item.name !== result.title) {
+                item.name = result.title;
+            }
+            if(item.description !== result.description ) {
+                item.description = result.description ;
+            }
+            if(item.thumbnail !== result.thumbnail) {
+                item.thumbnail = result.thumbnail;
+            }
+            await getRepository(Item).save(item);
+        }
+    }
+    return res.json(result);
 }
 
 export async function updateCourseAndThumbnail(req: Request, res: Response): Promise<any> {

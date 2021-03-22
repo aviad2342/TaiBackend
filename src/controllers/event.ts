@@ -36,8 +36,24 @@ export async function updateEvent(req: Request, res: Response): Promise<any> {
     }
     }
     getRepository(Event).merge(event, req.body);
-    const results: Event = await getRepository(Event).save(event);
-    return res.json(results);
+    const result: Event = await getRepository(Event).save(event);
+
+    const item: Item = await getRepository(Item).findOne({ where: { productId: result.id } });
+    if(item) {
+        if(item.name !== result.title || item.description !== result.description || item.thumbnail !== result.thumbnail) {
+            if(item.name !== result.title) {
+                item.name = result.title;
+            }
+            if(item.description !== result.description ) {
+                item.description = result.description ;
+            }
+            if(item.thumbnail !== result.thumbnail) {
+                item.thumbnail = result.thumbnail;
+            }
+            await getRepository(Item).save(item);
+        }
+    }
+    return res.json(result);
 }
 
 export async function updateEventAndThumbnail(req: Request, res: Response): Promise<any> {
