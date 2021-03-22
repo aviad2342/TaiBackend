@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 require("reflect-metadata");
 const path = require("path");
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const typeorm_1 = require("typeorm");
 const auth_1 = require("./routes/auth");
@@ -30,14 +29,18 @@ const cartItem_1 = require("./routes/cartItem");
 const coupon_1 = require("./routes/coupon");
 const register_1 = require("./routes/register");
 const testimony_1 = require("./routes/testimony");
+const update_1 = require("./routes/update");
+const video_1 = require("./routes/video");
 typeorm_1.createConnection().then(connection => {
     // create and setup express app
     const app = express();
     // the port the express app will listen on
     const port = process.env.PORT || "3000";
     app.use(cors());
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(express.json());
+    app.use(express.urlencoded());
+    // app.use(bodyParser.json());
+    // app.use(bodyParser.urlencoded({ extended: false }));
     app.use(express.static("src"));
     app.use("/images", express.static(path.join("TaiBackend/src/images")));
     app.use("/userImages", express.static(path.join("TaiBackend/src/userImages")));
@@ -69,6 +72,8 @@ typeorm_1.createConnection().then(connection => {
     app.use("/api/lesson", lesson_1.lessonRouter);
     app.use("/api/comment", comment_1.commentRouter);
     app.use("/api/testimony", testimony_1.testimonyRouter);
+    app.use("/api/update", update_1.updateRouter);
+    app.use("/api/video", video_1.videoRouter);
     app.use("/api/event", event_1.eventRouter);
     app.use("/api/speaker", speaker_1.speakerRouter);
     app.use("/api/participant", participant_1.participantRouter);

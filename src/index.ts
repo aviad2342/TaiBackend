@@ -30,6 +30,8 @@ import { cartItemRouter } from "./routes/cartItem";
 import { couponRouter } from "./routes/coupon";
 import { registrationRouter } from "./routes/register";
 import { testimonyRouter } from "./routes/testimony";
+import { updateRouter } from "./routes/update";
+import { videoRouter } from "./routes/video";
 
 
 createConnection().then(connection => {
@@ -40,8 +42,10 @@ createConnection().then(connection => {
     const port: string = process.env.PORT || "3000";
 
     app.use(cors());
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(express.json());
+    app.use(express.urlencoded());
+    // app.use(bodyParser.json());
+    // app.use(bodyParser.urlencoded({ extended: false }));
     app.use(express.static("src"));
     app.use("/images", express.static(path.join("TaiBackend/src/images")));
     app.use("/userImages", express.static(path.join("TaiBackend/src/userImages")));
@@ -75,6 +79,8 @@ createConnection().then(connection => {
     app.use("/api/lesson",lessonRouter);
     app.use("/api/comment",commentRouter);
     app.use("/api/testimony",testimonyRouter);
+    app.use("/api/update",updateRouter);
+    app.use("/api/video",videoRouter);
     app.use("/api/event",eventRouter);
     app.use("/api/speaker",speakerRouter);
     app.use("/api/participant",participantRouter);

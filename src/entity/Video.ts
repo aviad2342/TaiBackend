@@ -1,46 +1,30 @@
 import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn, OneToMany, BeforeInsert} from "typeorm";
 import { v4 as uuidv4 } from "uuid";
-import { Lesson } from "./Lesson";
 
 
 @Entity()
-export class Course extends BaseEntity {
+export class Video {
 
     @PrimaryColumn("uuid")
     id: string;
 
     @Column("varchar", {length:255})
-    authorId: string;
+    videoId: string;
 
     @Column("varchar", {length:255})
-    authorName: string;
-
-    @Column("varchar", {length:255})
-    catalogNumber: string;
+    videoURL: string;
 
     @Column("varchar", {length:255})
     title: string;
 
-    @Column({ type: "text" })
+    @Column("varchar", {length:255})
     description: string;
 
     @Column("datetime")
     date: Date;
 
-    @Column("datetime")
-    lastEdit: Date;
-
     @Column("varchar", {length:255})
     thumbnail: string;
-
-    @Column({ type: "int" })
-    courseLessons: string;
-
-    @OneToMany(type => Lesson, lesson => lesson.course, {onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true} )
-    lessons: Lesson[];
-
-    @Column("boolean")
-    isPublic: boolean;
 
     @BeforeInsert()
     addId(): void {
