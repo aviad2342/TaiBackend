@@ -3,6 +3,7 @@ import {getConnection, Repository, DeleteResult, FindOptionsUtils} from "typeorm
 import {getRepository} from "typeorm";
 import * as fs from  "fs";
 import { Order } from "../entity/Order";
+import { v4 as uuidv4 } from "uuid";
 
 
 export async function getOrders(req: Request, res: Response): Promise<void> {
@@ -46,4 +47,9 @@ export async function getOrdersByItem(req: Request, res: Response): Promise<any>
 export async function getOrdersByCustomer(req: Request, res: Response): Promise<any> {
     const orders: Order[] = await getRepository(Order).find({ where: { customer: req.params.customer } });
     return res.json(orders);
+}
+
+export async function commitPayment(req: Request, res: Response): Promise<any> {
+    const confirmPaymentNumber: string = uuidv4();
+    return res.json(confirmPaymentNumber);
 }

@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Order_1 = require("../entity/Order");
+const uuid_1 = require("uuid");
 function getOrders(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const orders = yield typeorm_1.getRepository(Order_1.Order).find();
@@ -69,4 +70,11 @@ function getOrdersByCustomer(req, res) {
     });
 }
 exports.getOrdersByCustomer = getOrdersByCustomer;
+function commitPayment(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const confirmPaymentNumber = uuid_1.v4();
+        return res.json(confirmPaymentNumber);
+    });
+}
+exports.commitPayment = commitPayment;
 //# sourceMappingURL=order.js.map

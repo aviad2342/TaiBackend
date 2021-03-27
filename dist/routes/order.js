@@ -9,6 +9,7 @@ router.get("/order/items/:id", OrderController.getOrderItems);
 router.get("/orders/customer/:id", OrderController.getOrdersByCustomer);
 router.get("/orders/item/:id", OrderController.getOrdersByItem);
 router.post("/order", OrderController.addOrder);
+router.post("/payment", OrderController.commitPayment);
 router.put("/order/:id", OrderController.updateOrder);
 router.delete("/order/:id", OrderController.deleteOrder);
 exports.orderRouter = router;
