@@ -9,6 +9,7 @@ router.get("/customer/email/:email", CustomerController.getCustomerByMail);
 router.get("/customer/orders/:id", CustomerController.getCustomerByMail);
 router.post("/customer", CustomerController.addCustomer);
 router.put("/customer/:id", CustomerController.updateCustomer);
+router.put("/customer/user/:id", CustomerController.createCustomer);
 router.delete("/customer/:id", CustomerController.deleteCustomer);
 exports.customerRouter = router;
 //# sourceMappingURL=customer.js.map

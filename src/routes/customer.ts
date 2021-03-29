@@ -17,6 +17,8 @@ router.post("/customer", CustomerController.addCustomer);
 
 router.put("/customer/:id", CustomerController.updateCustomer);
 
+router.put("/customer/user/:id", CustomerController.createCustomer);
+
 router.delete("/customer/:id", CustomerController.deleteCustomer);
 
 
