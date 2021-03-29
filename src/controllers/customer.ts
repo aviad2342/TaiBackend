@@ -31,13 +31,12 @@ export async function getCustomer(req: Request, res: Response): Promise<void> {
 }
 
 export async function createCustomer(req: Request, res: Response): Promise<any> {
-    let user: User = await getRepository(User).findOne(req.params.id);
+    const user: User = await getRepository(User).findOne(req.params.id);
     const customerObj: any = getRepository(Customer).create(req.body);
     let customer: Customer = new Customer();
     customer = customerObj;
-    user = customer;
-    // getRepository(User).merge(user, customer);
-    const results: User = await getRepository(User).save(user);
+    getRepository(User).merge(user, customer);
+    const results: User = await getRepository(User).save(customer);
     return res.json(results);
 }
 

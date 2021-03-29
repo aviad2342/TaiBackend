@@ -42,13 +42,12 @@ function addCustomer(req, res) {
 exports.addCustomer = addCustomer;
 function createCustomer(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        let user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id);
+        const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id);
         const customerObj = typeorm_1.getRepository(Customer_1.Customer).create(req.body);
         let customer = new Customer_1.Customer();
         customer = customerObj;
-        user = customer;
-        // getRepository(User).merge(user, customer);
-        const results = yield typeorm_1.getRepository(User_1.User).save(user);
+        typeorm_1.getRepository(User_1.User).merge(user, customer);
+        const results = yield typeorm_1.getRepository(User_1.User).save(customer);
         return res.json(results);
     });
 }
