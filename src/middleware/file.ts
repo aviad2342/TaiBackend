@@ -18,7 +18,8 @@ const storage: multer.StorageEngine = multer.diskStorage({
     filename (req: any, file: any, cb: any): any {
         const name: any = file.originalname.toLowerCase().split("@");
         const ext: any = MIME_TYPE_MAP[file.mimetype];
-        cb(null, name[0] + "@" + name[1] + "." + ext);
+        const stemp: any = Date.now();
+        cb(null, stemp + "@" + name[0] + "." + ext);
     }
 });
 

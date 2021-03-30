@@ -18,7 +18,8 @@ const storage = multer.diskStorage({
     filename(req, file, cb) {
         const name = file.originalname.toLowerCase().split("@");
         const ext = MIME_TYPE_MAP[file.mimetype];
-        cb(null, name[0] + "@" + name[1] + "." + ext);
+        const stemp = Date.now();
+        cb(null, stemp + "@" + name[0] + "." + ext);
     }
 });
 exports.upload = multer({ storage }).single("image");
