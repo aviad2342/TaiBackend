@@ -15,6 +15,9 @@ export class Video {
     videoURL: string;
 
     @Column("varchar", {length:255})
+    embed: string;
+
+    @Column("varchar", {length:255})
     title: string;
 
     @Column("varchar", {length:255})

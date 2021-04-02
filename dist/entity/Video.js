@@ -31,6 +31,10 @@ __decorate([
 __decorate([
     typeorm_1.Column("varchar", { length: 255 }),
     __metadata("design:type", String)
+], Video.prototype, "embed", void 0);
+__decorate([
+    typeorm_1.Column("varchar", { length: 255 }),
+    __metadata("design:type", String)
 ], Video.prototype, "title", void 0);
 __decorate([
     typeorm_1.Column("varchar", { length: 255 }),
