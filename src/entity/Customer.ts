@@ -1,12 +1,10 @@
 import {Column, ChildEntity, OneToMany} from "typeorm";
-import { Order } from "./Order";
-import { User } from "./User";
 
 
 @ChildEntity()
-export class Customer extends User {
+export class Customer {
 
-    @OneToMany(type => Order, order => order.customer, {onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true} )
-    orders: Order[];
+    @Column("varchar", {length:255})
+    orders: string;
 
 }

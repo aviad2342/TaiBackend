@@ -4,7 +4,7 @@ const express_1 = require("express");
 const CartController = require("../controllers/cart");
 const router = express_1.Router();
 router.get("/cart/customer/:id", CartController.getCustomerCart);
-router.get("/items/:customerId/:itemId", CartController.isItemInCart);
+router.get("/items/:id/:itemId", CartController.isItemInCart);
 router.get("/cart/:id", CartController.getCart);
 router.post("/cart", CartController.addCart);
 router.post("/item", CartController.addCartItem);

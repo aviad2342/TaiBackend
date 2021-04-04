@@ -20,7 +20,7 @@ function getOrders(req, res) {
 exports.getOrders = getOrders;
 function getOrder(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const order = yield typeorm_1.getRepository(Order_1.Order).findOne(req.params.id, { relations: ["customer", "address", "items"] });
+        const order = yield typeorm_1.getRepository(Order_1.Order).findOne(req.params.id, { relations: ["user", "address", "items"] });
         res.json(order);
     });
 }
@@ -65,7 +65,7 @@ function getOrdersByItem(req, res) {
 exports.getOrdersByItem = getOrdersByItem;
 function getOrdersByCustomer(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const orders = yield typeorm_1.getRepository(Order_1.Order).find({ where: { customer: req.params.customer } });
+        const orders = yield typeorm_1.getRepository(Order_1.Order).find({ where: { user: req.params.user } });
         return res.json(orders);
     });
 }

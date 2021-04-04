@@ -6,6 +6,8 @@ import * as fs from  "fs";
 import * as nodemailer from 'nodemailer';
 import { Registered } from "../entity/registered";
 import { PasswordReset } from "../entity/PasswordReset";
+import { Address } from "../entity/Address";
+import { UserAddress } from "../entity/UserAddress";
 
 
 export async function getRegisteredUsers(req: Request, res: Response): Promise<void> {
@@ -49,6 +51,13 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
       resObject.success = false;
       return res.json(resObject);
     }
+    const address = new UserAddress();
+      address.country = pendingUser.country;
+      address.city = pendingUser.city;
+      address.street = pendingUser.street;
+      address.houseNumber = +pendingUser.houseNumber;
+      address.apartment = pendingUser.apartment;
+      address.entry = pendingUser.entry;
 
       const newUser = new User();
         newUser.id = pendingUser.id;
@@ -58,12 +67,7 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
         newUser.phone = pendingUser.phone;
         newUser.email = pendingUser.email;
         newUser.date = pendingUser.date;
-        newUser.country = pendingUser.country;
-        newUser.city = pendingUser.city;
-        newUser.street = pendingUser.street;
-        newUser.houseNumber = pendingUser.houseNumber;
-        newUser.apartment = pendingUser.apartment;
-        newUser.entry = pendingUser.entry;
+        newUser.address = address;
         newUser.profilePicture = pendingUser.profilePicture;
 
     const user: any = getRepository(User).create(newUser);

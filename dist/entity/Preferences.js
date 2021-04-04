@@ -11,44 +11,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const uuid_1 = require("uuid");
-class Address {
+let Preferences = class Preferences {
     addId() {
         this.id = uuid_1.v4();
     }
-}
+};
 __decorate([
     typeorm_1.PrimaryColumn("uuid"),
     __metadata("design:type", String)
-], Address.prototype, "id", void 0);
+], Preferences.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column("varchar", { length: 255 }),
     __metadata("design:type", String)
-], Address.prototype, "country", void 0);
+], Preferences.prototype, "language", void 0);
 __decorate([
     typeorm_1.Column("varchar", { length: 255 }),
     __metadata("design:type", String)
-], Address.prototype, "city", void 0);
+], Preferences.prototype, "color", void 0);
 __decorate([
     typeorm_1.Column("varchar", { length: 255 }),
     __metadata("design:type", String)
-], Address.prototype, "street", void 0);
-__decorate([
-    typeorm_1.Column({ type: "int" }),
-    __metadata("design:type", Number)
-], Address.prototype, "houseNumber", void 0);
+], Preferences.prototype, "brightness", void 0);
 __decorate([
     typeorm_1.Column("varchar", { length: 255 }),
     __metadata("design:type", String)
-], Address.prototype, "apartment", void 0);
-__decorate([
-    typeorm_1.Column("varchar", { length: 255 }),
-    __metadata("design:type", String)
-], Address.prototype, "entry", void 0);
+], Preferences.prototype, "volume", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], Address.prototype, "addId", null);
-exports.Address = Address;
-//# sourceMappingURL=Address.js.map
+], Preferences.prototype, "addId", null);
+Preferences = __decorate([
+    typeorm_1.Entity()
+], Preferences);
+exports.Preferences = Preferences;
+//# sourceMappingURL=Preferences.js.map

@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const uuid_1 = require("uuid");
 const CartItem_1 = require("./CartItem");
-const Customer_1 = require("./Customer");
 let Cart = class Cart {
     addId() {
         this.id = uuid_1.v4();
@@ -23,12 +22,8 @@ __decorate([
     __metadata("design:type", String)
 ], Cart.prototype, "id", void 0);
 __decorate([
-    typeorm_1.OneToOne(() => Customer_1.Customer),
+    typeorm_1.OneToMany(() => CartItem_1.CartItem, cartItem => cartItem.cart, { nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
     typeorm_1.JoinColumn(),
-    __metadata("design:type", Customer_1.Customer)
-], Cart.prototype, "customer", void 0);
-__decorate([
-    typeorm_1.OneToMany(type => CartItem_1.CartItem, cartItem => cartItem.cart, { onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
     __metadata("design:type", Array)
 ], Cart.prototype, "items", void 0);
 __decorate([

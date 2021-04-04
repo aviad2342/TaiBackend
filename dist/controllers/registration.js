@@ -14,6 +14,7 @@ const fs = require("fs");
 const nodemailer = require("nodemailer");
 const registered_1 = require("../entity/registered");
 const PasswordReset_1 = require("../entity/PasswordReset");
+const UserAddress_1 = require("../entity/UserAddress");
 function getRegisteredUsers(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const users = yield typeorm_1.getRepository(registered_1.Registered).find();
@@ -56,6 +57,13 @@ function verifyUser(req, res) {
             resObject.success = false;
             return res.json(resObject);
         }
+        const address = new UserAddress_1.UserAddress();
+        address.country = pendingUser.country;
+        address.city = pendingUser.city;
+        address.street = pendingUser.street;
+        address.houseNumber = +pendingUser.houseNumber;
+        address.apartment = pendingUser.apartment;
+        address.entry = pendingUser.entry;
         const newUser = new User_1.User();
         newUser.id = pendingUser.id;
         newUser.firstName = pendingUser.firstName;
@@ -64,12 +72,7 @@ function verifyUser(req, res) {
         newUser.phone = pendingUser.phone;
         newUser.email = pendingUser.email;
         newUser.date = pendingUser.date;
-        newUser.country = pendingUser.country;
-        newUser.city = pendingUser.city;
-        newUser.street = pendingUser.street;
-        newUser.houseNumber = pendingUser.houseNumber;
-        newUser.apartment = pendingUser.apartment;
-        newUser.entry = pendingUser.entry;
+        newUser.address = address;
         newUser.profilePicture = pendingUser.profilePicture;
         const user = typeorm_1.getRepository(User_1.User).create(newUser);
         const results = yield typeorm_1.getRepository(User_1.User).save(user).catch(error => {

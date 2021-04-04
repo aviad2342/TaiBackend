@@ -13,7 +13,7 @@ const Cart_1 = require("../entity/Cart");
 const CartItem_1 = require("../entity/CartItem");
 function getCart(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const cart = yield typeorm_1.getRepository(Cart_1.Cart).findOne(req.params.id, { relations: ["items", "customer"] });
+        const cart = yield typeorm_1.getRepository(Cart_1.Cart).findOne(req.params.id, { relations: ["items"] });
         res.json(cart);
     });
 }
@@ -27,7 +27,7 @@ function getCustomerCart(req, res) {
 exports.getCustomerCart = getCustomerCart;
 function isItemInCart(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const cart = yield typeorm_1.getRepository(Cart_1.Cart).findOne({ where: { customer: req.params.customerId }, relations: ["items"] });
+        const cart = yield typeorm_1.getRepository(Cart_1.Cart).findOne(req.params.id, { relations: ["items"] });
         let inCart = false;
         if (cart.items) {
             inCart = cart.items.map(i => i.itemId).includes(req.params.itemId);

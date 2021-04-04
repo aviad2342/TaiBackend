@@ -9,6 +9,16 @@ router.get("/users", UserController.getUsers);
 
 router.get("/user/:id", UserController.getUser);
 
+router.get("/address/:id", UserController.getUserAddress);
+
+router.get("/preferences/:id", UserController.getUserPreferences);
+
+router.get("/cart/:id", UserController.getUserCart);
+
+router.get("/orders/:id", UserController.getUserOrders);
+
+router.get("/full/:id", UserController.getFullUser);
+
 router.get("/resetpassword/:token", UserController.getPasswordReset);
 
 router.get("/user/email/:email", UserController.getUserByMail);

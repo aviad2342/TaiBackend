@@ -67,7 +67,7 @@ __decorate([
     __metadata("design:type", Number)
 ], CartItem.prototype, "units", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => Cart_1.Cart, cart => cart.items, { onDelete: "CASCADE" }),
+    typeorm_1.ManyToOne(() => Cart_1.Cart, cart => cart.items, { onDelete: "CASCADE" }),
     __metadata("design:type", Cart_1.Cart)
 ], CartItem.prototype, "cart", void 0);
 __decorate([

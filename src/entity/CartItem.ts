@@ -43,7 +43,7 @@ export class CartItem extends BaseEntity {
     @Column({ type: "int" })
     units: number;
 
-    @ManyToOne(type => Cart, cart => cart.items , {onDelete: "CASCADE"})
+    @ManyToOne(() => Cart, cart => cart.items , {onDelete: "CASCADE"})
     cart: Cart;
 
     @BeforeInsert()

@@ -1,6 +1,10 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn, BeforeInsert, TableInheritance} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, PrimaryColumn, BeforeInsert, TableInheritance, OneToOne, JoinColumn, OneToMany} from "typeorm";
 import { v4 as uuidv4 } from "uuid";
 import * as bcrypt from "bcrypt";
+import { Preferences } from "./Preferences";
+import { Cart } from "./Cart";
+import { Order } from "./Order";
+import { UserAddress } from "./UserAddress";
 
 @Entity()
 @TableInheritance({ column: { type: "varchar", name: "type" } })
@@ -28,25 +32,25 @@ export class User extends BaseEntity {
     date: Date;
 
     @Column("varchar", {length:255})
-    country: string;
-
-    @Column("varchar", {length:255})
-    city: string;
-
-    @Column("varchar", {length:255})
-    street: string;
-
-    @Column("varchar", {length:255})
-    houseNumber: string;
-
-    @Column("varchar", {length:255})
-    apartment: string;
-
-    @Column("varchar", {length:255})
-    entry: string;
-
-    @Column("varchar", {length:255})
     profilePicture: string;
+
+    @OneToOne(() => UserAddress)
+    @JoinColumn()
+    address: UserAddress;
+
+    @OneToOne(() => Preferences, {nullable: true})
+    @JoinColumn()
+    preferences: Preferences;
+
+    @Column("simple-array", {nullable: true})
+    savedVideos: string[];
+
+    @OneToOne(() => Cart , {nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true})
+    @JoinColumn()
+    cart: Cart;
+
+    @OneToMany(() => Order, order => order.user, {nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true} )
+    orders: Order[];
 
     @BeforeInsert()
     addId(): void {

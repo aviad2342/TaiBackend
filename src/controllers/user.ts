@@ -10,16 +10,41 @@ import { PasswordReset } from "../entity/PasswordReset";
  // const userRepository: Repository<User> = await getRepository(User);
 
 export async function getUsers(req: Request, res: Response): Promise<void> {
-    const users: User[] = await getRepository(User).find();
+    const users: User[] = await getRepository(User).find({ relations: ["address"]});
         res.json(users);
 }
 
 export async function getUser(req: Request, res: Response): Promise<void> {
-     const user: User = await getRepository(User).findOne(req.params.id);
+     const user: User = await getRepository(User).findOne(req.params.id, { relations: ["address"]});
          res.json(user);
  }
 
- export async function addUser(req: Request, res: Response): Promise<any> {
+export async function getUserAddress(req: Request, res: Response): Promise<void> {
+    const user: User = await getRepository(User).findOne(req.params.id, { relations: ["address"]});
+        res.json(user.address);
+}
+
+export async function getUserPreferences(req: Request, res: Response): Promise<void> {
+    const user: User = await getRepository(User).findOne(req.params.id, { relations: ["address", "preferences"]});
+        res.json(user.preferences);
+}
+
+export async function getUserCart(req: Request, res: Response): Promise<void> {
+    const user: User = await getRepository(User).findOne(req.params.id, { relations: ["address", "cart"]});
+        res.json(user.cart);
+}
+
+export async function getUserOrders(req: Request, res: Response): Promise<void> {
+    const user: User = await getRepository(User).findOne(req.params.id, { relations: ["address", "orders"]});
+        res.json(user.orders);
+}
+
+export async function getFullUser(req: Request, res: Response): Promise<void> {
+    const user: User = await getRepository(User).findOne(req.params.id, { relations: ["address", "preferences", "cart", "orders"]});
+        res.json(user);
+}
+
+export async function addUser(req: Request, res: Response): Promise<any> {
      const user: any = getRepository(User).create(req.body);
 
     // hash the password, to securely store on DB

@@ -12,7 +12,7 @@ export async function getOrders(req: Request, res: Response): Promise<void> {
 }
 
 export async function getOrder(req: Request, res: Response): Promise<void> {
-     const order: Order = await getRepository(Order).findOne(req.params.id, { relations: ["customer", "address", "items"]});
+     const order: Order = await getRepository(Order).findOne(req.params.id, { relations: ["user", "address", "items"]});
          res.json(order);
  }
 
@@ -45,7 +45,7 @@ export async function getOrdersByItem(req: Request, res: Response): Promise<any>
 }
 
 export async function getOrdersByCustomer(req: Request, res: Response): Promise<any> {
-    const orders: Order[] = await getRepository(Order).find({ where: { customer: req.params.customer } });
+    const orders: Order[] = await getRepository(Order).find({ where: { user: req.params.user } });
     return res.json(orders);
 }
 

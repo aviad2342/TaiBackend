@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Customer } from "./Customer";
 import { DeliveryAddress } from "./deliveryAddress";
 import { OrderItem } from "./OrderItem";
+import { User } from "./User";
 
 
 @Entity()
@@ -35,17 +36,17 @@ export class Order {
     @Column("boolean")
     receivedPayment: boolean;
 
-    @Column("varchar", {length:255})
+    @Column("varchar", {length:255, nullable: true})
     confirmPaymentNumber: string;
 
-    @ManyToOne(type => Customer, customer => customer.orders , {onDelete: "CASCADE"})
-    customer: Customer;
+    @ManyToOne(() => User, user => user.orders , {onDelete: "CASCADE"})
+    user: User;
 
-    @OneToOne(() => DeliveryAddress, {onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true})
+    @OneToOne(() => DeliveryAddress, {nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true})
     @JoinColumn()
     address: DeliveryAddress;
 
-    @OneToMany(type => OrderItem, orderItem => orderItem.order, {onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true} )
+    @OneToMany(() => OrderItem, orderItem => orderItem.order, {nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true} )
     items: OrderItem[];
 
     @BeforeInsert()

@@ -12,6 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const uuid_1 = require("uuid");
 const bcrypt = require("bcrypt");
+const Preferences_1 = require("./Preferences");
+const Cart_1 = require("./Cart");
+const Order_1 = require("./Order");
+const UserAddress_1 = require("./UserAddress");
 let User = class User extends typeorm_1.BaseEntity {
     addId() {
         this.id = uuid_1.v4();
@@ -54,31 +58,30 @@ __decorate([
 __decorate([
     typeorm_1.Column("varchar", { length: 255 }),
     __metadata("design:type", String)
-], User.prototype, "country", void 0);
-__decorate([
-    typeorm_1.Column("varchar", { length: 255 }),
-    __metadata("design:type", String)
-], User.prototype, "city", void 0);
-__decorate([
-    typeorm_1.Column("varchar", { length: 255 }),
-    __metadata("design:type", String)
-], User.prototype, "street", void 0);
-__decorate([
-    typeorm_1.Column("varchar", { length: 255 }),
-    __metadata("design:type", String)
-], User.prototype, "houseNumber", void 0);
-__decorate([
-    typeorm_1.Column("varchar", { length: 255 }),
-    __metadata("design:type", String)
-], User.prototype, "apartment", void 0);
-__decorate([
-    typeorm_1.Column("varchar", { length: 255 }),
-    __metadata("design:type", String)
-], User.prototype, "entry", void 0);
-__decorate([
-    typeorm_1.Column("varchar", { length: 255 }),
-    __metadata("design:type", String)
 ], User.prototype, "profilePicture", void 0);
+__decorate([
+    typeorm_1.OneToOne(() => UserAddress_1.UserAddress),
+    typeorm_1.JoinColumn(),
+    __metadata("design:type", UserAddress_1.UserAddress)
+], User.prototype, "address", void 0);
+__decorate([
+    typeorm_1.OneToOne(() => Preferences_1.Preferences, { nullable: true }),
+    typeorm_1.JoinColumn(),
+    __metadata("design:type", Preferences_1.Preferences)
+], User.prototype, "preferences", void 0);
+__decorate([
+    typeorm_1.Column("simple-array", { nullable: true }),
+    __metadata("design:type", Array)
+], User.prototype, "savedVideos", void 0);
+__decorate([
+    typeorm_1.OneToOne(() => Cart_1.Cart, { nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
+    typeorm_1.JoinColumn(),
+    __metadata("design:type", Cart_1.Cart)
+], User.prototype, "cart", void 0);
+__decorate([
+    typeorm_1.OneToMany(() => Order_1.Order, order => order.user, { nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
+    __metadata("design:type", Array)
+], User.prototype, "orders", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),

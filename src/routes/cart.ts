@@ -7,7 +7,7 @@ const router: Router = Router();
 
 router.get("/cart/customer/:id", CartController.getCustomerCart);
 
-router.get("/items/:customerId/:itemId", CartController.isItemInCart);
+router.get("/items/:id/:itemId", CartController.isItemInCart);
 
 router.get("/cart/:id", CartController.getCart);
 

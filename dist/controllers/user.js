@@ -15,18 +15,53 @@ const PasswordReset_1 = require("../entity/PasswordReset");
 // const userRepository: Repository<User> = await getRepository(User);
 function getUsers(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const users = yield typeorm_1.getRepository(User_1.User).find();
+        const users = yield typeorm_1.getRepository(User_1.User).find({ relations: ["address"] });
         res.json(users);
     });
 }
 exports.getUsers = getUsers;
 function getUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id);
+        const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id, { relations: ["address"] });
         res.json(user);
     });
 }
 exports.getUser = getUser;
+function getUserAddress(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id, { relations: ["address"] });
+        res.json(user.address);
+    });
+}
+exports.getUserAddress = getUserAddress;
+function getUserPreferences(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id, { relations: ["address", "preferences"] });
+        res.json(user.preferences);
+    });
+}
+exports.getUserPreferences = getUserPreferences;
+function getUserCart(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id, { relations: ["address", "cart"] });
+        res.json(user.cart);
+    });
+}
+exports.getUserCart = getUserCart;
+function getUserOrders(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id, { relations: ["address", "orders"] });
+        res.json(user.orders);
+    });
+}
+exports.getUserOrders = getUserOrders;
+function getFullUser(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id, { relations: ["address", "preferences", "cart", "orders"] });
+        res.json(user);
+    });
+}
+exports.getFullUser = getFullUser;
 function addUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const user = typeorm_1.getRepository(User_1.User).create(req.body);

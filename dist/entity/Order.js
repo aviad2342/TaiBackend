@@ -11,9 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const uuid_1 = require("uuid");
-const Customer_1 = require("./Customer");
 const deliveryAddress_1 = require("./deliveryAddress");
 const OrderItem_1 = require("./OrderItem");
+const User_1 = require("./User");
 let Order = class Order {
     addId() {
         this.id = uuid_1.v4();
@@ -56,20 +56,20 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Order.prototype, "receivedPayment", void 0);
 __decorate([
-    typeorm_1.Column("varchar", { length: 255 }),
+    typeorm_1.Column("varchar", { length: 255, nullable: true }),
     __metadata("design:type", String)
 ], Order.prototype, "confirmPaymentNumber", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => Customer_1.Customer, customer => customer.orders, { onDelete: "CASCADE" }),
-    __metadata("design:type", Customer_1.Customer)
-], Order.prototype, "customer", void 0);
+    typeorm_1.ManyToOne(() => User_1.User, user => user.orders, { onDelete: "CASCADE" }),
+    __metadata("design:type", User_1.User)
+], Order.prototype, "user", void 0);
 __decorate([
-    typeorm_1.OneToOne(() => deliveryAddress_1.DeliveryAddress, { onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
+    typeorm_1.OneToOne(() => deliveryAddress_1.DeliveryAddress, { nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
     typeorm_1.JoinColumn(),
     __metadata("design:type", deliveryAddress_1.DeliveryAddress)
 ], Order.prototype, "address", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => OrderItem_1.OrderItem, orderItem => orderItem.order, { onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
+    typeorm_1.OneToMany(() => OrderItem_1.OrderItem, orderItem => orderItem.order, { nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
     __metadata("design:type", Array)
 ], Order.prototype, "items", void 0);
 __decorate([

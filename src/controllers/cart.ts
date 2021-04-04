@@ -6,7 +6,7 @@ import { CartItem } from "../entity/CartItem";
 
 
 export async function getCart(req: Request, res: Response): Promise<void> {
-    const cart: Cart = await getRepository(Cart).findOne(req.params.id, { relations: ["items", "customer"] });
+    const cart: Cart = await getRepository(Cart).findOne(req.params.id, { relations: ["items"] });
          res.json(cart);
 }
 
@@ -16,7 +16,7 @@ export async function getCustomerCart(req: Request, res: Response): Promise<void
  }
 
  export async function isItemInCart(req: Request, res: Response): Promise<void> {
-    const cart: Cart = await getRepository(Cart).findOne({where: { customer: req.params.customerId }, relations: ["items"] });
+    const cart: Cart = await getRepository(Cart).findOne(req.params.id, { relations: ["items"] });
     let inCart: boolean = false;
     if(cart.items) {
         inCart = cart.items.map(i => i.itemId).includes(req.params.itemId);
