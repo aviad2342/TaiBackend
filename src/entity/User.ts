@@ -34,22 +34,22 @@ export class User extends BaseEntity {
     @Column("varchar", {length:255})
     profilePicture: string;
 
-    @OneToOne(() => UserAddress)
+    @OneToOne(type => UserAddress)
     @JoinColumn()
     address: UserAddress;
 
-    @OneToOne(() => Preferences, {nullable: true})
+    @OneToOne(type => Preferences, {nullable: true})
     @JoinColumn()
     preferences: Preferences;
 
     @Column("simple-array", {nullable: true})
     savedVideos: string[];
 
-    @OneToOne(() => Cart , {nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true})
+    @OneToOne(type => Cart , {nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true})
     @JoinColumn()
     cart: Cart;
 
-    @OneToMany(() => Order, order => order.user, {nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true} )
+    @OneToMany(type => Order, order => order.user, {nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true} )
     orders: Order[];
 
     @BeforeInsert()

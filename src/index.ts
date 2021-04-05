@@ -1,7 +1,7 @@
 import * as express from "express";
 import "reflect-metadata";
 import * as path from  "path";
-import * as bodyParser from  "body-parser";
+// import * as bodyParser from  "body-parser";
 import * as cors from "cors";
 import {createConnection, Connection,Repository} from "typeorm";
 import { authRouter } from "./routes/auth";
@@ -43,7 +43,7 @@ createConnection().then(connection => {
 
     app.use(cors());
     app.use(express.json());
-    app.use(express.urlencoded());
+    app.use(express.urlencoded({ extended: false }));
     // app.use(bodyParser.json());
     // app.use(bodyParser.urlencoded({ extended: false }));
     app.use(express.static("src"));

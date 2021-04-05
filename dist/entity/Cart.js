@@ -13,6 +13,11 @@ const typeorm_1 = require("typeorm");
 const uuid_1 = require("uuid");
 const CartItem_1 = require("./CartItem");
 let Cart = class Cart {
+    // @OneToMany(type => CartItem, cartItem => cartItem.cart, {nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true} )
+    // @JoinColumn()
+    // items: CartItem[];
+    // @Column("varchar", {length:255, nullable: true})
+    // orderId: string;
     addId() {
         this.id = uuid_1.v4();
     }
@@ -22,8 +27,7 @@ __decorate([
     __metadata("design:type", String)
 ], Cart.prototype, "id", void 0);
 __decorate([
-    typeorm_1.OneToMany(() => CartItem_1.CartItem, cartItem => cartItem.cart, { nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
-    typeorm_1.JoinColumn(),
+    typeorm_1.OneToMany(type => CartItem_1.CartItem, cartItem => cartItem.cart, { nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
     __metadata("design:type", Array)
 ], Cart.prototype, "items", void 0);
 __decorate([

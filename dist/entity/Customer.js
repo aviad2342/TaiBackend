@@ -10,14 +10,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const uuid_1 = require("uuid");
 let Customer = class Customer {
+    addId() {
+        this.id = uuid_1.v4();
+    }
 };
 __decorate([
-    typeorm_1.Column("varchar", { length: 255 }),
+    typeorm_1.PrimaryColumn("uuid"),
     __metadata("design:type", String)
-], Customer.prototype, "orders", void 0);
+], Customer.prototype, "id", void 0);
+__decorate([
+    typeorm_1.BeforeInsert(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], Customer.prototype, "addId", null);
 Customer = __decorate([
-    typeorm_1.ChildEntity()
+    typeorm_1.Entity()
 ], Customer);
 exports.Customer = Customer;
 //# sourceMappingURL=Customer.js.map

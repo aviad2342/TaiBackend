@@ -1,10 +1,16 @@
-import {Column, ChildEntity, OneToMany} from "typeorm";
+import {Column, ChildEntity, OneToMany, Entity, PrimaryColumn, BeforeInsert} from "typeorm";
+import { v4 as uuidv4 } from "uuid";
 
 
-@ChildEntity()
+@Entity()
 export class Customer {
 
-    @Column("varchar", {length:255})
-    orders: string;
+    @PrimaryColumn("uuid")
+    id: string;
+
+    @BeforeInsert()
+    addId(): void {
+        this.id = uuidv4();
+    }
 
 }

@@ -39,15 +39,16 @@ export class Order {
     @Column("varchar", {length:255, nullable: true})
     confirmPaymentNumber: string;
 
-    @ManyToOne(() => User, user => user.orders , {onDelete: "CASCADE"})
-    user: User;
-
     @OneToOne(() => DeliveryAddress, {nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true})
     @JoinColumn()
     address: DeliveryAddress;
 
-    @OneToMany(() => OrderItem, orderItem => orderItem.order, {nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true} )
+    @OneToMany(type => OrderItem, orderItem => orderItem.order, {nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true} )
     items: OrderItem[];
+
+    @ManyToOne(type => User, user => user.orders , {onDelete: "CASCADE"})
+    @JoinColumn()
+    user: User;
 
     @BeforeInsert()
     addId(): void {

@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 require("reflect-metadata");
 const path = require("path");
+// import * as bodyParser from  "body-parser";
 const cors = require("cors");
 const typeorm_1 = require("typeorm");
 const auth_1 = require("./routes/auth");
@@ -38,7 +39,7 @@ typeorm_1.createConnection().then(connection => {
     const port = process.env.PORT || "3000";
     app.use(cors());
     app.use(express.json());
-    app.use(express.urlencoded());
+    app.use(express.urlencoded({ extended: false }));
     // app.use(bodyParser.json());
     // app.use(bodyParser.urlencoded({ extended: false }));
     app.use(express.static("src"));

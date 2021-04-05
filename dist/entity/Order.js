@@ -60,18 +60,19 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "confirmPaymentNumber", void 0);
 __decorate([
-    typeorm_1.ManyToOne(() => User_1.User, user => user.orders, { onDelete: "CASCADE" }),
-    __metadata("design:type", User_1.User)
-], Order.prototype, "user", void 0);
-__decorate([
     typeorm_1.OneToOne(() => deliveryAddress_1.DeliveryAddress, { nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
     typeorm_1.JoinColumn(),
     __metadata("design:type", deliveryAddress_1.DeliveryAddress)
 ], Order.prototype, "address", void 0);
 __decorate([
-    typeorm_1.OneToMany(() => OrderItem_1.OrderItem, orderItem => orderItem.order, { nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
+    typeorm_1.OneToMany(type => OrderItem_1.OrderItem, orderItem => orderItem.order, { nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
     __metadata("design:type", Array)
 ], Order.prototype, "items", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => User_1.User, user => user.orders, { onDelete: "CASCADE" }),
+    typeorm_1.JoinColumn(),
+    __metadata("design:type", User_1.User)
+], Order.prototype, "user", void 0);
 __decorate([
     typeorm_1.BeforeInsert(),
     __metadata("design:type", Function),
