@@ -34,18 +34,18 @@ export class User extends BaseEntity {
     @Column("varchar", {length:255})
     profilePicture: string;
 
-    @OneToOne(type => UserAddress)
+    @OneToOne(type => UserAddress, {onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true})
     @JoinColumn()
     address: UserAddress;
 
-    @OneToOne(type => Preferences, {nullable: true})
+    @OneToOne(type => Preferences, {nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true})
     @JoinColumn()
     preferences: Preferences;
 
     @Column("simple-array", {nullable: true})
     savedVideos: string[];
 
-    @OneToOne(type => Cart , {nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true})
+    @OneToOne(type => Cart, {nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true})
     @JoinColumn()
     cart: Cart;
 

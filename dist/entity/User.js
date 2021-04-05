@@ -60,12 +60,12 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "profilePicture", void 0);
 __decorate([
-    typeorm_1.OneToOne(type => UserAddress_1.UserAddress),
+    typeorm_1.OneToOne(type => UserAddress_1.UserAddress, { onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
     typeorm_1.JoinColumn(),
     __metadata("design:type", UserAddress_1.UserAddress)
 ], User.prototype, "address", void 0);
 __decorate([
-    typeorm_1.OneToOne(type => Preferences_1.Preferences, { nullable: true }),
+    typeorm_1.OneToOne(type => Preferences_1.Preferences, { nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
     typeorm_1.JoinColumn(),
     __metadata("design:type", Preferences_1.Preferences)
 ], User.prototype, "preferences", void 0);
