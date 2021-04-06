@@ -102,19 +102,21 @@ function updateUser(req, res) {
     });
 }
 exports.updateUser = updateUser;
-function updateUserAndProfilePicture(req, res) {
+function updateFullUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id);
-        const imagePhat = user.profilePicture.replace("http://aviadbenhayun.com:3000/", "./src/");
-        if (fs.existsSync(imagePhat)) {
-            fs.unlinkSync(imagePhat);
+        const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id, { relations: ["address", "preferences", "cart", "orders"] });
+        if (user.profilePicture !== req.body.profilePicture) {
+            const imagePhat = user.profilePicture.replace("http://aviadbenhayun.com:3000/", "./src/");
+            if (fs.existsSync(imagePhat)) {
+                fs.unlinkSync(imagePhat);
+            }
         }
         typeorm_1.getRepository(User_1.User).merge(user, req.body);
         const results = yield typeorm_1.getRepository(User_1.User).save(user);
         return res.json(results);
     });
 }
-exports.updateUserAndProfilePicture = updateUserAndProfilePicture;
+exports.updateFullUser = updateFullUser;
 function deleteUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id);

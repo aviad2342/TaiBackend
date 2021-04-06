@@ -16,7 +16,7 @@ router.post("/user", UserController.addUser);
 router.post("/register", UserController.registerUser);
 router.put("/user/:id", UserController.updateUser);
 router.put("/password/:id/:token", UserController.updateUserPassword);
-router.put("/user/image/:id", UserController.updateUserAndProfilePicture);
+router.put("/full/:id", UserController.updateFullUser);
 router.delete("/user/:id", UserController.deleteUser);
 exports.userRouter = router;
 //# sourceMappingURL=user.js.map

@@ -83,16 +83,19 @@ export async function updateUser(req: Request, res: Response): Promise<any> {
     return res.json(results);
 }
 
-export async function updateUserAndProfilePicture(req: Request, res: Response): Promise<any> {
-    const user: User = await getRepository(User).findOne(req.params.id);
-    const imagePhat: string = user.profilePicture.replace("http://aviadbenhayun.com:3000/", "./src/");
+export async function updateFullUser(req: Request, res: Response): Promise<any> {
+    const user: User = await getRepository(User).findOne(req.params.id, { relations: ["address", "preferences", "cart", "orders"]});
+    if(user.profilePicture !== req.body.profilePicture) {
+        const imagePhat: string = user.profilePicture.replace("http://aviadbenhayun.com:3000/", "./src/");
     if(fs.existsSync(imagePhat)) {
         fs.unlinkSync(imagePhat);
+    }
     }
     getRepository(User).merge(user, req.body);
     const results: User = await getRepository(User).save(user);
     return res.json(results);
 }
+
 
 export async function deleteUser(req: Request, res: Response): Promise<any> {
     const user: User = await getRepository(User).findOne(req.params.id);

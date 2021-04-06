@@ -13,11 +13,6 @@ const typeorm_1 = require("typeorm");
 const uuid_1 = require("uuid");
 const CartItem_1 = require("./CartItem");
 let Cart = class Cart {
-    // @OneToMany(type => CartItem, cartItem => cartItem.cart, {nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true} )
-    // @JoinColumn()
-    // items: CartItem[];
-    // @Column("varchar", {length:255, nullable: true})
-    // orderId: string;
     addId() {
         this.id = uuid_1.v4();
     }
