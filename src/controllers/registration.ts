@@ -35,7 +35,7 @@ export async function getRegisteredUser(req: Request, res: Response): Promise<vo
       notRegistered: false
     }
 
-    if (typeof pendingUser === undefined || !pendingUser) {
+    if (!pendingUser) {
       resObject.notRegistered = true;
       resObject.success = false;
       return res.json(resObject);

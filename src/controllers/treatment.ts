@@ -44,7 +44,7 @@ export async function updateTreatment(req: Request, res: Response): Promise<any>
     const result: Treatment = await getRepository(Treatment).save(treatment);
 
     const item: Item = await getRepository(Item).findOne({ where: { productId: result.id } });
-    if(typeof item !== undefined) {
+    if(item) {
         if(item.name !== result.therapistName || item.description !== result.description || item.thumbnail !== result.thumbnail) {
             if(item.name !== result.therapistName) {
                 item.name = result.therapistName;
@@ -69,7 +69,7 @@ export async function deleteTreatment(req: Request, res: Response): Promise<any>
         fs.unlinkSync(imagePhat);
     }
     const item: Item = await getRepository(Item).findOne({ where: { productId: treatment.id } });
-    if(typeof item !== undefined) {
+    if(item) {
         await getRepository(Item).delete(item.id);
     }
     const results: DeleteResult = await getRepository(Treatment).delete(req.params.id);

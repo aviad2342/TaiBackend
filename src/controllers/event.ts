@@ -39,7 +39,7 @@ export async function updateEvent(req: Request, res: Response): Promise<any> {
     const result: Event = await getRepository(Event).save(event);
 
     const item: Item = await getRepository(Item).findOne({ where: { productId: result.id } });
-    if(typeof item !== undefined) {
+    if(item) {
         if(item.name !== result.title || item.description !== result.description || item.thumbnail !== result.thumbnail) {
             if(item.name !== result.title) {
                 item.name = result.title;
@@ -81,7 +81,7 @@ export async function deleteEvent(req: Request, res: Response): Promise<any> {
         fs.unlinkSync(imagePhat);
     }
     const item: Item = await getRepository(Item).findOne({ where: { productId: event.id } });
-    if(typeof item !== undefined) {
+    if(item) {
         await getRepository(Item).delete(item.id);
     }
     const results: DeleteResult = await getRepository(Event).delete(req.params.id);

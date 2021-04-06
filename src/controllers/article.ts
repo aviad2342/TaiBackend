@@ -69,7 +69,7 @@ export async function updateArticle(req: Request, res: Response): Promise<any> {
     }
 
     const item: Item = await getRepository(Item).findOne({ where: { productId: result.id } });
-    if(typeof item !== undefined) {
+    if(item) {
         if(item.name !== result.title || item.description !== result.subtitle || item.thumbnail !== result.thumbnail) {
             if(item.name !== result.title) {
                 item.name = result.title;
@@ -104,7 +104,7 @@ export async function deleteArticle(req: Request, res: Response): Promise<any> {
         fs.unlinkSync(pdfPhat);
     }
     const item: Item = await getRepository(Item).findOne({ where: { productId: article.id } });
-    if(typeof item !== undefined) {
+    if(item) {
         await getRepository(Item).delete(item.id);
     }
     const results: DeleteResult = await getRepository(Article).delete(req.params.id);
