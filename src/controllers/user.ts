@@ -30,7 +30,7 @@ export async function getUserPreferences(req: Request, res: Response): Promise<v
 }
 
 export async function getUserCart(req: Request, res: Response): Promise<void> {
-    const user: User = await getRepository(User).findOne(req.params.id, { relations: ["address", "cart"]});
+    const user: User = await getRepository(User).findOne(req.params.id, { relations: ["address", "cart", "cart.items"]});
         res.json(user.cart);
 }
 
@@ -40,7 +40,7 @@ export async function getUserOrders(req: Request, res: Response): Promise<void> 
 }
 
 export async function getFullUser(req: Request, res: Response): Promise<void> {
-    const user: User = await getRepository(User).findOne(req.params.id, { relations: ["address", "preferences", "cart", "orders"]});
+    const user: User = await getRepository(User).findOne(req.params.id, { relations: ["address", "preferences", "cart", "cart.items", "orders"]});
         res.json(user);
 }
 
@@ -84,7 +84,7 @@ export async function updateUser(req: Request, res: Response): Promise<any> {
 }
 
 export async function updateFullUser(req: Request, res: Response): Promise<any> {
-    const user: User = await getRepository(User).findOne(req.params.id, { relations: ["address", "preferences", "cart", "orders"]});
+    const user: User = await getRepository(User).findOne(req.params.id, { relations: ["address", "preferences", "cart", "cart.items", "orders"]});
     if(user.profilePicture !== req.body.profilePicture) {
         const imagePhat: string = user.profilePicture.replace("http://aviadbenhayun.com:3000/", "./src/");
     if(fs.existsSync(imagePhat)) {

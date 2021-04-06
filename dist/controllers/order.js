@@ -42,7 +42,7 @@ function addOrder(req, res) {
 exports.addOrder = addOrder;
 function updateOrder(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const order = yield typeorm_1.getRepository(Order_1.Order).findOne(req.params.id);
+        const order = yield typeorm_1.getRepository(Order_1.Order).findOne(req.params.id, { relations: ["user", "address", "items"] });
         typeorm_1.getRepository(Order_1.Order).merge(order, req.body);
         const results = yield typeorm_1.getRepository(Order_1.Order).save(order);
         return res.json(results);

@@ -43,7 +43,7 @@ function getUserPreferences(req, res) {
 exports.getUserPreferences = getUserPreferences;
 function getUserCart(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id, { relations: ["address", "cart"] });
+        const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id, { relations: ["address", "cart", "cart.items"] });
         res.json(user.cart);
     });
 }
@@ -57,7 +57,7 @@ function getUserOrders(req, res) {
 exports.getUserOrders = getUserOrders;
 function getFullUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id, { relations: ["address", "preferences", "cart", "orders"] });
+        const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id, { relations: ["address", "preferences", "cart", "cart.items", "orders"] });
         res.json(user);
     });
 }
@@ -104,7 +104,7 @@ function updateUser(req, res) {
 exports.updateUser = updateUser;
 function updateFullUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id, { relations: ["address", "preferences", "cart", "orders"] });
+        const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id, { relations: ["address", "preferences", "cart", "cart.items", "orders"] });
         if (user.profilePicture !== req.body.profilePicture) {
             const imagePhat = user.profilePicture.replace("http://aviadbenhayun.com:3000/", "./src/");
             if (fs.existsSync(imagePhat)) {

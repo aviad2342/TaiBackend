@@ -28,7 +28,7 @@ export async function getOrder(req: Request, res: Response): Promise<void> {
 }
 
 export async function updateOrder(req: Request, res: Response): Promise<any> {
-    const order: Order = await getRepository(Order).findOne(req.params.id);
+    const order: Order = await getRepository(Order).findOne(req.params.id, { relations: ["user", "address", "items"]});
     getRepository(Order).merge(order, req.body);
     const results: Order = await getRepository(Order).save(order);
     return res.json(results);
