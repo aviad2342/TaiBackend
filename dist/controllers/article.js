@@ -83,7 +83,7 @@ function updateArticle(req, res) {
             }
         }
         const item = yield typeorm_1.getRepository(Item_1.Item).findOne({ where: { productId: result.id } });
-        if (item) {
+        if (typeof item !== undefined) {
             if (item.name !== result.title || item.description !== result.subtitle || item.thumbnail !== result.thumbnail) {
                 if (item.name !== result.title) {
                     item.name = result.title;
@@ -120,7 +120,7 @@ function deleteArticle(req, res) {
             fs.unlinkSync(pdfPhat);
         }
         const item = yield typeorm_1.getRepository(Item_1.Item).findOne({ where: { productId: article.id } });
-        if (item) {
+        if (typeof item !== undefined) {
             yield typeorm_1.getRepository(Item_1.Item).delete(item.id);
         }
         const results = yield typeorm_1.getRepository(Article_1.Article).delete(req.params.id);

@@ -22,10 +22,12 @@ exports.getCourses = getCourses;
 function getCourse(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const course = yield typeorm_1.getRepository(Course_1.Course).findOne(req.params.id, { relations: ["lessons"] });
-        if (course.lessons && course.lessons.length > 0) {
-            course.lessons = course.lessons.sort((a, b) => {
-                return (+a.lessonNumber) - (+b.lessonNumber);
-            });
+        if (typeof course.lessons !== undefined) {
+            if (course.lessons && course.lessons.length > 0) {
+                course.lessons = course.lessons.sort((a, b) => {
+                    return (+a.lessonNumber) - (+b.lessonNumber);
+                });
+            }
         }
         res.json(course);
     });
@@ -56,7 +58,7 @@ function updateCourse(req, res) {
         typeorm_1.getRepository(Course_1.Course).merge(course, req.body);
         const result = yield typeorm_1.getRepository(Course_1.Course).save(course);
         const item = yield typeorm_1.getRepository(Item_1.Item).findOne({ where: { productId: result.id } });
-        if (item) {
+        if (typeof item !== undefined) {
             if (item.name !== result.title || item.description !== result.description || item.thumbnail !== result.thumbnail) {
                 if (item.name !== result.title) {
                     item.name = result.title;
@@ -95,7 +97,7 @@ function deleteCourse(req, res) {
             fs.unlinkSync(imagePhat);
         }
         const item = yield typeorm_1.getRepository(Item_1.Item).findOne({ where: { productId: course.id } });
-        if (item) {
+        if (typeof item !== undefined) {
             yield typeorm_1.getRepository(Item_1.Item).delete(item.id);
         }
         const results = yield typeorm_1.getRepository(Course_1.Course).delete(req.params.id);

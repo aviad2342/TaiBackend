@@ -43,7 +43,7 @@ function verifyUser(req, res) {
             UpdateRegisteredUser: true,
             notRegistered: false
         };
-        if (!pendingUser) {
+        if (typeof pendingUser === undefined || !pendingUser) {
             resObject.notRegistered = true;
             resObject.success = false;
             return res.json(resObject);

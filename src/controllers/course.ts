@@ -13,11 +13,13 @@ export async function getCourses(req: Request, res: Response): Promise<void> {
 
 export async function getCourse(req: Request, res: Response): Promise<void> {
      const course: Course = await getRepository(Course).findOne(req.params.id, { relations: ["lessons"] });
-     if(course.lessons && course.lessons.length > 0) {
-        course.lessons = course.lessons.sort((a, b) => {
-            return (+a.lessonNumber) - (+b.lessonNumber);
-        });
-     }
+     if(typeof course.lessons !== undefined) {
+         if(course.lessons && course.lessons.length > 0) {
+            course.lessons = course.lessons.sort((a, b) => {
+                return (+a.lessonNumber) - (+b.lessonNumber);
+            });
+         }
+    }
          res.json(course);
  }
 
@@ -44,7 +46,7 @@ export async function updateCourse(req: Request, res: Response): Promise<any> {
     const result: Course = await getRepository(Course).save(course);
 
     const item: Item = await getRepository(Item).findOne({ where: { productId: result.id } });
-    if(item) {
+    if(typeof item !== undefined) {
         if(item.name !== result.title || item.description !== result.description || item.thumbnail !== result.thumbnail) {
             if(item.name !== result.title) {
                 item.name = result.title;
@@ -79,7 +81,7 @@ export async function deleteCourse(req: Request, res: Response): Promise<any> {
         fs.unlinkSync(imagePhat);
     }
     const item: Item = await getRepository(Item).findOne({ where: { productId: course.id } });
-    if(item) {
+    if(typeof item !== undefined) {
         await getRepository(Item).delete(item.id);
     }
     const results: DeleteResult = await getRepository(Course).delete(req.params.id);
