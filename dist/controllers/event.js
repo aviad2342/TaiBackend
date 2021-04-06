@@ -51,7 +51,7 @@ function updateEvent(req, res) {
         typeorm_1.getRepository(Event_1.Event).merge(event, req.body);
         const result = yield typeorm_1.getRepository(Event_1.Event).save(event);
         const item = yield typeorm_1.getRepository(Item_1.Item).findOne({ where: { productId: result.id } });
-        if (typeof item !== undefined) {
+        if (item) {
             if (item.name !== result.title || item.description !== result.description || item.thumbnail !== result.thumbnail) {
                 if (item.name !== result.title) {
                     item.name = result.title;
@@ -99,7 +99,7 @@ function deleteEvent(req, res) {
             fs.unlinkSync(imagePhat);
         }
         const item = yield typeorm_1.getRepository(Item_1.Item).findOne({ where: { productId: event.id } });
-        if (typeof item !== undefined) {
+        if (item) {
             yield typeorm_1.getRepository(Item_1.Item).delete(item.id);
         }
         const results = yield typeorm_1.getRepository(Event_1.Event).delete(req.params.id);
