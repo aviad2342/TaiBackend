@@ -18,7 +18,7 @@ export async function getCustomerCart(req: Request, res: Response): Promise<void
  export async function isItemInCart(req: Request, res: Response): Promise<void> {
     const cart: Cart = await getRepository(Cart).findOne(req.params.id, { relations: ["items"] });
     let inCart: boolean = false;
-    if(typeof cart.items !== undefined) {
+    if(cart.items !== undefined) {
         inCart = cart.items.map(i => i.itemId).includes(req.params.itemId);
     }
      res.json(inCart);

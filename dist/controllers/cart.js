@@ -29,7 +29,7 @@ function isItemInCart(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const cart = yield typeorm_1.getRepository(Cart_1.Cart).findOne(req.params.id, { relations: ["items"] });
         let inCart = false;
-        if (typeof cart.items !== undefined) {
+        if (cart.items !== undefined) {
             inCart = cart.items.map(i => i.itemId).includes(req.params.itemId);
         }
         res.json(inCart);
