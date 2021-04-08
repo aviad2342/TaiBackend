@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Order_1 = require("../entity/Order");
 const uuid_1 = require("uuid");
+const Cart_1 = require("../entity/Cart");
 function getOrders(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const orders = yield typeorm_1.getRepository(Order_1.Order).find();
@@ -77,4 +78,14 @@ function commitPayment(req, res) {
     });
 }
 exports.commitPayment = commitPayment;
+function completeOrder(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const order = yield typeorm_1.getRepository(Order_1.Order).findOne(req.params.id, { relations: ["user", "address", "items"] });
+        yield typeorm_1.getRepository(Cart_1.Cart).delete(order.cartId);
+        typeorm_1.getRepository(Order_1.Order).merge(order, req.body);
+        const results = yield typeorm_1.getRepository(Order_1.Order).save(order);
+        return res.json(results);
+    });
+}
+exports.completeOrder = completeOrder;
 //# sourceMappingURL=order.js.map
