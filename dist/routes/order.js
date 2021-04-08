@@ -11,6 +11,7 @@ router.get("/orders/item/:id", OrderController.getOrdersByItem);
 router.post("/order", OrderController.addOrder);
 router.post("/payment", OrderController.commitPayment);
 router.put("/order/:id", OrderController.updateOrder);
+router.put("/complete/:id", OrderController.completeOrder);
 router.delete("/order/:id", OrderController.deleteOrder);
 exports.orderRouter = router;
 //# sourceMappingURL=order.js.map

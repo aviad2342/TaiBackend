@@ -13,7 +13,7 @@ router.get("/coupons/:userId", CouponController.getCustomerCoupons);
 
 router.post("/coupon", CouponController.addCoupon);
 
-router.post("/customer", CouponController.couponUse);
+router.post("/user", CouponController.couponUse);
 
 router.put("/coupon/:code", CouponController.updateCoupon);
 

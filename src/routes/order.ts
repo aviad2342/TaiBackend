@@ -21,6 +21,8 @@ router.post("/payment", OrderController.commitPayment);
 
 router.put("/order/:id", OrderController.updateOrder);
 
+router.put("/complete/:id", OrderController.completeOrder);
+
 router.delete("/order/:id", OrderController.deleteOrder);
 
 

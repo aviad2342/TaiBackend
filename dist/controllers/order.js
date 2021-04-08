@@ -12,6 +12,8 @@ const typeorm_1 = require("typeorm");
 const Order_1 = require("../entity/Order");
 const uuid_1 = require("uuid");
 const Cart_1 = require("../entity/Cart");
+const Coupon_1 = require("../entity/Coupon");
+const CouponUsers_1 = require("../entity/CouponUsers");
 function getOrders(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const orders = yield typeorm_1.getRepository(Order_1.Order).find();
@@ -82,6 +84,18 @@ function completeOrder(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const order = yield typeorm_1.getRepository(Order_1.Order).findOne(req.params.id, { relations: ["user", "address", "items"] });
         yield typeorm_1.getRepository(Cart_1.Cart).delete(order.cartId);
+        if (order.couponCode) {
+            const coupon = yield typeorm_1.getRepository(Coupon_1.Coupon).findOne(order.couponCode);
+            coupon.quantity--;
+            yield typeorm_1.getRepository(Coupon_1.Coupon).save(coupon);
+            const couponUsers = new CouponUsers_1.CouponUsers();
+            couponUsers.id = null;
+            couponUsers.userId = order.user.id;
+            couponUsers.couponCode = coupon.code;
+            couponUsers.date = new Date();
+            const couponUser = typeorm_1.getRepository(CouponUsers_1.CouponUsers).create(couponUsers);
+            yield typeorm_1.getRepository(CouponUsers_1.CouponUsers).save(couponUser);
+        }
         typeorm_1.getRepository(Order_1.Order).merge(order, req.body);
         const results = yield typeorm_1.getRepository(Order_1.Order).save(order);
         return res.json(results);
