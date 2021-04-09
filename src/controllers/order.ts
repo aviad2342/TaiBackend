@@ -59,6 +59,8 @@ export async function commitPayment(req: Request, res: Response): Promise<any> {
 
 export async function completeOrder(req: Request, res: Response): Promise<any> {
     const order: Order = await getRepository(Order).findOne(req.params.id, { relations: ["user", "address", "items"]});
+    getRepository(Order).merge(order, req.body);
+    const results: Order = await getRepository(Order).save(order);
     await getRepository(Cart).delete(order.cartId);
     if(order.couponCode) {
         const coupon: Coupon = await getRepository(Coupon).findOne(order.couponCode);
@@ -72,7 +74,5 @@ export async function completeOrder(req: Request, res: Response): Promise<any> {
         const couponUser: any = getRepository(CouponUsers).create(couponUsers);
         await getRepository(CouponUsers).save(couponUser);
     }
-    getRepository(Order).merge(order, req.body);
-    const results: Order = await getRepository(Order).save(order);
     return res.json(results);
 }

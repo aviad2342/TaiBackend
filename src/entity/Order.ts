@@ -39,7 +39,7 @@ export class Order {
     @Column("varchar", {length:255, nullable: true})
     confirmPaymentNumber: string;
 
-    @OneToOne(() => DeliveryAddress, {nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true})
+    @OneToOne(() => DeliveryAddress, {nullable: true, onUpdate: "CASCADE", cascade: true})
     @JoinColumn()
     address: DeliveryAddress;
 

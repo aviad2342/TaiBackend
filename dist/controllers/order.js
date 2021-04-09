@@ -83,6 +83,8 @@ exports.commitPayment = commitPayment;
 function completeOrder(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const order = yield typeorm_1.getRepository(Order_1.Order).findOne(req.params.id, { relations: ["user", "address", "items"] });
+        typeorm_1.getRepository(Order_1.Order).merge(order, req.body);
+        const results = yield typeorm_1.getRepository(Order_1.Order).save(order);
         yield typeorm_1.getRepository(Cart_1.Cart).delete(order.cartId);
         if (order.couponCode) {
             const coupon = yield typeorm_1.getRepository(Coupon_1.Coupon).findOne(order.couponCode);
@@ -96,8 +98,6 @@ function completeOrder(req, res) {
             const couponUser = typeorm_1.getRepository(CouponUsers_1.CouponUsers).create(couponUsers);
             yield typeorm_1.getRepository(CouponUsers_1.CouponUsers).save(couponUser);
         }
-        typeorm_1.getRepository(Order_1.Order).merge(order, req.body);
-        const results = yield typeorm_1.getRepository(Order_1.Order).save(order);
         return res.json(results);
     });
 }

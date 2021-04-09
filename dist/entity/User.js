@@ -60,12 +60,12 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "profilePicture", void 0);
 __decorate([
-    typeorm_1.OneToOne(type => UserAddress_1.UserAddress, { onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
+    typeorm_1.OneToOne(type => UserAddress_1.UserAddress, { onUpdate: "CASCADE", cascade: true }),
     typeorm_1.JoinColumn(),
     __metadata("design:type", UserAddress_1.UserAddress)
 ], User.prototype, "address", void 0);
 __decorate([
-    typeorm_1.OneToOne(type => Preferences_1.Preferences, { nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
+    typeorm_1.OneToOne(type => Preferences_1.Preferences, { nullable: true, onUpdate: "CASCADE", cascade: true }),
     typeorm_1.JoinColumn(),
     __metadata("design:type", Preferences_1.Preferences)
 ], User.prototype, "preferences", void 0);
@@ -74,12 +74,12 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "savedVideos", void 0);
 __decorate([
-    typeorm_1.OneToOne(type => Cart_1.Cart, { nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
+    typeorm_1.OneToOne(type => Cart_1.Cart, { nullable: true, onUpdate: "CASCADE", cascade: true }),
     typeorm_1.JoinColumn(),
     __metadata("design:type", Cart_1.Cart)
 ], User.prototype, "cart", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => Order_1.Order, order => order.user, { nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
+    typeorm_1.OneToMany(type => Order_1.Order, order => order.user, { nullable: true, onUpdate: "CASCADE", cascade: true }),
     __metadata("design:type", Array)
 ], User.prototype, "orders", void 0);
 __decorate([

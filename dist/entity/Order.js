@@ -60,7 +60,7 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "confirmPaymentNumber", void 0);
 __decorate([
-    typeorm_1.OneToOne(() => deliveryAddress_1.DeliveryAddress, { nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE", cascade: true }),
+    typeorm_1.OneToOne(() => deliveryAddress_1.DeliveryAddress, { nullable: true, onUpdate: "CASCADE", cascade: true }),
     typeorm_1.JoinColumn(),
     __metadata("design:type", deliveryAddress_1.DeliveryAddress)
 ], Order.prototype, "address", void 0);
