@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 import { Cart } from "../entity/Cart";
 import { Coupon } from "../entity/Coupon";
 import { CouponUsers } from "../entity/CouponUsers";
+import { CartItem } from "../entity/CartItem";
+import { User } from "../entity/User";
 
 
 export async function getOrders(req: Request, res: Response): Promise<void> {
@@ -61,7 +63,11 @@ export async function completeOrder(req: Request, res: Response): Promise<any> {
     const order: Order = await getRepository(Order).findOne(req.params.id, { relations: ["user", "address", "items"]});
     getRepository(Order).merge(order, req.body);
     const results: Order = await getRepository(Order).save(order);
-    await getRepository(Cart).delete(order.cartId);
+    const cart: Cart = await getRepository(Cart).findOne(order.cartId, {relations: ["items"] });
+    await getRepository(CartItem).remove(cart.items);
+    const user: User = await getRepository(User).findOne(req.params.id, { relations: ["address", "preferences", "cart", "cart.items", "orders"]});
+    user.cart = null;
+    await getRepository(User).save(user);
     if(order.couponCode) {
         const coupon: Coupon = await getRepository(Coupon).findOne(order.couponCode);
         coupon.quantity--;
