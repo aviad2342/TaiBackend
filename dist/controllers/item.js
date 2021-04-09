@@ -28,7 +28,7 @@ function getItem(req, res) {
 exports.getItem = getItem;
 function getItemByProductId(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const item = yield typeorm_2.getRepository(Item_1.Item).findOne(req.params.productId);
+        const item = yield typeorm_2.getRepository(Item_1.Item).findOne({ where: { productId: req.params.productId } });
         res.json(item);
     });
 }

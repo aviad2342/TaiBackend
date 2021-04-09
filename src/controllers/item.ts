@@ -20,7 +20,7 @@ export async function getItem(req: Request, res: Response): Promise<void> {
 }
 
 export async function getItemByProductId(req: Request, res: Response): Promise<void> {
-    const item: Item = await getRepository(Item).findOne(req.params.productId);
+    const item: Item = await getRepository(Item).findOne({ where: { productId: req.params.productId } });
         res.json(item);
 }
 
