@@ -11,7 +11,9 @@ router.get("/items", ItemController.getItems);
 
 router.get("/item/:id", ItemController.getItem);
 
-router.get("/product/:id", ItemController.getProduct);
+router.get("/product/:productId", ItemController.getItemByProductId);
+
+router.get("/product/name/:id", ItemController.getProductName);
 
 router.post("/item", ItemController.addItem);
 

@@ -17,9 +17,14 @@ export async function getItems(req: Request, res: Response): Promise<void> {
 export async function getItem(req: Request, res: Response): Promise<void> {
      const item: Item = await getRepository(Item).findOne(req.params.id);
          res.json(item);
- }
+}
 
- export async function addItem(req: Request, res: Response): Promise<any> {
+export async function getItemByProductId(req: Request, res: Response): Promise<void> {
+    const item: Item = await getRepository(Item).findOne(req.params.productId);
+        res.json(item);
+}
+
+export async function addItem(req: Request, res: Response): Promise<any> {
      const item: any = getRepository(Item).create(req.body);
      const results: Item = await getRepository(Item).save(item).catch( error => {
         const imagePhat: string = item.thumbnail.replace("http://aviadbenhayun.com:3000/", "./src/");
@@ -53,7 +58,7 @@ export async function deleteItem(req: Request, res: Response): Promise<any> {
     return res.json(results);
 }
 
-export async function getProduct(req: Request, res: Response): Promise<void> {
+export async function getProductName(req: Request, res: Response): Promise<void> {
     const entityManager = getManager();
     const products: Product[] = await entityManager.query("SELECT id, 'article' as name from crm_db.article union SELECT id, 'course' as name from crm_db.course union SELECT id, 'event' as name from crm_db.event union SELECT id, 'treatment' as name from crm_db.treatment;");
     const product: Product = products.find(p => p.id === req.params.id);

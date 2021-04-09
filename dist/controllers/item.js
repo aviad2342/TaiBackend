@@ -26,6 +26,13 @@ function getItem(req, res) {
     });
 }
 exports.getItem = getItem;
+function getItemByProductId(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const item = yield typeorm_2.getRepository(Item_1.Item).findOne(req.params.productId);
+        res.json(item);
+    });
+}
+exports.getItemByProductId = getItemByProductId;
 function addItem(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const item = typeorm_2.getRepository(Item_1.Item).create(req.body);
@@ -66,7 +73,7 @@ function deleteItem(req, res) {
     });
 }
 exports.deleteItem = deleteItem;
-function getProduct(req, res) {
+function getProductName(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const entityManager = typeorm_1.getManager();
         const products = yield entityManager.query("SELECT id, 'article' as name from crm_db.article union SELECT id, 'course' as name from crm_db.course union SELECT id, 'event' as name from crm_db.event union SELECT id, 'treatment' as name from crm_db.treatment;");
@@ -74,5 +81,5 @@ function getProduct(req, res) {
         res.json(product.name);
     });
 }
-exports.getProduct = getProduct;
+exports.getProductName = getProductName;
 //# sourceMappingURL=item.js.map
