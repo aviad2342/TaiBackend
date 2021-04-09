@@ -14,7 +14,7 @@ const Address_1 = require("./Address");
 let DeliveryAddress = class DeliveryAddress extends Address_1.Address {
 };
 __decorate([
-    typeorm_1.Column("varchar", { length: 255 }),
+    typeorm_1.Column("varchar", { length: 255, nullable: true }),
     __metadata("design:type", String)
 ], DeliveryAddress.prototype, "zipCode", void 0);
 DeliveryAddress = __decorate([
