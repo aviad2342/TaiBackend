@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Cart_1 = require("../entity/Cart");
 const CartItem_1 = require("../entity/CartItem");
+const User_1 = require("../entity/User");
 function getCart(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const cart = yield typeorm_1.getRepository(Cart_1.Cart).findOne(req.params.id, { relations: ["items"] });
@@ -20,7 +21,8 @@ function getCart(req, res) {
 exports.getCart = getCart;
 function getCustomerCart(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const cart = yield typeorm_1.getRepository(Cart_1.Cart).findOne({ where: { customer: req.params.id }, relations: ["items"] });
+        const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id, { relations: ["address", "cart", "cart.items"] });
+        const cart = yield typeorm_1.getRepository(Cart_1.Cart).findOne(user.cart.id, { relations: ["items"] });
         res.json(cart);
     });
 }

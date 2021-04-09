@@ -3,6 +3,7 @@ import {getConnection, Repository, DeleteResult} from "typeorm";
 import {getRepository} from "typeorm";
 import { Cart } from "../entity/Cart";
 import { CartItem } from "../entity/CartItem";
+import { User } from "../entity/User";
 
 
 export async function getCart(req: Request, res: Response): Promise<void> {
@@ -11,8 +12,9 @@ export async function getCart(req: Request, res: Response): Promise<void> {
 }
 
 export async function getCustomerCart(req: Request, res: Response): Promise<void> {
-     const cart: Cart = await getRepository(Cart).findOne({where: { customer: req.params.id }, relations: ["items"] });
-         res.json(cart);
+    const user: User = await getRepository(User).findOne(req.params.id, { relations: ["address", "cart", "cart.items"]});
+    const cart: Cart = await getRepository(Cart).findOne( user.cart.id, {relations: ["items"] });
+        res.json(cart);
  }
 
  export async function isItemInCart(req: Request, res: Response): Promise<void> {
