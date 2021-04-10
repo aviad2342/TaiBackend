@@ -92,6 +92,7 @@ function completeOrder(req, res) {
         const user = yield typeorm_1.getRepository(User_1.User).findOne(req.params.id, { relations: ["address", "preferences", "cart", "cart.items", "orders"] });
         user.cart = null;
         yield typeorm_1.getRepository(User_1.User).save(user);
+        yield typeorm_1.getRepository(Cart_1.Cart).delete(cart.id);
         if (order.couponCode) {
             const coupon = yield typeorm_1.getRepository(Coupon_1.Coupon).findOne(order.couponCode);
             coupon.quantity--;

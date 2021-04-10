@@ -68,6 +68,7 @@ export async function completeOrder(req: Request, res: Response): Promise<any> {
     const user: User = await getRepository(User).findOne(req.params.id, { relations: ["address", "preferences", "cart", "cart.items", "orders"]});
     user.cart = null;
     await getRepository(User).save(user);
+    await getRepository(Cart).delete(cart.id);
     if(order.couponCode) {
         const coupon: Coupon = await getRepository(Coupon).findOne(order.couponCode);
         coupon.quantity--;
