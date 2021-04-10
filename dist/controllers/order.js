@@ -87,9 +87,9 @@ function completeOrder(req, res) {
         typeorm_1.getRepository(Order_1.Order).merge(order, req.body);
         const results = yield typeorm_1.getRepository(Order_1.Order).save(order);
         const cart = yield typeorm_1.getRepository(Cart_1.Cart).findOne(order.cartId, { relations: ["items"] });
-        yield typeorm_1.getRepository(CartItem_1.CartItem).remove(cart.items);
         cart.orderId = null;
         yield typeorm_1.getRepository(Cart_1.Cart).save(cart);
+        yield typeorm_1.getRepository(CartItem_1.CartItem).remove(cart.items);
         if (order.couponCode) {
             const coupon = yield typeorm_1.getRepository(Coupon_1.Coupon).findOne(order.couponCode);
             coupon.quantity--;
